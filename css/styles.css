@@ -1,0 +1,585 @@
+/* ==========================================================================
+   Olistar School - Custom Harvard Editorial Stylesheet & Visual Effects
+   ========================================================================== */
+
+:root {
+    --olistar-crimson: #900C3F;
+    --olistar-crimson-dark: #6b092f;
+    --olistar-gold: #ffc107;
+    --olistar-gold-dark: #d39e00;
+    --olistar-dark: #1e1e1e;
+    --olistar-light-bg: #f8f9fa;
+    --font-serif: "Georgia", "Times New Roman", serif;
+    --font-sans: "Segoe UI", system-ui, -apple-system, sans-serif;
+    --transition-fast: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-medium: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    --box-shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.06);
+    --box-shadow-hover: 0 12px 30px rgba(144, 12, 63, 0.15);
+}
+
+body {
+    font-family: var(--font-sans);
+    color: var(--olistar-dark);
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, .font-serif {
+    font-family: var(--font-serif);
+}
+
+/* --- Sticky Navbar & Utility Bar Effects --- */
+.utility-bar {
+    background-color: var(--olistar-dark);
+    font-size: 0.8rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.utility-bar a {
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+.utility-bar a:hover {
+    color: var(--olistar-gold) !important;
+}
+
+.navbar-harvard {
+    background-color: #ffffff;
+    border-bottom: 2px solid var(--olistar-dark);
+    transition: all var(--transition-medium);
+}
+
+.navbar-harvard.scrolled {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    padding-top: 0.4rem !important;
+    padding-bottom: 0.4rem !important;
+}
+
+.nav-link-harvard {
+    font-weight: 600;
+    color: var(--olistar-dark) !important;
+    position: relative;
+    padding: 0.5rem 1rem !important;
+    transition: color var(--transition-fast);
+}
+
+.nav-link-harvard::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background-color: var(--olistar-crimson);
+    transition: all var(--transition-fast);
+    transform: translateX(-50%);
+}
+
+.nav-link-harvard:hover::after,
+.nav-link-harvard.active::after {
+    width: 80%;
+}
+
+.nav-link-harvard:hover,
+.nav-link-harvard.active {
+    color: var(--olistar-crimson) !important;
+}
+
+/* --- Header & Banner Ambient Glows --- */
+header, .editorial-hero {
+    background: linear-gradient(135deg, var(--olistar-crimson) 0%, var(--olistar-crimson-dark) 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+header::before, .editorial-hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(255, 193, 7, 0.15) 0%, rgba(255, 255, 255, 0) 70%);
+    pointer-events: none;
+    animation: floatGlow 8s ease-in-out infinite alternate;
+}
+
+@keyframes floatGlow {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-30px, 30px) scale(1.15); }
+}
+
+/* --- Interactive Card & Tile Hover Effects --- */
+.tile-card, 
+.bg-white.border, 
+.p-4.border, 
+.p-5.border {
+    transition: transform var(--transition-medium), box-shadow var(--transition-medium), border-color var(--transition-fast);
+    will-change: transform, box-shadow;
+}
+
+.tile-card:hover, 
+.bg-white.border:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--box-shadow-hover) !important;
+    border-color: var(--olistar-crimson) !important;
+}
+
+/* --- Gallery & Image Zoom Effects --- */
+.tile-img-container {
+    overflow: hidden;
+    position: relative;
+    background-color: #111;
+}
+
+.tile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+
+.tile-card:hover .tile-img {
+    transform: scale(1.08);
+    opacity: 0.92;
+}
+
+/* --- Button Micro-Interactions --- */
+.btn {
+    position: relative;
+    overflow: hidden;
+    transition: all var(--transition-fast);
+    z-index: 1;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s ease;
+    z-index: -1;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.btn-danger {
+    background-color: var(--olistar-crimson) !important;
+    border-color: var(--olistar-crimson) !important;
+}
+
+.btn-danger:hover {
+    background-color: var(--olistar-crimson-dark) !important;
+    border-color: var(--olistar-crimson-dark) !important;
+}
+
+.btn-warning:hover {
+    background-color: var(--olistar-gold-dark) !important;
+    border-color: var(--olistar-gold-dark) !important;
+    color: #fff !important;
+}
+
+/* --- Form Field Glow & Focus States --- */
+.form-control, .form-select {
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    background-color: #fdfdfd;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--olistar-crimson) !important;
+    box-shadow: 0 0 0 0.25rem rgba(144, 12, 63, 0.18) !important;
+    background-color: #ffffff;
+}
+
+/* --- Filter Button Active State Animation --- */
+#galleryFilters .btn {
+    transition: all var(--transition-fast);
+}
+
+#galleryFilters .btn.active-filter {
+    background-color: var(--olistar-crimson) !important;
+    color: #ffffff !important;
+    border-color: var(--olistar-crimson) !important;
+    box-shadow: 0 4px 12px rgba(144, 12, 63, 0.3);
+}
+
+/* --- Scroll Reveal Animations --- */
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Footer Link Interactions --- */
+footer a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: color var(--transition-fast), padding-left var(--transition-fast);
+}
+
+footer a:hover {
+    color: var(--olistar-gold) !important;
+    padding-left: 4px;
+}
+
+/* ==========================================================================
+   1. Theme Variables & Reset
+   ========================================================================== */
+:root {
+  --font-serif: 'Georgia', 'Times New Roman', serif;
+  --olistar-burgundy: #900C3F;
+  --olistar-gold: #D4AF37;
+  --olistar-dark: #0f172a;
+  --olistar-darker: #0b0f19;
+  --olistar-light-bg: #f8fafc;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #334155;
+  background-color: #ffffff;
+  overflow-x: hidden;
+}
+
+.font-serif {
+  font-family: var(--font-serif) !important;
+}
+
+.max-w-700 {
+  max-width: 700px;
+}
+
+/* ==========================================================================
+   2. Utility Bar & Header Navigation
+   ========================================================================== */
+.utility-bar {
+  background-color: var(--olistar-darker);
+  font-size: 0.8125rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.utility-links a {
+  color: #cbd5e1;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.utility-links a:hover {
+  color: var(--olistar-gold);
+}
+
+.navbar-harvard {
+  background-color: #ffffff;
+  border-bottom: 3px solid var(--olistar-burgundy);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.school-motto-tag {
+  font-size: 0.725rem;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.nav-link-harvard {
+  color: #1e293b;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  padding: 0.75rem 1rem !important;
+  transition: color 0.2s ease;
+}
+
+.nav-link-harvard:hover,
+.nav-link-harvard.active {
+  color: var(--olistar-burgundy);
+}
+
+/* ==========================================================================
+   3. Editorial Hero Section & Background Slider
+   ========================================================================== */
+.editorial-hero {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  background-color: var(--olistar-darker);
+  min-height: 520px;
+  display: flex;
+  align-items: center;
+}
+
+/* Sliding Background Container */
+.editorial-hero-slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 300%; /* 3 slides = 300% width */
+  height: 100%;
+  display: flex;
+  z-index: 0;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Individual Slides */
+.editorial-hero-slide {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Tint Overlay to guarantee text contrast */
+.editorial-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(11, 15, 25, 0.78);
+  z-index: 1;
+}
+
+/* Navigation Arrows */
+.hero-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.hero-arrow:hover {
+  background: var(--olistar-gold);
+  color: var(--olistar-darker);
+  border-color: var(--olistar-gold);
+}
+
+.hero-arrow.prev { left: 1.25rem; }
+.hero-arrow.next { right: 1.25rem; }
+
+/* Navigation Dots */
+.hero-dots {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  gap: 0.6rem;
+}
+
+.hero-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.hero-dot.active {
+  background: var(--olistar-gold);
+  width: 26px;
+  border-radius: 5px;
+}
+
+/* ==========================================================================
+   4. Tiles, Cards & Academic Grid
+   ========================================================================== */
+.tile-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+.tile-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.1) !important;
+}
+
+.tile-img-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.tile-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.tile-card:hover .tile-img {
+  transform: scale(1.05);
+}
+
+/* ==========================================================================
+   5. Dark Harvard Footer
+   ========================================================================== */
+.footer-harvard {
+  background-color: var(--olistar-darker);
+  color: #94a3b8;
+  border-top: 4px solid var(--olistar-gold);
+}
+
+.footer-links a {
+  color: #94a3b8;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: var(--olistar-gold);
+}
+
+/* Hide navigation arrows on smaller mobile screens */
+@media (max-width: 768px) {
+  .hero-arrow {
+    display: none;
+  }
+}
+
+/* Card and Hover Styles */
+.news-card {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    overflow: hidden;
+}
+
+.news-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.08) !important;
+}
+
+.news-img {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Event Badges */
+.event-card {
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.event-card:hover {
+    transform: translateX(4px);
+    border-color: #900C3F !important;
+}
+
+.event-date-badge {
+    min-width: 65px;
+}
+
+.leading-none {
+    line-height: 1;
+}
+
+/* Uniform Soft Badge */
+.bg-primary-soft {
+    background-color: rgba(13, 110, 253, 0.1);
+}
+
+.tracking-wider {
+    letter-spacing: 0.08em;
+}
+
+.hover-primary:hover {
+    color: #900C3F !important;
+}
+
+/* ==========================================
+   HARVARD BRAND COLOR PALETTE OVERRIDES
+   ========================================== */
+:root {
+    --bs-primary: #A51C30;
+    --bs-primary-rgb: 165, 28, 48;
+    --harvard-crimson: #A51C30;
+    --harvard-crimson-dark: #7F1524;
+    --harvard-ink: #1E1E1E;
+}
+
+/* Primary Buttons */
+.btn-primary {
+    background-color: var(--harvard-crimson) !important;
+    border-color: var(--harvard-crimson) !important;
+    color: #ffffff !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: var(--harvard-crimson-dark) !important;
+    border-color: var(--harvard-crimson-dark) !important;
+}
+
+/* Outline Buttons */
+.btn-outline-primary {
+    color: var(--harvard-crimson) !important;
+    border-color: var(--harvard-crimson) !important;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus {
+    background-color: var(--harvard-crimson) !important;
+    border-color: var(--harvard-crimson) !important;
+    color: #ffffff !important;
+}
+
+/* Text & Background Utilities */
+.text-primary {
+    color: var(--harvard-crimson) !important;
+}
+
+.bg-primary {
+    background-color: var(--harvard-crimson) !important;
+}
+
+.bg-primary-soft {
+    background-color: rgba(165, 28, 48, 0.1) !important;
+}
+
+/* Interactive Hover States */
+.event-card:hover {
+    border-color: var(--harvard-crimson) !important;
+}
+
+.hover-primary:hover {
+    color: var(--harvard-crimson) !important;
+}
+
+.border-dashed {
+    border-style: dashed !important;
+}
+
+.tracking-wider {
+    letter-spacing: 0.08em;
+}

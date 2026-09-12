@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact & Campus Directory | Olistar School | Sunyani Abesim</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico">
+
+    <!-- Local Bootstrap 5 CSS -->
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+    
+    <!-- Local Bootstrap Icons CSS -->
+    <link rel="stylesheet" href="vendor/bootstrap-icons/bootstrap-icons.css">
+
+    <!-- Custom Harvard Editorial CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- Utility Audience Header -->
+    <div class="utility-bar text-white py-2 d-none d-md-block">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-3">
+                <span><i class="bi bi-geo-alt-fill text-warning me-1"></i> Sunyani Abesim, Ghana</span>
+                <span class="text-secondary">|</span>
+                <span><i class="bi bi-telephone-fill text-warning me-1"></i> +233 (0) 00 000 0000</span>
+            </div>
+            <div class="d-flex gap-3 text-uppercase fw-semibold" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                <a href="application.html">Admissions</a>
+                <a href="shs-tech.html">Technical Programs</a>
+                <a href="contact.html" class="text-warning">Portals & Contact</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Institutional Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-harvard sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="assets/images/logo.png" alt="Olistar School Crest" height="52" class="me-3" onerror="this.src='https://placehold.co/100x100/900C3F/ffffff?text=Crest'">
+                <div>
+                    <span class="d-block fw-bold text-dark fs-4 leading-none" style="font-family: var(--font-serif); letter-spacing: -0.5px;">OLISTAR SCHOOL</span>
+                    <span class="school-motto-tag d-block mt-1">Good Foundation, Firm Building &bull; Est. 1987</span>
+                </div>
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
+                    <li class="nav-item"><a class="nav-link nav-link-harvard" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link nav-link-harvard" href="about.html">About</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link nav-link-harvard dropdown-toggle" href="#" id="academicsDropdown" role="button" data-bs-toggle="dropdown">
+                            Academics
+                        </a>
+                        <ul class="dropdown-menu border-0 shadow rounded-0 mt-2">
+                            <li><a class="dropdown-item py-2 fw-semibold" href="primary.html">Primary Division</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="jhs.html">Junior High School (JHS)</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="shs-tech.html">Senior High & Technical</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link nav-link-harvard active" href="contact.html">Contact</a></li>
+                </ul>
+                <div class="ms-lg-4 mt-3 mt-lg-0">
+                    <a href="application.html" class="btn btn-dark px-4 py-2 rounded-0 text-uppercase fw-bold text-warning" style="font-size: 0.8rem; letter-spacing: 1px;">
+                        Apply Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Editorial Header Banner -->
+    <header class="py-5 text-white" style="background-color: var(--olistar-crimson); border-bottom: 4px solid var(--olistar-gold);">
+        <div class="container py-3">
+            <div class="row">
+                <div class="col-lg-8">
+                    <span class="text-uppercase fw-bold text-warning small" style="letter-spacing: 1.5px;">Reach Our Administration</span>
+                    <h1 class="font-serif fw-bold display-5 mt-2 mb-3">Contact & Campus Directory</h1>
+                    <p class="lead mb-0 text-white-50 fs-6">
+                        Connect with administrative offices, schedule campus visits, or submit general inquiries to Olistar School in Sunyani Abesim.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contact & Directory Main Content -->
+    <section class="py-5" style="background-color: var(--olistar-light-bg);">
+        <div class="container py-3">
+            <div class="row g-5">
+
+                <!-- Left Column: Contact Form & Interactive Map -->
+                <div class="col-lg-7">
+                    
+                    <!-- Form Container -->
+                    <div class="bg-white p-4 p-md-5 border border-2 border-dark shadow-sm mb-5">
+                        <span class="category-tag text-uppercase fw-bold text-danger">Direct Communication</span>
+                        <h2 class="font-serif fw-bold text-dark mb-2 fs-3">Send an Institutional Inquiry</h2>
+                        <p class="text-secondary small mb-4">
+                            Fill out the form below to reach the appropriate academic department or administration desk.
+                        </p>
+
+                        <form id="contactForm" class="needs-validation" novalidate>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="contactName" class="form-label fw-bold small text-uppercase">Full Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control rounded-0 border-dark" id="contactName" placeholder="e.g., Kwame Mensah" required>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="contactEmail" class="form-label fw-bold small text-uppercase">Email Address <span class="text-danger">*</span></label>
+                                    <input type="email" class="form-control rounded-0 border-dark" id="contactEmail" placeholder="name@example.com" required>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="contactPhone" class="form-label fw-bold small text-uppercase">Phone Number <span class="text-danger">*</span></label>
+                                    <input type="tel" class="form-control rounded-0 border-dark" id="contactPhone" placeholder="+233 xx xxx xxxx" required>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="targetDept" class="form-label fw-bold small text-uppercase">Target Department <span class="text-danger">*</span></label>
+                                    <select class="form-select rounded-0 border-dark" id="targetDept" required>
+                                        <option value="" selected disabled>Select Department...</option>
+                                        <option value="admissions">Admissions & Enrollment Office</option>
+                                        <option value="principal">Headmaster / Principal's Office</option>
+                                        <option value="tvet">TVET & Technical Workshop Desk</option>
+                                        <option value="accounts">Accounts & Bursar</option>
+                                        <option value="general">General Inquiries</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="contactSubject" class="form-label fw-bold small text-uppercase">Subject / Inquiry Title <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control rounded-0 border-dark" id="contactSubject" placeholder="Summary of your inquiry" required>
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="contactMessage" class="form-label fw-bold small text-uppercase">Message Details <span class="text-danger">*</span></label>
+                                    <textarea class="form-control rounded-0 border-dark" id="contactMessage" rows="5" placeholder="Write your message here..." required></textarea>
+                                </div>
+
+                                <div class="col-12 pt-2">
+                                    <button type="submit" class="btn btn-danger rounded-0 px-4 py-3 text-uppercase fw-bold text-white w-100" style="background-color: var(--olistar-crimson); border: none; letter-spacing: 1px;">
+                                        Dispatch Message <i class="bi bi-send-fill ms-2"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Campus Location Map Frame -->
+                    <div class="bg-white p-4 border border-2 border-dark shadow-sm">
+                        <div class="d-flex align-items-center justify-content-between mb-3 pb-2 border-bottom border-2 border-dark">
+                            <h4 class="font-serif fw-bold text-dark mb-0">Campus Location</h4>
+                            <span class="badge bg-danger rounded-0 text-uppercase" style="letter-spacing: 0.5px;">Sunyani Abesim</span>
+                        </div>
+                        <p class="text-secondary small mb-3">
+                            Located conveniently along the Sunyani–Kumasi road at Abesim in the Bono Region of Ghana.
+                        </p>
+                        <div class="ratio ratio-16x9 border border-dark">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15814.288289457813!2d-2.3150!3d7.3180!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfe301234567890%3A0x1234567890abcdef!2sAbesim%2C%20Sunyani%2C%20Ghana!5e0!3m2!1sen!2sgh!4v1700000000000!5m2!1sen!2sgh" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade"
+                                title="Olistar School Sunyani Abesim Location Map">
+                            </iframe>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Right Column: Directory & Hours Sidebar -->
+                <div class="col-lg-5">
+
+                    <!-- Office Hours Card -->
+                    <div class="bg-white p-4 border border-2 border-dark shadow-sm mb-4">
+                        <div class="d-flex align-items-center mb-3 text-danger">
+                            <i class="bi bi-clock-history fs-3 me-2"></i>
+                            <h4 class="font-serif fw-bold text-dark mb-0">Office & Visiting Hours</h4>
+                        </div>
+                        
+                        <div class="table-responsive">
+                            <table class="table table-sm table-borderless align-middle mb-0 small">
+                                <tbody>
+                                    <tr class="border-bottom">
+                                        <td class="fw-bold py-2 text-dark">Monday – Friday</td>
+                                        <td class="text-end text-secondary py-2">7:30 AM – 4:30 PM</td>
+                                    </tr>
+                                    <tr class="border-bottom">
+                                        <td class="fw-bold py-2 text-dark">Saturday (Admissions Only)</td>
+                                        <td class="text-end text-secondary py-2">9:00 AM – 2:00 PM</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold py-2 text-dark">Sunday & Public Holidays</td>
+                                        <td class="text-end text-danger fw-semibold py-2">Closed</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="p-3 bg-light border-start border-4 border-warning mt-3">
+                            <p class="small text-secondary mb-0">
+                                <strong>Note:</strong> Campus visits for technical workshop tours require advance scheduling via the admissions desk.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Departmental Phone & Email Directory -->
+                    <div class="bg-white p-4 border border-2 border-dark shadow-sm mb-4">
+                        <h4 class="font-serif fw-bold text-dark mb-3 pb-2 border-bottom border-2 border-danger">Campus Directory</h4>
+
+                        <!-- Entry 1: Admissions -->
+                        <div class="mb-3 pb-3 border-bottom">
+                            <span class="text-uppercase fw-bold text-danger d-block small" style="letter-spacing: 0.5px;">Admissions & Registration</span>
+                            <h6 class="fw-bold text-dark mb-1">Admissions Desk</h6>
+                            <div class="small text-secondary">
+                                <div><i class="bi bi-telephone-fill text-dark me-2"></i>+233 (0) 00 000 0001</div>
+                                <div><i class="bi bi-envelope-fill text-dark me-2"></i>admissions@olistaredu.net</div>
+                            </div>
+                        </div>
+
+                        <!-- Entry 2: TVET Workshops -->
+                        <div class="mb-3 pb-3 border-bottom">
+                            <span class="text-uppercase fw-bold text-warning d-block small" style="letter-spacing: 0.5px;">Technical Education</span>
+                            <h6 class="fw-bold text-dark mb-1">TVET & Technical Programs Desk</h6>
+                            <div class="small text-secondary">
+                                <div><i class="bi bi-telephone-fill text-dark me-2"></i>+233 (0) 00 000 0002</div>
+                                <div><i class="bi bi-envelope-fill text-dark me-2"></i>tvet@olistaredu.net</div>
+                            </div>
+                        </div>
+
+                        <!-- Entry 3: General Administration -->
+                        <div class="mb-3 pb-3 border-bottom">
+                            <span class="text-uppercase fw-bold text-dark d-block small" style="letter-spacing: 0.5px;">Headmaster's Office</span>
+                            <h6 class="fw-bold text-dark mb-1">General Secretariat</h6>
+                            <div class="small text-secondary">
+                                <div><i class="bi bi-telephone-fill text-dark me-2"></i>+233 (0) 00 000 0000</div>
+                                <div><i class="bi bi-envelope-fill text-dark me-2"></i>info@olistaredu.net</div>
+                            </div>
+                        </div>
+
+                        <!-- Entry 4: Postal Address -->
+                        <div>
+                            <span class="text-uppercase fw-bold text-danger d-block small" style="letter-spacing: 0.5px;">Mailing Address</span>
+                            <p class="small text-secondary mb-0">
+                                Olistar School<br>
+                                P.O. Box AB 123, Abesim<br>
+                                Sunyani, Bono Region, Ghana
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Direct Quick Link Banner -->
+                    <div class="p-4 bg-dark text-white border border-2 border-dark shadow-sm">
+                        <h5 class="font-serif fw-bold text-warning mb-2">Ready to Join Olistar?</h5>
+                        <p class="small text-white-50 mb-3">
+                            Apply online for Primary, JHS, or SHS/Technical programs in just a few steps.
+                        </p>
+                        <a href="application.html" class="btn btn-warning rounded-0 w-100 text-uppercase fw-bold py-2" style="font-size: 0.8rem; letter-spacing: 1px;">
+                            Go to Application Portal <i class="bi bi-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-harvard pt-5 pb-4">
+        <div class="container">
+            <div class="row g-4 mb-5">
+                <div class="col-lg-5">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="assets/images/logo.png" height="48" class="me-3" alt="Crest" onerror="this.style.display='none'">
+                        <div>
+                            <h5 class="fw-bold mb-0 text-white font-serif">OLISTAR SCHOOL</h5>
+                            <span class="text-warning small text-uppercase fw-semibold" style="letter-spacing: 1px;">Sunyani Abesim</span>
+                        </div>
+                    </div>
+                    <p class="text-secondary small pe-lg-4">
+                        A premier multi-tier educational institution providing foundation, junior high, and senior technical education committed to character, knowledge, and practical skill.
+                    </p>
+                </div>
+
+                <div class="col-lg-2 col-md-4">
+                    <h6 class="fw-bold text-uppercase mb-3">Navigation</h6>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2"><a href="index.html">Home Page</a></li>
+                        <li class="mb-2"><a href="about.html">About Olistar</a></li>
+                        <li class="mb-2"><a href="application.html">Admissions</a></li>
+                        <li class="mb-2"><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-2 col-md-4">
+                    <h6 class="fw-bold text-uppercase mb-3">Academics</h6>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2"><a href="primary.html">Primary Stream</a></li>
+                        <li class="mb-2"><a href="jhs.html">JHS Stream</a></li>
+                        <li class="mb-2"><a href="shs-tech.html">SHS & Technical</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-4">
+                    <h6 class="fw-bold text-uppercase mb-3">Campus Address</h6>
+                    <p class="text-secondary small mb-1"><i class="bi bi-geo-alt-fill text-warning me-2"></i>Sunyani Abesim, Bono Region</p>
+                    <p class="text-secondary small mb-1"><i class="bi bi-telephone-fill text-warning me-2"></i>+233 (0) 00 000 0000</p>
+                    <p class="text-secondary small"><i class="bi bi-globe me-2 text-warning"></i>olistaredu.net</p>
+                </div>
+            </div>
+
+            <hr class="border-secondary opacity-25">
+            <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center text-secondary small">
+                <p class="mb-0">&copy; <span id="current-year">2026</span> Olistar School. All Rights Reserved.</p>
+                <p class="mb-0 mt-2 mt-sm-0">Official Web Portal</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Local Bootstrap 5 JS Bundle -->
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/main.js"></script>
+</body>
+</html>

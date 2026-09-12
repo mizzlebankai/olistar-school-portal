@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery & Founder's Presentation | Olistar School | Sunyani Abesim</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico">
+
+    <!-- Local Bootstrap 5 CSS -->
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+    
+    <!-- Local Bootstrap Icons CSS -->
+    <link rel="stylesheet" href="vendor/bootstrap-icons/bootstrap-icons.css">
+
+    <!-- Custom Harvard Editorial CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- Utility Audience Header -->
+    <div class="utility-bar text-white py-2 d-none d-md-block">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-3">
+                <span><i class="bi bi-geo-alt-fill text-warning me-1"></i> Sunyani Abesim, Ghana</span>
+                <span class="text-secondary">|</span>
+                <span><i class="bi bi-telephone-fill text-warning me-1"></i> +233 (0) 00 000 0000</span>
+            </div>
+            <div class="d-flex gap-3 text-uppercase fw-semibold" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                <a href="application.html">Admissions</a>
+                <a href="shs-tech.html">Technical Programs</a>
+                <a href="contact.html">Portals & Contact</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Institutional Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-harvard sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="assets/images/logo.png" alt="Olistar School Crest" height="52" class="me-3" onerror="this.src='https://placehold.co/100x100/900C3F/ffffff?text=Crest'">
+                <div>
+                    <span class="d-block fw-bold text-dark fs-4 leading-none" style="font-family: var(--font-serif); letter-spacing: -0.5px;">OLISTAR SCHOOL</span>
+                    <span class="school-motto-tag d-block mt-1">Good Foundation, Firm Building &bull; Est. 1987</span>
+                </div>
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
+                    <li class="nav-item"><a class="nav-link nav-link-harvard" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link nav-link-harvard" href="about.html">About</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link nav-link-harvard dropdown-toggle" href="#" id="academicsDropdown" role="button" data-bs-toggle="dropdown">
+                            Academics
+                        </a>
+                        <ul class="dropdown-menu border-0 shadow rounded-0 mt-2">
+                            <li><a class="dropdown-item py-2 fw-semibold" href="primary.html">Primary Division</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="jhs.html">Junior High School (JHS)</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="shs-tech.html">Senior High & Technical</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link nav-link-harvard active" href="gallery.html">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link nav-link-harvard" href="contact.html">Contact</a></li>
+                </ul>
+                <div class="ms-lg-4 mt-3 mt-lg-0">
+                    <button class="btn btn-dark px-4 py-2 rounded-0 text-uppercase fw-bold text-warning" data-bs-toggle="modal" data-bs-target="#uploadModal" style="font-size: 0.8rem; letter-spacing: 1px;">
+                        <i class="bi bi-plus-lg me-1"></i> Upload Photo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Editorial Header Banner -->
+    <header class="py-5 text-white editorial-hero">
+        <div class="container py-3">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <span class="text-uppercase fw-bold text-warning small" style="letter-spacing: 1.5px;">Institutional Archive & Heritage</span>
+                    <h1 class="font-serif fw-bold display-5 mt-2 mb-3">Campus Gallery & Founder's Tribute</h1>
+                    <p class="lead mb-0 text-white-50 fs-6">
+                        Celebrating our founding legacy since 1987 and documenting life across our primary, junior high, and senior technical divisions in Sunyani Abesim.
+                    </p>
+                </div>
+                <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+                    <button class="btn btn-outline-light rounded-0 text-uppercase fw-bold px-4 py-2" data-bs-toggle="modal" data-bs-target="#uploadModal" style="font-size: 0.8rem; letter-spacing: 1px;">
+                        <i class="bi bi-upload me-2"></i> Add Gallery Item
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- SECTION 1: FOUNDER PRESENTATION -->
+    <section class="py-5 bg-white border-bottom border-2 border-dark">
+        <div class="container py-3">
+            
+            <div class="text-center max-w-700 mx-auto mb-5">
+                <span class="category-tag text-uppercase fw-bold text-danger">Pioneer & Visionary</span>
+                <h2 class="font-serif fw-bold text-dark display-6 mt-1">The Founder's Presentation</h2>
+                <div class="mx-auto mt-2" style="width: 80px; height: 3px; background-color: var(--olistar-gold);"></div>
+            </div>
+
+            <div class="row align-items-center g-4 g-lg-5">
+                <!-- Founder Portrait Frame -->
+                <div class="col-lg-5">
+                    <div class="tile-card p-3 shadow-sm position-relative border border-dark">
+                        <div class="position-absolute top-0 start-0 w-100" style="height: 6px; background-color: var(--olistar-crimson); z-index: 2;"></div>
+                        
+                        <div class="tile-img-container mb-3 border border-1 border-dark" style="height: 420px;">
+                            <img src="assets/images/founder.jpg" 
+                                 alt="Founder of Olistar School" 
+                                 class="tile-img"
+                                 onerror="this.src='https://placehold.co/600x700/821424/ffffff?text=Founder+Portrait'">
+                        </div>
+
+                        <div class="text-center pt-2">
+                            <h4 class="font-serif fw-bold text-dark mb-1">Oliver Star-K. Baah</h4>
+                            <span class="badge bg-danger rounded-0 text-uppercase fw-semibold" style="letter-spacing: 0.5px;">Founder & Director</span>
+                            <p class="small text-secondary mt-2 mb-0">Sunyani Abesim &bull; Vision established in 1987</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Founder Story & Mission -->
+                <div class="col-lg-7">
+                    <span class="text-uppercase fw-bold text-danger small" style="letter-spacing: 1px;">Founding Vision & Legacy</span>
+                    <h3 class="font-serif fw-bold text-dark fs-2 mt-1 mb-3">"A Firm Building Requires an Unshakeable Foundation"</h3>
+                    
+                    <p class="text-secondary leading-relaxed">
+                        In 1987, Olistar School was established in Sunyani Abesim with a singular, transformative vision: to provide children in the Bono region and beyond with access to disciplined, high-caliber basic education coupled with practical technical skills.
+                    </p>
+
+                    <p class="text-secondary leading-relaxed">
+                        Driven by a deep commitment to community empowerment, our Founder recognized that academic literacy alone was incomplete without moral fortitude and technical capability. What began as a modest community primary school has expanded into a comprehensive educational institution comprising Primary, Junior High (JHS), and Senior Technical streams.
+                    </p>
+
+                    <!-- Founder Quote Box -->
+                    <div class="p-4 bg-light border-start border-4 border-warning my-4 shadow-sm">
+                        <p class="font-serif fs-5 text-dark italic mb-2">
+                            "When you equip a young person with both character and practical hands-on mastery, you give them the key to build their own future and strengthen their society."
+                        </p>
+                        <span class="fw-bold text-danger small text-uppercase" style="letter-spacing: 1px;">&mdash; Oliver Star-K. Baah, Founder</span>
+                    </div>
+
+                    <!-- Key Milestones Interactive Tiles -->
+                    <div class="row g-3 pt-2">
+                        <div class="col-4">
+                            <div class="tile-card p-3 text-center border border-dark">
+                                <span class="d-block fw-bold text-danger fs-4 font-serif">1987</span>
+                                <span class="small text-secondary" style="font-size: 0.75rem;">Founded</span>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="tile-card p-3 text-center border border-dark">
+                                <span class="d-block fw-bold text-warning fs-4 font-serif">35+</span>
+                                <span class="small text-secondary" style="font-size: 0.75rem;">Years</span>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="tile-card p-3 text-center border border-dark">
+                                <span class="d-block fw-bold text-dark fs-4 font-serif">1000s</span>
+                                <span class="small text-secondary" style="font-size: 0.75rem;">Graduates</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION 2: CAMPUS PHOTO & EVENT GALLERY WITH HOVER TILES -->
+    <section class="py-5" style="background-color: var(--olistar-light-bg);">
+        <div class="container py-3">
+
+            <div class="text-center max-w-700 mx-auto mb-4">
+                <span class="category-tag text-uppercase fw-bold text-danger">Visual Showcase</span>
+                <h2 class="font-serif fw-bold text-dark display-6 mt-1">Campus Life & Facility Gallery</h2>
+                <p class="text-secondary small">Hover over any tile to view details. Explore academic classrooms, technical workshops, and campus life.</p>
+            </div>
+
+            <!-- Gallery Category Filter Buttons -->
+            <div class="d-flex flex-wrap justify-content-center gap-2 mb-5" id="galleryFilters">
+                <button type="button" class="btn btn-dark rounded-0 px-3 py-2 small text-uppercase fw-bold active-filter" data-filter="all">All Photos</button>
+                <button type="button" class="btn btn-outline-dark rounded-0 px-3 py-2 small text-uppercase fw-bold" data-filter="tvet">TVET & Workshops</button>
+                <button type="button" class="btn btn-outline-dark rounded-0 px-3 py-2 small text-uppercase fw-bold" data-filter="academics">Academic Life</button>
+                <button type="button" class="btn btn-outline-dark rounded-0 px-3 py-2 small text-uppercase fw-bold" data-filter="campus">Campus Facilities</button>
+                <button type="button" class="btn btn-outline-dark rounded-0 px-3 py-2 small text-uppercase fw-bold" data-filter="events">Events & Culture</button>
+            </div>
+
+            <!-- Gallery Interactive Grid -->
+            <div class="row g-4" id="galleryGrid">
+
+                <!-- Tile Item 1: TVET Workshop -->
+                <div class="col-sm-6 col-lg-4 gallery-item" data-category="tvet">
+                    <div class="tile-card shadow-sm h-100 bg-white border border-dark">
+                        <div class="tile-img-container" style="height: 230px;">
+                            <img src="assets/images/gallery-tvet-1.jpg" 
+                                 alt="Technical Workshop Practical" 
+                                 class="tile-img"
+                                 onerror="this.src='https://placehold.co/600x400/1E1E1E/ffffff?text=Technical+Workshop'">
+                            <span class="badge bg-warning text-dark rounded-0 position-absolute top-0 end-0 m-2 fw-bold text-uppercase" style="font-size: 0.7rem;">TVET</span>
+                        </div>
+                        <div class="p-3">
+                            <h6 class="font-serif fw-bold text-dark mb-1">Electrical & Practical Workshop</h6>
+                            <p class="small text-secondary mb-0">Students engaging in hands-on circuit wiring and technical diagnosis.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tile Item 2: Academic Classroom -->
+                <div class="col-sm-6 col-lg-4 gallery-item" data-category="academics">
+                    <div class="tile-card shadow-sm h-100 bg-white border border-dark">
+                        <div class="tile-img-container" style="height: 230px;">
+                            <img src="assets/images/gallery-academics-1.jpg" 
+                                 alt="Academic Classroom Session" 
+                                 class="tile-img"
+                                 onerror="this.src='https://placehold.co/600x400/821424/ffffff?text=Academic+Classroom'">
+                            <span class="badge bg-danger text-white rounded-0 position-absolute top-0 end-0 m-2 fw-bold text-uppercase" style="font-size: 0.7rem;">Academics</span>
+                        </div>
+                        <div class="p-3">
+                            <h6 class="font-serif fw-bold text-dark mb-1">Modern Science & Computer Lab</h6>
+                            <p class="small text-secondary mb-0">Interactive STEM learning session with digital tools and guidance.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tile Item 3: Campus View -->
+                <div class="col-sm-6 col-lg-4 gallery-item" data-category="campus">
+                    <div class="tile-card shadow-sm h-100 bg-white border border-dark">
+                        <div class="tile-img-container" style="height: 230px;">
+                            <img src="assets/images/gallery-campus-1.jpg" 
+                                 alt="Main School Compound" 
+                                 class="tile-img"
+                                 onerror="this.src='https://placehold.co/600x400/222222/ffffff?text=Sunyani+Abesim+Campus'">
+                            <span class="badge bg-dark text-white rounded-0 position-absolute top-0 end-0 m-2 fw-bold text-uppercase" style="font-size: 0.7rem;">Campus</span>
+                        </div>
+                        <div class="p-3">
+                            <h6 class="font-serif fw-bold text-dark mb-1">Sunyani Abesim Main Grounds</h6>
+                            <p class="small text-secondary mb-0">Serene academic atmosphere designed for holistic growth.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-harvard pt-5 pb-4">
+        <div class="container">
+            <div class="row g-4 mb-5">
+                <div class="col-lg-5">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="assets/images/logo.png" height="48" class="me-3" alt="Crest" onerror="this.style.display='none'">
+                        <div>
+                            <h5 class="fw-bold mb-0 text-white font-serif">OLISTAR SCHOOL</h5>
+                            <span class="text-warning small text-uppercase fw-semibold" style="letter-spacing: 1px;">Sunyani Abesim</span>
+                        </div>
+                    </div>
+                    <p class="text-secondary small pe-lg-4">
+                        A premier multi-tier educational institution providing foundation, junior high, and senior technical education committed to character, knowledge, and practical skill.
+                    </p>
+                </div>
+
+                <div class="col-lg-2 col-md-4">
+                    <h6 class="fw-bold text-uppercase mb-3">Navigation</h6>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2"><a href="index.html">Home Page</a></li>
+                        <li class="mb-2"><a href="about.html">About Olistar</a></li>
+                        <li class="mb-2"><a href="application.html">Admissions</a></li>
+                        <li class="mb-2"><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-2 col-md-4">
+                    <h6 class="fw-bold text-uppercase mb-3">Academics</h6>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2"><a href="primary.html">Primary Stream</a></li>
+                        <li class="mb-2"><a href="jhs.html">JHS Stream</a></li>
+                        <li class="mb-2"><a href="shs-tech.html">SHS & Technical</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-4">
+                    <h6 class="fw-bold text-uppercase mb-3">Campus Address</h6>
+                    <p class="text-secondary small mb-1"><i class="bi bi-geo-alt-fill text-warning me-2"></i>Sunyani Abesim, Bono Region</p>
+                    <p class="text-secondary small mb-1"><i class="bi bi-telephone-fill text-warning me-2"></i>+233 (0) 00 000 0000</p>
+                    <p class="text-secondary small"><i class="bi bi-globe me-2 text-warning"></i>olistaredu.net</p>
+                </div>
+            </div>
+
+            <hr class="border-secondary opacity-25">
+            <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center text-secondary small">
+                <p class="mb-0">&copy; <span id="current-year">2026</span> Olistar School. All Rights Reserved.</p>
+                <p class="mb-0 mt-2 mt-sm-0">Official Web Portal</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Local Bootstrap 5 JS Bundle -->
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Junior High School (JHS) | Olistar School</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico">
+
+    <!-- Local Bootstrap 5 CSS -->
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+    
+    <!-- Local Bootstrap Icons CSS -->
+    <link rel="stylesheet" href="vendor/bootstrap-icons/bootstrap-icons.css">
+
+    <!-- Custom Harvard Editorial CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Visual Effects & Animations Custom CSS -->
+    <style>
+        /* Smooth Scrolling & Variable Tweaks */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --olistar-crimson: #900C3F;
+            --olistar-green: #1B4D3E;
+            --olistar-light-bg: #f8f9fa;
+        }
+
+        /* Navbar & Sticky Header Transitions */
+        .sticky-top {
+            transition: all 0.3s ease-in-out;
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+
+        .nav-link-harvard {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link-harvard::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 2px;
+            left: 50%;
+            background-color: var(--olistar-crimson);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transform: translateX(-50%);
+        }
+
+        .nav-link-harvard:hover::after,
+        .nav-link-harvard.active::after {
+            width: 80%;
+        }
+
+        /* Button Hover & Shimmer Effects */
+        .btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+            z-index: 1;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18) !important;
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+            transition: left 0.6s ease;
+            z-index: 2;
+        }
+
+        .btn:hover::after {
+            left: 100%;
+        }
+
+        /* Hero Image Container Hover Zoom */
+        .hero-harvard img {
+            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .hero-harvard img:hover {
+            transform: scale(1.04);
+        }
+
+        /* Academic Subject Cards Hover Lift */
+        .p-4.bg-light.shadow-sm {
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+            border-left-width: 5px !important;
+        }
+
+        .p-4.bg-light.shadow-sm:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12) !important;
+            background-color: #ffffff !important;
+        }
+
+        .p-4.bg-light.shadow-sm .bi {
+            transition: transform 0.4s ease;
+            display: inline-block;
+        }
+
+        .p-4.bg-light.shadow-sm:hover .bi {
+            transform: scale(1.2) rotate(6deg);
+        }
+
+        /* Stats Banner Hover Interactions */
+        section.text-white .col-6 {
+            transition: transform 0.3s ease;
+        }
+
+        section.text-white .col-6:hover {
+            transform: translateY(-4px);
+        }
+
+        /* Footer Links Hover FX */
+        .footer-harvard a {
+            transition: all 0.25s ease;
+            display: inline-block;
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .footer-harvard a:hover {
+            color: #ffc107 !important;
+            transform: translateX(4px);
+        }
+
+        /* Scroll Reveal Animation Styles */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+            will-change: opacity, transform;
+        }
+
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Pulse subtle effect for icon box */
+        .bi-journal-bookmark-fill {
+            animation: pulseIcon 3s infinite ease-in-out;
+        }
+
+        @keyframes pulseIcon {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Utility Audience Header -->
+    <div class="utility-bar text-white py-2 d-none d-md-block">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-3">
+                <span><i class="bi bi-geo-alt-fill text-warning me-1"></i> Sunyani Abesim, Ghana</span>
+                <span class="text-secondary">|</span>
+                <span><i class="bi bi-telephone-fill text-warning me-1"></i> +233 (0) 00 000 0000</span>
+            </div>
+            <div class="d-flex gap-3 text-uppercase fw-semibold" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                <a href="application.html">Admissions</a>
+                <a href="shs-tech.html">Technical Programs</a>
+                <a href="contact.html">Portals & Contact</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Institutional Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-harvard sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="assets/images/logo.png" alt="Olistar School Crest" height="52" class="me-3" onerror="this.src='https://placehold.co/100x100/900C3F/ffffff?text=Crest'">
+                <div>
+                    <span class="d-block fw-bold text-dark fs-4 leading-none" style="font-family: var(--font-serif); letter-spacing: -0.5px;">OLISTAR SCHOOL</span>
+                    <span class="school-motto-tag d-block mt-1">Good Foundation, Firm Building &bull; Est. 1987</span>
+                </div>
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
+                    <li class="nav-item"><a class="nav-link nav-link-harvard" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link nav-link-harvard" href="about.html">About</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link nav-link-harvard dropdown-toggle active" href="#" id="academicsDropdown" role="button" data-bs-toggle="dropdown">
+                            Academics
+                        </a>
+                        <ul class="dropdown-menu border-0 shadow rounded-0 mt-2">
+                            <li><a class="dropdown-item py-2 fw-semibold" href="primary.html">Primary Division</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold text-danger active" href="jhs.html">Junior High School (JHS)</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="shs-tech.html">Senior High & Technical</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link nav-link-harvard" href="contact.html">Contact</a></li>
+                </ul>
+                <div class="ms-lg-4 mt-3 mt-lg-0">
+                    <a href="application.html" class="btn btn-dark px-4 py-2 rounded-0 text-uppercase fw-bold text-warning" style="font-size: 0.8rem; letter-spacing: 1px;">
+                        Apply Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Editorial Hero -->
+    <section class="hero-harvard py-5 reveal-on-scroll">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-7">
+                    <span class="category-tag text-uppercase fw-bold text-danger">BECE Preparation & Practical Skills</span>
+                    <h1 class="hero-title mt-2 mb-3">Junior High School Division (JHS 1–3)</h1>
+                    <p class="fs-5 text-secondary mb-4">
+                        Bridging primary foundations and secondary/technical specialization, Olistar JHS prepares students for top BECE results while introducing practical technology, scientific inquiry, and leadership discipline.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="application.html" class="btn btn-danger rounded-0 px-4 py-3 fw-bold text-uppercase" style="background-color: var(--olistar-crimson); border: none; font-size: 0.85rem; letter-spacing: 1px;">
+                            Apply For JHS Placement
+                        </a>
+                        <a href="#bece" class="btn btn-outline-dark rounded-0 px-4 py-3 fw-bold text-uppercase" style="font-size: 0.85rem; letter-spacing: 1px;">
+                            BECE & Practical Subjects
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+                    <div class="p-2 bg-white shadow-sm border border-2 border-danger-subtle overflow-hidden">
+                        <img src="assets/images/jhs-science-lab.jpg" class="img-fluid w-100 object-fit-cover" alt="JHS Science Practical" style="height: 340px;" onerror="this.src='https://placehold.co/600x450/1B4D3E/ffffff?text=JHS+Science+%26+Tech+Lab'">
+                        <div class="p-3 bg-light border-top">
+                            <span class="text-uppercase fw-bold text-success" style="font-size: 0.7rem; letter-spacing: 1px;">Rigorous Preparation</span>
+                            <h6 class="font-serif fw-bold text-dark mb-0 mt-1">Science Experiments, Computing & Mock Exams</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Statistics Banner -->
+    <section class="py-4 text-white reveal-on-scroll" style="background-color: var(--olistar-green);">
+        <div class="container">
+            <div class="row g-4 text-center">
+                <div class="col-6 col-md-3">
+                    <span class="fs-2 font-serif fw-bold text-warning d-block">BECE</span>
+                    <span class="small text-uppercase fw-semibold text-light opacity-75">WAEC National Examination</span>
+                </div>
+                <div class="col-6 col-md-3">
+                    <span class="fs-2 font-serif fw-bold text-warning d-block">100%</span>
+                    <span class="small text-uppercase fw-semibold text-light opacity-75">BECE Pass Rate Target</span>
+                </div>
+                <div class="col-6 col-md-3">
+                    <span class="fs-2 font-serif fw-bold text-warning d-block">Direct</span>
+                    <span class="small text-uppercase fw-semibold text-light opacity-75">Olistar SHS/Tech Pathway</span>
+                </div>
+                <div class="col-6 col-md-3">
+                    <span class="fs-2 font-serif fw-bold text-warning d-block">JHS 1–3</span>
+                    <span class="small text-uppercase fw-semibold text-light opacity-75">3-Year Academic Stream</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Academic Subjects Section -->
+    <section id="bece" class="py-5 bg-white reveal-on-scroll">
+        <div class="container py-3">
+            <div class="d-flex justify-content-between align-items-end mb-5 pb-2 border-bottom border-2 border-dark">
+                <div>
+                    <span class="category-tag text-uppercase fw-bold text-danger">Examination Prep</span>
+                    <h2 class="font-serif fw-bold text-dark mb-0 fs-2">JHS Core & Elective Subjects</h2>
+                </div>
+            </div>
+
+            <div class="row g-4">
+
+                <!-- 1. Core Academic Subjects -->
+                <div class="col-lg-6 reveal-on-scroll">
+                    <div class="p-4 bg-light border-start border-5 border-danger h-100 shadow-sm">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="p-2 bg-white text-danger fs-3 me-3 border"><i class="bi bi-award"></i></div>
+                            <div>
+                                <span class="category-tag">BECE Core Foundations</span>
+                                <h3 class="font-serif fw-bold text-dark fs-4 mb-0">Core Academic Disciplines</h3>
+                            </div>
+                        </div>
+                        <p class="text-secondary small mb-3">
+                            Intensive instruction focused on high performance in WAEC Basic Education Certificate Examination (BECE) core papers.
+                        </p>
+                        <h6 class="fw-bold text-dark small text-uppercase mb-2">Core Subjects:</h6>
+                        <ul class="small text-secondary ps-3 mb-0">
+                            <li class="mb-1"><strong>Core Mathematics:</strong> Algebra, Geometry, Statistics & Word Problems</li>
+                            <li class="mb-1"><strong>English Language:</strong> Grammar, Essay Composition & Comprehension</li>
+                            <li class="mb-1"><strong>Integrated Science:</strong> Biology, Physics, Chemistry & Lab Experiments</li>
+                            <li class="mb-1"><strong>Social Studies:</strong> Governance, Geography, Environment & History</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 2. Computing & Technology -->
+                <div class="col-lg-6 reveal-on-scroll">
+                    <div class="p-4 bg-light border-start border-5 border-warning h-100 shadow-sm">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="p-2 bg-white text-warning fs-3 me-3 border"><i class="bi bi-display"></i></div>
+                            <div>
+                                <span class="category-tag">Digital & Applied Knowledge</span>
+                                <h3 class="font-serif fw-bold text-dark fs-4 mb-0">Computing & Career Technology</h3>
+                            </div>
+                        </div>
+                        <p class="text-secondary small mb-3">
+                            Equips learners with practical IT expertise, internet navigation, basic algorithms, technical drawing principles, and workshop materials.
+                        </p>
+                        <h6 class="fw-bold text-dark small text-uppercase mb-2">Subject Highlights:</h6>
+                        <ul class="small text-secondary ps-3 mb-0">
+                            <li class="mb-1"><strong>Computing (ICT):</strong> Software Applications, Systems & Internet Safety</li>
+                            <li class="mb-1"><strong>Career Technology:</strong> Materials, Technical Tools & Design Basics</li>
+                            <li class="mb-1"><strong>Creative Arts & Design:</strong> Visual Art, Graphics & Spatial Drafting</li>
+                            <li class="mb-1">Hands-on Computer Lab sessions every week</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 3. Languages & Culture -->
+                <div class="col-lg-6 reveal-on-scroll">
+                    <div class="p-4 bg-light border-start border-5 border-success h-100 shadow-sm">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="p-2 bg-white text-success fs-3 me-3 border"><i class="bi bi-translate"></i></div>
+                            <div>
+                                <span class="category-tag">Communication Skills</span>
+                                <h3 class="font-serif fw-bold text-dark fs-4 mb-0">Ghanaian Language & French</h3>
+                            </div>
+                        </div>
+                        <p class="text-secondary small mb-3">
+                            Developing multilingual competency in Ghanaian heritage languages (Twi) alongside introductory French to expand global communication skills.
+                        </p>
+                        <h6 class="fw-bold text-dark small text-uppercase mb-2">Subject Highlights:</h6>
+                        <ul class="small text-secondary ps-3 mb-0">
+                            <li class="mb-1"><strong>Ghanaian Language (Twi):</strong> Literature, Culture & Grammar</li>
+                            <li class="mb-1"><strong>French Language:</strong> Basic Conversation, Grammar & Vocabulary</li>
+                            <li class="mb-1">Cultural heritage appreciation and debate clubs</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 4. Values & Civic Education -->
+                <div class="col-lg-6 reveal-on-scroll">
+                    <div class="p-4 bg-light border-start border-5 border-dark h-100 shadow-sm">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="p-2 bg-white text-dark fs-3 me-3 border"><i class="bi bi-check2-circle"></i></div>
+                            <div>
+                                <span class="category-tag">Ethics & Discipline</span>
+                                <h3 class="font-serif fw-bold text-dark fs-4 mb-0">Religious & Moral Education (RME)</h3>
+                            </div>
+                        </div>
+                        <p class="text-secondary small mb-3">
+                            Reinforcing moral discipline, civic duty, ethics, and respect for community values to prepare mature youth for senior secondary transition.
+                        </p>
+                        <h6 class="fw-bold text-dark small text-uppercase mb-2">Subject Highlights:</h6>
+                        <ul class="small text-secondary ps-3 mb-0">
+                            <li class="mb-1">Moral decision-making and character building</li>
+                            <li class="mb-1">Religious studies and civic responsibility</li>
+                            <li class="mb-1">Prefectural leadership and student council participation</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Smooth Transition to Technical & SHS -->
+    <section class="py-5 reveal-on-scroll" style="background-color: var(--olistar-light-bg);">
+        <div class="container py-3">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6">
+                    <span class="category-tag text-uppercase fw-bold text-danger">Pathway to the Future</span>
+                    <h2 class="font-serif fw-bold text-dark fs-2 mb-3">Direct Pathway to Olistar SHS & Technical Streams</h2>
+                    <p class="text-secondary">
+                        Olistar JHS graduates enjoy priority admission into our specialized Senior High, ICT, Building Construction, Home Economics, and General Arts programs right on the same campus.
+                    </p>
+
+                    <div class="d-flex align-items-start mb-3">
+                        <i class="bi bi-gear-wide-connected text-danger fs-4 me-3 mt-1"></i>
+                        <div>
+                            <h6 class="fw-bold mb-1 text-dark">Technical Orientation Early On</h6>
+                            <p class="small text-secondary mb-0">JHS students interact with technical drawing tools, ICT labs, and workshop tutors before choosing their senior high stream.</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-start mb-3">
+                        <i class="bi bi-file-earmark-check text-danger fs-4 me-3 mt-1"></i>
+                        <div>
+                            <h6 class="fw-bold mb-1 text-dark">Mock Examination Series</h6>
+                            <p class="small text-secondary mb-0">Regular BECE standard mock exams ensure pupils are thoroughly familiar with WAEC question formats and time management.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="p-4 bg-white border border-2 border-dark text-center shadow-sm">
+                        <i class="bi bi-journal-bookmark-fill fs-1 text-danger d-block mb-2"></i>
+                        <h4 class="font-serif fw-bold text-dark">Enroll in Olistar JHS Today</h4>
+                        <p class="small text-secondary mb-4">Placements available for JHS 1, JHS 2, and BECE transfer students.</p>
+                        <a href="application.html" class="btn btn-danger btn-lg rounded-0 px-4 py-2 text-uppercase fw-bold" style="background-color: var(--olistar-crimson); border: none; font-size: 0.85rem; letter-spacing: 1px;">
+                            Start JHS Application
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-harvard pt-5 pb-4">
+        <div class="container">
+            <div class="row g-4 mb-5">
+                <div class="col-lg-5">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="assets/images/logo.png" height="48" class="me-3" alt="Crest" onerror="this.style.display='none'">
+                        <div>
+                            <h5 class="fw-bold mb-0 text-white font-serif">OLISTAR SCHOOL</h5>
+                            <span class="text-warning small text-uppercase fw-semibold" style="letter-spacing: 1px;">Sunyani Abesim</span>
+                        </div>
+                    </div>
+                    <p class="text-secondary small pe-lg-4">
+                        A premier multi-tier educational institution providing foundation, junior high, and senior technical education committed to character, knowledge, and practical skill.
+                    </p>
+                </div>
+
+                <div class="col-lg-2 col-md-4">
+                    <h6 class="fw-bold text-uppercase mb-3">Navigation</h6>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2"><a href="index.html">Home Page</a></li>
+                        <li class="mb-2"><a href="about.html">About Olistar</a></li>
+                        <li class="mb-2"><a href="application.html">Admissions</a></li>
+                        <li class="mb-2"><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-2 col-md-4">
+                    <h6 class="fw-bold text-uppercase mb-3">Academics</h6>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2"><a href="primary.html">Primary Stream</a></li>
+                        <li class="mb-2"><a href="jhs.html">JHS Stream</a></li>
+                        <li class="mb-2"><a href="shs-tech.html">SHS & Technical</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-4">
+                    <h6 class="fw-bold text-uppercase mb-3">Campus Address</h6>
+                    <p class="text-secondary small mb-1"><i class="bi bi-geo-alt-fill text-warning me-2"></i>Sunyani Abesim, Bono Region</p>
+                    <p class="text-secondary small mb-1"><i class="bi bi-telephone-fill text-warning me-2"></i>+233 (0) 00 000 0000</p>
+                    <p class="text-secondary small"><i class="bi bi-globe me-2 text-warning"></i>olistaredu.net</p>
+                </div>
+            </div>
+
+            <hr class="border-secondary opacity-25">
+            <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center text-secondary small">
+                <p class="mb-0">&copy; <span id="current-year">2026</span> Olistar School. All Rights Reserved.</p>
+                <p class="mb-0 mt-2 mt-sm-0">Official Web Portal</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Local Bootstrap 5 JS Bundle -->
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/main.js"></script>
+
+    <!-- Scroll Entrance Animations Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, observerOptions);
+
+            const revealElements = document.querySelectorAll('.reveal-on-scroll');
+            revealElements.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>

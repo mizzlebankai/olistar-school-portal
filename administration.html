@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admissions Admin Portal | Olistar School</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <style>
+        :root {
+            --olistar-crimson: #900C3F;
+            --olistar-gold: #D4AF37;
+            --olistar-dark: #1A1A1A;
+            --olistar-light-bg: #F4F5F7;
+            --font-serif: 'Georgia', 'Times New Roman', serif;
+        }
+
+        body {
+            background-color: var(--olistar-light-bg);
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            color: var(--olistar-dark);
+        }
+
+        .font-serif { font-family: var(--font-serif); }
+        .bg-crimson { background-color: var(--olistar-crimson) !important; }
+        .text-crimson { color: var(--olistar-crimson) !important; }
+        .border-crimson { border-color: var(--olistar-crimson) !important; }
+
+        /* Sidebar Styling */
+        .admin-sidebar {
+            width: 260px;
+            min-height: 100vh;
+            background-color: var(--olistar-dark);
+            border-right: 3px solid var(--olistar-gold);
+        }
+
+        .admin-sidebar .nav-link {
+            color: #C2C7D0;
+            padding: 0.8rem 1.25rem;
+            font-weight: 500;
+            border-left: 4px solid transparent;
+        }
+
+        .admin-sidebar .nav-link:hover,
+        .admin-sidebar .nav-link.active {
+            color: #FFFFFF;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-left-color: var(--olistar-gold);
+        }
+
+        /* Stat Cards */
+        .stat-card {
+            border: 2px solid var(--olistar-dark);
+            border-radius: 0;
+            background: #FFFFFF;
+            transition: transform 0.15s ease-in-out;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Status Badges */
+        .badge-status {
+            font-weight: 600;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+            padding: 0.35em 0.75em;
+            border-radius: 0;
+            text-transform: uppercase;
+        }
+
+        .badge-pending { background-color: #FFF3CD; color: #664D03; border: 1px solid #FFE69C; }
+        .badge-review { background-color: #CFF4FC; color: #055160; border: 1px solid #9EEAF9; }
+        .badge-shortlisted { background-color: #E2E3E5; color: #41464B; border: 1px solid #D3D6D8; }
+        .badge-admitted { background-color: #D1E7DD; color: #0F5132; border: 1px solid #A3CFBB; }
+        .badge-rejected { background-color: #F8D7DA; color: #842029; border: 1px solid #F5C2C7; }
+
+        /* Custom Table Styling */
+        .table-admin {
+            border: 2px solid var(--olistar-dark);
+            background: #FFFFFF;
+        }
+
+        .table-admin th {
+            background-color: var(--olistar-dark);
+            color: #FFFFFF;
+            font-family: var(--font-serif);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+            padding: 1rem;
+            border: none;
+        }
+
+        .table-admin td {
+            padding: 0.9rem 1rem;
+            vertical-align: middle;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        /* Crisp Editorial Forms */
+        .form-control, .form-select {
+            border-radius: 0;
+            border: 1.5px solid var(--olistar-dark);
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--olistar-crimson);
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="d-flex">
+    
+    <!-- Sidebar -->
+    <aside class="admin-sidebar d-none d-lg-block flex-shrink-0">
+        <div class="p-4 border-bottom border-secondary border-opacity-25">
+            <div class="d-flex align-items-center">
+                <div class="bg-crimson text-warning fw-bold fs-4 d-flex align-items-center justify-content-center me-2" style="width: 40px; height: 40px; border: 1px solid var(--olistar-gold);">
+                    O
+                </div>
+                <div>
+                    <h6 class="font-serif fw-bold text-white mb-0" style="letter-spacing: -0.5px;">OLISTAR SCHOOL</h6>
+                    <span class="text-warning small text-uppercase" style="font-size: 0.65rem; letter-spacing: 1px;">Admissions Portal</span>
+                </div>
+            </div>
+        </div>
+
+        <nav class="nav flex-column mt-3">
+            <a class="nav-link active" href="#"><i class="bi bi-speedometer2 me-2"></i> Dashboard Overview</a>
+            <a class="nav-link d-flex justify-content-between align-items-center" href="#">
+                <span><i class="bi bi-file-earmark-person me-2"></i> Applications</span>
+                <span class="badge bg-danger rounded-0">12 New</span>
+            </a>
+            <a class="nav-link" href="#"><i class="bi bi-calendar-event me-2"></i> Entrance Interviews</a>
+            <a class="nav-link" href="#"><i class="bi bi-chat-left-dots me-2"></i> SMS Broadcasts</a>
+            <a class="nav-link" href="#"><i class="bi bi-journal-check me-2"></i> Verification Desk</a>
+            <div class="my-3 border-top border-secondary border-opacity-25"></div>
+            <a class="nav-link text-secondary" href="application.html" target="_blank"><i class="bi bi-box-arrow-up-right me-2"></i> Public Form Page</a>
+            <a class="nav-link text-secondary" href="#"><i class="bi bi-gear me-2"></i> System Settings</a>
+        </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow-1 min-vh-100 d-flex flex-column">
+        
+        <!-- Top Navigation Header -->
+        <header class="bg-white border-bottom border-2 border-dark py-2 px-4 d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center gap-3">
+                <button class="btn btn-outline-dark d-lg-none rounded-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
+                    <i class="bi bi-list"></i>
+                </button>
+                <h5 class="font-serif fw-bold text-dark mb-0 d-none d-sm-block">Office of Admissions & Records</h5>
+            </div>
+
+            <div class="d-flex align-items-center gap-3">
+                <div class="input-group d-none d-md-flex" style="width: 250px;">
+                    <input type="text" class="form-control form-control-sm rounded-0 border-dark" placeholder="Quick Ref Search...">
+                    <button class="btn btn-dark rounded-0 px-2"><i class="bi bi-search"></i></button>
+                </div>
+                
+                <div class="vr mx-1"></div>
+
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle fw-semibold small" data-bs-toggle="dropdown">
+                        <i class="bi bi-person-circle fs-5 me-2 text-crimson"></i> Registrar Desk
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end rounded-0 border-dark shadow-sm">
+                        <li><a class="dropdown-item small" href="#"><i class="bi bi-person me-2"></i>Profile Settings</a></li>
+                        <li><a class="dropdown-item small" href="#"><i class="bi bi-shield-lock me-2"></i>Activity Log</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item small text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i>Sign Out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Content Container -->
+        <div class="p-4 flex-grow-1">
+            
+            <!-- Page Title & Quick Actions Bar -->
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 pb-2 border-bottom border-2 border-crimson">
+                <div>
+                    <span class="text-uppercase fw-bold text-crimson small" style="letter-spacing: 1px;">2026/2027 Academic Year</span>
+                    <h2 class="font-serif fw-bold text-dark mb-0">Applicant Management Dashboard</h2>
+                </div>
+                <div class="mt-3 mt-md-0 d-flex gap-2">
+                    <button class="btn btn-outline-dark rounded-0 fw-bold small text-uppercase">
+                        <i class="bi bi-download me-1"></i> Export CSV
+                    </button>
+                    <button class="btn btn-danger rounded-0 bg-crimson border-0 fw-bold small text-uppercase text-white">
+                        <i class="bi bi-send-plus me-1"></i> Bulk SMS Notice
+                    </button>
+                </div>
+            </div>
+
+            <!-- Metrics / Summary Cards -->
+            <div class="row g-3 mb-4">
+                <div class="col-6 col-xl-3">
+                    <div class="stat-card p-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="text-uppercase fw-bold text-secondary small" style="font-size: 0.7rem;">Total Submissions</span>
+                            <i class="bi bi-folder2-open text-crimson fs-4"></i>
+                        </div>
+                        <h3 class="font-serif fw-bold text-dark mb-0">142</h3>
+                        <span class="text-success small fw-semibold" style="font-size: 0.75rem;"><i class="bi bi-arrow-up-short"></i>+18 this week</span>
+                    </div>
+                </div>
+
+                <div class="col-6 col-xl-3">
+                    <div class="stat-card p-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="text-uppercase fw-bold text-secondary small" style="font-size: 0.7rem;">Pending Review</span>
+                            <i class="bi bi-hourglass-split text-warning fs-4"></i>
+                        </div>
+                        <h3 class="font-serif fw-bold text-dark mb-0">29</h3>
+                        <span class="text-warning small fw-semibold" style="font-size: 0.75rem;"><i class="bi bi-clock me-1"></i>Requires Verification</span>
+                    </div>
+                </div>
+
+                <div class="col-6 col-xl-3">
+                    <div class="stat-card p-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="text-uppercase fw-bold text-secondary small" style="font-size: 0.7rem;">Scheduled Interviews</span>
+                            <i class="bi bi-calendar-check text-info fs-4"></i>
+                        </div>
+                        <h3 class="font-serif fw-bold text-dark mb-0">45</h3>
+                        <span class="text-secondary small fw-semibold" style="font-size: 0.75rem;">JHS & TVET Streams</span>
+                    </div>
+                </div>
+
+                <div class="col-6 col-xl-3">
+                    <div class="stat-card p-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="text-uppercase fw-bold text-secondary small" style="font-size: 0.7rem;">Admitted Students</span>
+                            <i class="bi bi-check-circle-fill text-success fs-4"></i>
+                        </div>
+                        <h3 class="font-serif fw-bold text-dark mb-0">68</h3>
+                        <span class="text-success small fw-semibold" style="font-size: 0.75rem;">Offers Confirmed</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Application Filter Controls -->
+            <div class="bg-white p-3 border border-2 border-dark mb-4 shadow-sm">
+                <div class="row g-2 align-items-center">
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold small text-uppercase mb-1">Search Record</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-white rounded-0 border-dark"><i class="bi bi-search"></i></span>
+                            <input type="text" class="form-control rounded-0 border-dark" placeholder="Search applicant name, phone, or ID...">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-3">
+                        <label class="form-label fw-bold small text-uppercase mb-1">Educational Division</label>
+                        <select class="form-select rounded-0 border-dark">
+                            <option value="">All Academic Streams</option>
+                            <option value="primary">Primary Division</option>
+                            <option value="jhs">Junior High School (JHS)</option>
+                            <option value="shs-academic">Senior High (WASSCE)</option>
+                            <option value="shs-technical">Senior High & Technical</option>
+                        </select>
+                    </div>
+
+                    <div class="col-sm-6 col-md-3">
+                        <label class="form-label fw-bold small text-uppercase mb-1">Review Status</label>
+                        <select class="form-select rounded-0 border-dark">
+                            <option value="">All Review Statuses</option>
+                            <option value="pending">Pending Review</option>
+                            <option value="reviewing">Under Verification</option>
+                            <option value="shortlisted">Interview Scheduled</option>
+                            <option value="admitted">Admitted</option>
+                            <option value="rejected">Rejected</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-2 d-flex align-items-end mt-3 mt-md-0">
+                        <button class="btn btn-dark rounded-0 w-100 fw-bold small text-uppercase">
+                            <i class="bi bi-funnel me-1"></i> Apply Filters
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Applications Master Table -->
+            <div class="table-responsive">
+                <table class="table table-admin align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="width: 40px;">
+                                <input class="form-check-input rounded-0 border-white" type="checkbox">
+                            </th>
+                            <th scope="col">Application ID</th>
+                            <th scope="col">Applicant Full Name</th>
+                            <th scope="col">Division & Stream</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Guardian Contact</th>
+                            <th scope="col">Date Submitted</th>
+                            <th scope="col">Status</th>
+                            <th scope="col" class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        <!-- Row 1 -->
+                        <tr>
+                            <td><input class="form-check-input rounded-0 border-dark" type="checkbox"></td>
+                            <td><span class="fw-bold font-monospace text-crimson">OLISTAR-2026-0849</span></td>
+                            <td>
+                                <span class="fw-bold text-dark d-block">Kwaku Mensah</span>
+                                <span class="text-muted small">DOB: 14 May 2010 (16 yrs)</span>
+                            </td>
+                            <td>
+                                <span class="badge bg-dark rounded-0 text-white me-1">JHS</span>
+                                <span class="small fw-semibold text-secondary">BECE Prep</span>
+                            </td>
+                            <td><span class="badge bg-light text-dark border border-dark rounded-0">Day</span></td>
+                            <td>
+                                <span class="d-block small fw-bold">Ebenezer Mensah</span>
+                                <span class="small text-muted"><i class="bi bi-telephone me-1"></i>+233 24 000 0000</span>
+                            </td>
+                            <td class="small text-secondary">Sep 12, 2026</td>
+                            <td><span class="badge badge-status badge-pending">Pending Review</span></td>
+                            <td class="text-end">
+                                <div class="btn-group">
+                                    <button class="btn btn-sm btn-outline-dark rounded-0" data-bs-toggle="modal" data-bs-target="#applicationDetailModal" title="Review Full Record">
+                                        <i class="bi bi-eye-fill"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-dark rounded-0" title="Send SMS">
+                                        <i class="bi bi-chat-text"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Row 2 -->
+                        <tr>
+                            <td><input class="form-check-input rounded-0 border-dark" type="checkbox"></td>
+                            <td><span class="fw-bold font-monospace text-crimson">OLISTAR-2026-0850</span></td>
+                            <td>
+                                <span class="fw-bold text-dark d-block">Abena Yeboah</span>
+                                <span class="text-muted small">DOB: 22 Feb 2009 (17 yrs)</span>
+                            </td>
+                            <td>
+                                <span class="badge bg-danger rounded-0 text-white me-1" style="background-color: var(--olistar-crimson) !important;">TVET</span>
+                                <span class="small fw-semibold text-secondary">ICT & Software</span>
+                            </td>
+                            <td><span class="badge bg-warning text-dark border border-dark rounded-0">Boarding</span></td>
+                            <td>
+                                <span class="d-block small fw-bold">Grace Yeboah</span>
+                                <span class="small text-muted"><i class="bi bi-telephone me-1"></i>+233 55 111 2222</span>
+                            </td>
+                            <td class="small text-secondary">Sep 11, 2026</td>
+                            <td><span class="badge badge-status badge-shortlisted">Interview Set</span></td>
+                            <td class="text-end">
+                                <div class="btn-group">
+                                    <button class="btn btn-sm btn-outline-dark rounded-0" data-bs-toggle="modal" data-bs-target="#applicationDetailModal">
+                                        <i class="bi bi-eye-fill"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-dark rounded-0">
+                                        <i class="bi bi-chat-text"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Row 3 -->
+                        <tr>
+                            <td><input class="form-check-input rounded-0 border-dark" type="checkbox"></td>
+                            <td><span class="fw-bold font-monospace text-crimson">OLISTAR-2026-0841</span></td>
+                            <td>
+                                <span class="fw-bold text-dark d-block">Kofi Kyeremeh</span>
+                                <span class="text-muted small">DOB: 05 Jan 2017 (9 yrs)</span>
+                            </td>
+                            <td>
+                                <span class="badge bg-secondary rounded-0 text-white me-1">Primary</span>
+                                <span class="small fw-semibold text-secondary">Class 4</span>
+                            </td>
+                            <td><span class="badge bg-light text-dark border border-dark rounded-0">Day</span></td>
+                            <td>
+                                <span class="d-block small fw-bold">Samuel Kyeremeh</span>
+                                <span class="small text-muted"><i class="bi bi-telephone me-1"></i>+233 20 333 4444</span>
+                            </td>
+                            <td class="small text-secondary">Sep 09, 2026</td>
+                            <td><span class="badge badge-status badge-admitted">Admitted</span></td>
+                            <td class="text-end">
+                                <div class="btn-group">
+                                    <button class="btn btn-sm btn-outline-dark rounded-0" data-bs-toggle="modal" data-bs-target="#applicationDetailModal">
+                                        <i class="bi bi-eye-fill"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-dark rounded-0">
+                                        <i class="bi bi-printer"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Table Pagination -->
+            <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center mt-3 bg-white p-3 border border-2 border-dark">
+                <span class="small text-secondary mb-2 mb-sm-0">Showing <strong>1 to 3</strong> of <strong>142</strong> total applications</span>
+                <nav>
+                    <ul class="pagination pagination-sm mb-0">
+                        <li class="page-item disabled"><a class="page-item link-dark page-link rounded-0 border-dark" href="#">Previous</a></li>
+                        <li class="page-item active"><a class="page-link rounded-0 bg-dark border-dark text-white" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link rounded-0 border-dark text-dark" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link rounded-0 border-dark text-dark" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link rounded-0 border-dark text-dark" href="#">Next</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+        </div>
+
+        <!-- Admin Footer -->
+        <footer class="bg-white border-top border-2 border-dark py-3 px-4 mt-auto">
+            <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center text-secondary small">
+                <p class="mb-0">&copy; 2026 Olistar School, Sunyani Abesim. Internal Admissions Desk.</p>
+                <p class="mb-0 mt-1 mt-sm-0">Portal Version 1.4.2</p>
+            </div>
+        </footer>
+
+    </main>
+</div>
+
+<!-- APPLICANT DETAIL REVIEW MODAL -->
+<div class="modal fade" id="applicationDetailModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content rounded-0 border border-3 border-dark">
+            
+            <!-- Modal Header -->
+            <div class="modal-header bg-dark text-white rounded-0 py-3">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge bg-warning text-dark rounded-0 fw-bold">OLISTAR-2026-0849</span>
+                    <h5 class="modal-title font-serif fw-bold mb-0" id="modalTitle">Kwaku Mensah — Applicant Review</h5>
+                </div>
+                <button type="button" class="btn-close btn-close-white rounded-0" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body p-4">
+                
+                <!-- Status Decision Ribbon -->
+                <div class="p-3 bg-light border border-2 border-dark mb-4 d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+                    <div>
+                        <span class="text-uppercase fw-bold small text-secondary d-block">Current Review Status</span>
+                        <span class="badge badge-status badge-pending fs-6">Pending Document Review</span>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <select class="form-select form-select-sm rounded-0 border-dark" style="width: auto;">
+                            <option value="pending">Mark: Pending</option>
+                            <option value="reviewing">Mark: Under Verification</option>
+                            <option value="shortlisted">Mark: Interview Scheduled</option>
+                            <option value="admitted">Mark: Admit Student</option>
+                            <option value="rejected">Mark: Reject Application</option>
+                        </select>
+                        <button class="btn btn-sm btn-dark rounded-0 fw-bold">Update</button>
+                    </div>
+                </div>
+
+                <!-- Applicant Overview Tabs / Sections -->
+                <div class="row g-4">
+                    
+                    <!-- Student Info -->
+                    <div class="col-md-6">
+                        <h6 class="font-serif fw-bold text-crimson border-bottom border-2 border-danger pb-1 mb-3">
+                            <i class="bi bi-person-badge me-2"></i>Student Profile
+                        </h6>
+                        <table class="table table-sm table-borderless small mb-0">
+                            <tr>
+                                <th class="text-secondary pe-2" style="width: 40%;">Full Name:</th>
+                                <td class="fw-bold">Kwaku Mensah</td>
+                            </tr>
+                            <tr>
+                                <th class="text-secondary pe-2">Date of Birth:</th>
+                                <td>14 May 2010 (Age 16)</td>
+                            </tr>
+                            <tr>
+                                <th class="text-secondary pe-2">Gender / Nation:</th>
+                                <td>Male / Ghanaian</td>
+                            </tr>
+                            <tr>
+                                <th class="text-secondary pe-2">Target Division:</th>
+                                <td>Junior High School (JHS)</td>
+                            </tr>
+                            <tr>
+                                <th class="text-secondary pe-2">Target Stream:</th>
+                                <td>BECE Preparatory Stream</td>
+                            </tr>
+                            <tr>
+                                <th class="text-secondary pe-2">Entry Level:</th>
+                                <td>JHS Form 1</td>
+                            </tr>
+                            <tr>
+                                <th class="text-secondary pe-2">Enrollment Status:</th>
+                                <td><span class="badge bg-light text-dark border border-dark rounded-0">Day Student</span></td>
+                            </tr>
+                            <tr>
+                                <th class="text-secondary pe-2">Previous School:</th>
+                                <td>Sunyani Model Primary, Sunyani</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Guardian Details -->
+                    <div class="col-md-6">
+                        <h6 class="font-serif fw-bold text-crimson border-bottom border-2 border-danger pb-1 mb-3">
+                            <i class="bi bi-telephone-outbound me-2"></i>Parent / Guardian Contact
+                        </h6>
+                        <table class="table table-sm table-borderless small mb-0">
+                            <tr>
+                                <th class="text-secondary pe-2" style="width: 40%;">Guardian Name:</th>
+                                <td class="fw-bold">Ebenezer Mensah</td>
+                            </tr>
+                            <tr>
+                                <th class="text-secondary pe-2">Relationship:</th>
+                                <td>Father</td>
+                            </tr>
+                            <tr>
+                                <th class="text-secondary pe-2">Phone Number:</th>
+                                <td><a href="tel:+233240000000" class="text-dark fw-bold">+233 24 000 0000</a></td>
+                            </tr>
+                            <tr>
+                                <th class="text-secondary pe-2">Email Address:</th>
+                                <td>ebenezer.m@example.com</td>
+                            </tr>
+                            <tr>
+                                <th class="text-secondary pe-2">Residential Addr:</th>
+                                <td>House No. BS-0123-4567, Abesim, Sunyani</td>
+                            </tr>
+                        </table>
+
+                        <div class="mt-3 p-2 bg-light border border-dark">
+                            <span class="d-block small fw-bold mb-1"><i class="bi bi-chat-left-dots text-danger me-1"></i> Quick SMS Trigger</span>
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control rounded-0 border-dark" value="Your interview is scheduled for Sep 18 at 9:00 AM.">
+                                <button class="btn btn-dark rounded-0"><i class="bi bi-send"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submitted Attachments -->
+                    <div class="col-12">
+                        <h6 class="font-serif fw-bold text-crimson border-bottom border-2 border-danger pb-1 mb-3">
+                            <i class="bi bi-paperclip me-2"></i>Submitted Academic Documents
+                        </h6>
+                        
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="p-3 border border-dark bg-white d-flex align-items-center justify-content-between">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-file-earmark-pdf-fill text-danger fs-3 me-3"></i>
+                                        <div>
+                                            <span class="d-block fw-bold small">Previous School Report Slip</span>
+                                            <span class="text-muted" style="font-size: 0.7rem;">PDF File &bull; 1.8 MB</span>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="btn btn-sm btn-outline-dark rounded-0 fw-bold"><i class="bi bi-box-arrow-up-right me-1"></i> View</a>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="p-3 border border-dark bg-white d-flex align-items-center justify-content-between">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-file-earmark-image-fill text-primary fs-3 me-3"></i>
+                                        <div>
+                                            <span class="d-block fw-bold small">Birth Certificate Copy</span>
+                                            <span class="text-muted" style="font-size: 0.7rem;">JPG Image &bull; 2.4 MB</span>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="btn btn-sm btn-outline-dark rounded-0 fw-bold"><i class="bi bi-box-arrow-up-right me-1"></i> View</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer bg-light rounded-0 border-top border-2 border-dark d-flex justify-content-between">
+                <button type="button" class="btn btn-outline-dark rounded-0 fw-bold text-uppercase small" data-bs-dismiss="modal">Close Window</button>
+                <div class="d-flex gap-2">
+                    <button type="button" class="btn btn-outline-danger rounded-0 fw-bold text-uppercase small"><i class="bi bi-x-lg me-1"></i> Reject Application</button>
+                    <button type="button" class="btn btn-success rounded-0 fw-bold text-uppercase small"><i class="bi bi-check-lg me-1"></i> Issue Admission Offer</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap 5 JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olistar School | Good Foundation, Firm Building | Sunyani Abesim</title>
+    
+    <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico">
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="vendor/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- Utility Bar -->
+    <div class="utility-bar text-white py-2 d-none d-md-block">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-3">
+                <span><i class="bi bi-geo-alt-fill text-warning me-1"></i> Sunyani Abesim, Ghana</span>
+                <span class="text-secondary">|</span>
+                <span><i class="bi bi-telephone-fill text-warning me-1"></i> +233 (0) 00 000 0000</span>
+            </div>
+            <div class="d-flex gap-3 text-uppercase fw-semibold utility-links">
+                <a href="application.html">Admissions</a>
+                <a href="shs-tech.html">Technical Programs</a>
+                <a href="contact.html">Portals & Contact</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-harvard sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="assets/images/logo.png" alt="Olistar School Crest" height="52" class="me-3" onerror="this.src='https://placehold.co/100x100/900C3F/ffffff?text=Crest'">
+                <div>
+                    <span class="d-block fw-bold text-dark fs-4 leading-none" style="font-family: var(--font-serif); letter-spacing: -0.5px;">OLISTAR SCHOOL</span>
+                    <span class="school-motto-tag d-block mt-1">Good Foundation, Firm Building &bull; Est. 1987</span>
+                </div>
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
+                    <li class="nav-item"><a class="nav-link nav-link-harvard active" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link nav-link-harvard" href="about.html">About</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link nav-link-harvard dropdown-toggle" href="#" id="academicsDropdown" role="button" data-bs-toggle="dropdown">
+                            Academics
+                        </a>
+                        <ul class="dropdown-menu border-0 shadow rounded-0 mt-2">
+                            <li><a class="dropdown-item py-2 fw-semibold" href="primary.html">Primary Division</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="jhs.html">Junior High School (JHS)</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="shs-tech.html">Senior High & Technical</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link nav-link-harvard" href="gallery.html">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link nav-link-harvard" href="contact.html">Contact</a></li>
+                </ul>
+                <div class="ms-lg-4 mt-3 mt-lg-0">
+                    <a href="application.html" class="btn btn-dark px-4 py-2 rounded-0 text-uppercase fw-bold text-warning" style="font-size: 0.8rem; letter-spacing: 1px;">
+                        Apply Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Homepage Editorial Hero Banner with Sliding Background -->
+    <header class="py-5 text-white editorial-hero" id="heroSection">
+        <!-- Sliding Track -->
+        <div class="editorial-hero-slider" id="heroSlider">
+            <div class="editorial-hero-slide" style="background-image: url('assets/images/hero-campus.jpg');"></div>
+            <div class="editorial-hero-slide" style="background-image: url('assets/images/tvet-division.jpg');"></div>
+            <div class="editorial-hero-slide" style="background-image: url('assets/images/jhs-division.jpg');"></div>
+        </div>
+
+        <!-- Dark Overlay Layer -->
+        <div class="editorial-hero-overlay"></div>
+
+        <div class="container py-4 position-relative" style="z-index: 2;">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-7">
+                    <span class="text-uppercase fw-bold text-warning small" style="letter-spacing: 1.5px;">Sunyani Abesim &bull; Academic Excellence</span>
+                    <h1 class="font-serif fw-bold display-4 mt-2 mb-3">Building Character, Intellect, & Practical Skill</h1>
+                    <p class="lead text-white-50 mb-4">
+                        Providing holistic basic education, JHS academic rigor, and TVET technical mastery since 1987. Grounded in discipline, innovation, and community values.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="application.html" class="btn btn-warning rounded-0 px-4 py-3 text-uppercase fw-bold text-dark" style="font-size: 0.85rem; letter-spacing: 1px;">
+                            Start Admission Application <i class="bi bi-arrow-right ms-2"></i>
+                        </a>
+                        <a href="about.html" class="btn btn-outline-light rounded-0 px-4 py-3 text-uppercase fw-bold" style="font-size: 0.85rem; letter-spacing: 1px;">
+                            Explore Our Heritage
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <!-- Featured Founder Interactive Card -->
+                    <div class="tile-card p-3 shadow-lg bg-white text-dark">
+                        <div class="tile-img-container border border-dark" style="height: 320px;">
+                            <img src="assets\images\founder.jpg" alt="Campus Life" class="tile-img" onerror="this.src='https://placehold.co/600x500/821424/ffffff?text=Olistar+School+Campus'">
+                            <span class="badge bg-danger rounded-0 position-absolute top-0 end-0 m-3 fw-bold text-uppercase">Est. 1987</span>
+                        </div>
+                        <div class="pt-3 text-center">
+                            <h5 class="font-serif fw-bold mb-1 text-dark">Oliver Star-K. Baah</h5>
+                            <p class="small text-secondary mb-0">Founding Director & Visionary Pioneer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Arrows -->
+        <button class="hero-arrow prev" id="prevHeroBtn" aria-label="Previous Slide"><i class="bi bi-chevron-left"></i></button>
+        <button class="hero-arrow next" id="nextHeroBtn" aria-label="Next Slide"><i class="bi bi-chevron-right"></i></button>
+
+        <!-- Navigation Dots -->
+        <div class="hero-dots" id="heroDots"></div>
+    </header>
+
+    <!-- ACADEMIC DIVISIONS GRID -->
+    <section class="py-5 bg-white border-bottom border-2 border-dark">
+        <div class="container py-3">
+            <div class="text-center max-w-700 mx-auto mb-5">
+                <span class="category-tag text-uppercase fw-bold text-danger">Educational Pathways</span>
+                <h2 class="font-serif fw-bold text-dark display-6 mt-1">Our Academic & Technical Divisions</h2>
+                <div class="mx-auto mt-2" style="width: 80px; height: 3px; background-color: var(--olistar-gold);"></div>
+            </div>
+
+            <div class="row g-4">
+                <!-- Tile 1: Primary Division -->
+                <div class="col-md-6 col-lg-4">
+                    <a href="primary.html" class="text-decoration-none">
+                        <div class="tile-card shadow-sm h-100">
+                            <div class="tile-img-container" style="height: 220px;">
+                                <img src="assets/images/primary-division.jpg" alt="Primary School" class="tile-img" onerror="this.src='https://placehold.co/600x400/900C3F/ffffff?text=Primary+Division'">
+                                <span class="badge bg-danger text-white rounded-0 position-absolute top-0 end-0 m-2 fw-bold text-uppercase">Basic Education</span>
+                            </div>
+                            <div class="p-4">
+                                <h5 class="font-serif fw-bold text-dark mb-2">Primary Division</h5>
+                                <p class="small text-secondary mb-3">Foundational literacy, mathematics, science, and character development tailored for early childhood growth.</p>
+                                <span class="text-danger fw-bold small text-uppercase" style="letter-spacing: 0.5px;">Learn More <i class="bi bi-chevron-right ms-1"></i></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Tile 2: JHS Division -->
+                <div class="col-md-6 col-lg-4">
+                    <a href="jhs.html" class="text-decoration-none">
+                        <div class="tile-card shadow-sm h-100">
+                            <div class="tile-img-container" style="height: 220px;">
+                                <img src="assets/images/jhs-division.jpg" alt="Junior High School" class="tile-img" onerror="this.src='https://placehold.co/600x400/1E1E1E/ffffff?text=Junior+High+School'">
+                                <span class="badge bg-dark text-white rounded-0 position-absolute top-0 end-0 m-2 fw-bold text-uppercase">BECE Stream</span>
+                            </div>
+                            <div class="p-4">
+                                <h5 class="font-serif fw-bold text-dark mb-2">Junior High School (JHS)</h5>
+                                <p class="small text-secondary mb-3">Intensive academic prep, ICT literacy, and BECE examination mastery producing top percentile candidates.</p>
+                                <span class="text-danger fw-bold small text-uppercase" style="letter-spacing: 0.5px;">Learn More <i class="bi bi-chevron-right ms-1"></i></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Tile 3: Senior High & Technical -->
+                <div class="col-md-6 col-lg-4">
+                    <a href="shs-tech.html" class="text-decoration-none">
+                        <div class="tile-card shadow-sm h-100">
+                            <div class="tile-img-container" style="height: 220px;">
+                                <img src="assets/images/tvet-division.jpg" alt="Technical Workshops" class="tile-img" onerror="this.src='https://placehold.co/600x400/D4AF37/1E1E1E?text=Senior+High+%26+TVET'">
+                                <span class="badge bg-warning text-dark rounded-0 position-absolute top-0 end-0 m-2 fw-bold text-uppercase">TVET Vocational</span>
+                            </div>
+                            <div class="p-4">
+                                <h5 class="font-serif fw-bold text-dark mb-2">Senior High & Technical</h5>
+                                <p class="small text-secondary mb-3">Practical technical craft, electrical installations, mechanical work, and hands-on workshop training.</p>
+                                <span class="text-danger fw-bold small text-uppercase" style="letter-spacing: 0.5px;">Learn More <i class="bi bi-chevron-right ms-1"></i></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- KEY HIGHLIGHT STATS TILES -->
+    <section class="py-5" style="background-color: var(--olistar-light-bg);">
+        <div class="container py-2">
+            <div class="row g-4 text-center">
+                <div class="col-6 col-md-3">
+                    <div class="tile-card p-4">
+                        <h3 class="font-serif fw-bold text-danger display-5 mb-0">100%</h3>
+                        <p class="small text-secondary fw-bold text-uppercase mt-1 mb-0">BECE Pass Rate</p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="tile-card p-4">
+                        <h3 class="font-serif fw-bold text-warning display-5 mb-0">35+</h3>
+                        <p class="small text-secondary fw-bold text-uppercase mt-1 mb-0">Years of Service</p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="tile-card p-4">
+                        <h3 class="font-serif fw-bold text-dark display-5 mb-0">5</h3>
+                        <p class="small text-secondary fw-bold text-uppercase mt-1 mb-0">Technical Labs</p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="tile-card p-4">
+                        <h3 class="font-serif fw-bold text-danger display-5 mb-0">1000s</h3>
+                        <p class="small text-secondary fw-bold text-uppercase mt-1 mb-0">Alumni Worldwide</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+     LATEST NEWS & ANNOUNCEMENTS SECTION
+     ========================================== -->
+<section class="py-5 bg-light" id="latestNews">
+    <div class="container py-4">
+        <div class="d-flex justify-content-between align-items-end mb-4">
+            <div>
+                <span class="text-uppercase fw-bold text-primary small tracking-wider">Stay Updated</span>
+                <h2 class="h2 fw-bold text-dark mb-0">Latest News & Insights</h2>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <!-- News Card 1 -->
+            <div class="col-md-4">
+                <article class="card h-100 border-0 shadow-sm news-card">
+                    <img src="assets/images/news-1.jpg" class="card-img-top news-img" alt="BECE Performance">
+                    <div class="card-body p-4 d-flex flex-column">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <span class="badge bg-primary-soft text-primary px-2 py-1 rounded-1">Academics</span>
+                            <small class="text-muted"><i class="bi bi-calendar3 me-1"></i>Oct 24, 2026</small>
+                        </div>
+                        <h3 class="h5 card-title fw-bold text-dark mb-2">
+                            <a href="#" class="text-decoration-none text-dark hover-primary">BECE Examination Results Highlight Top Performance</a>
+                        </h3>
+                        <p class="card-text text-secondary small flex-grow-1">
+                            Our Junior High School graduating class recorded outstanding performance in national assessments...
+                        </p>
+                        <a href="#" class="fw-bold text-primary text-decoration-none small mt-3">Read Full Story <i class="bi bi-chevron-right ms-1"></i></a>
+                    </div>
+                </article>
+            </div>
+
+            <!-- News Card 2 -->
+            <div class="col-md-4">
+                <article class="card h-100 border-0 shadow-sm news-card">
+                    <img src="assets/images/news-2.jpg" class="card-img-top news-img" alt="TVET Workshop Upgrade">
+                    <div class="card-body p-4 d-flex flex-column">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <span class="badge bg-primary-soft text-primary px-2 py-1 rounded-1">Technical / TVET</span>
+                            <small class="text-muted"><i class="bi bi-calendar3 me-1"></i>Nov 02, 2026</small>
+                        </div>
+                        <h3 class="h5 card-title fw-bold text-dark mb-2">
+                            <a href="#" class="text-decoration-none text-dark hover-primary">New Electrical Workshop Equipment Commissioned</a>
+                        </h3>
+                        <p class="card-text text-secondary small flex-grow-1">
+                            State-of-the-art diagnostic kits and industrial machinery have been added to our technical wing...
+                        </p>
+                        <a href="#" class="fw-bold text-primary text-decoration-none small mt-3">Read Full Story <i class="bi bi-chevron-right ms-1"></i></a>
+                    </div>
+                </article>
+            </div>
+
+            <!-- News Card 3 -->
+            <div class="col-md-4">
+                <article class="card h-100 border-0 shadow-sm news-card">
+                    <img src="assets/images/news-3.jpg" class="card-img-top news-img" alt="Inter-House Sports">
+                    <div class="card-body p-4 d-flex flex-column">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <span class="badge bg-primary-soft text-primary px-2 py-1 rounded-1">Campus Life</span>
+                            <small class="text-muted"><i class="bi bi-calendar3 me-1"></i>Nov 15, 2026</small>
+                        </div>
+                        <h3 class="h5 card-title fw-bold text-dark mb-2">
+                            <a href="#" class="text-decoration-none text-dark hover-primary">Annual Inter-House Sports & Cultural Festival</a>
+                        </h3>
+                        <p class="card-text text-secondary small flex-grow-1">
+                            Students across Primary and JHS divisions showcased talents in athletics, cultural dance, and debate...
+                        </p>
+                        <a href="#" class="fw-bold text-primary text-decoration-none small mt-3">Read Full Story <i class="bi bi-chevron-right ms-1"></i></a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================
+     UPCOMING EVENTS SECTION (UNIFORM COLORS)
+     ========================================== -->
+<section class="py-5 bg-white" id="upcomingEvents">
+    <div class="container py-4">
+        <div class="row align-items-center mb-4">
+            <div class="col-md-8">
+                <span class="text-uppercase fw-bold text-primary small tracking-wider">Mark Your Calendar</span>
+                <h2 class="h2 fw-bold text-dark mb-0">Upcoming Campus Events</h2>
+            </div>
+            <div class="col-md-4 text-md-end">
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <!-- Event Item 1 -->
+            <div class="col-lg-6">
+                <div class="p-3 bg-white border rounded-3 shadow-sm d-flex align-items-center gap-3 event-card">
+                    <div class="event-date-badge text-center flex-shrink-0 px-3 py-2 rounded-2 bg-primary text-white">
+                        <span class="d-block h4 fw-bold mb-0 leading-none">28</span>
+                        <span class="text-uppercase small fw-semibold">Nov</span>
+                    </div>
+                    <div class="flex-grow-1">
+                        <div class="text-muted small mb-1"><i class="bi bi-clock me-1"></i> 9:00 AM - 2:00 PM &bull; Main Auditorium</div>
+                        <h4 class="h6 fw-bold text-dark mb-1">Open Day & Prospective Parents Orientation</h4>
+                        <p class="text-secondary small mb-0">Guided campus tours, faculty introductions, and admission consultations.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Event Item 2 -->
+            <div class="col-lg-6">
+                <div class="p-3 bg-white border rounded-3 shadow-sm d-flex align-items-center gap-3 event-card">
+                    <div class="event-date-badge text-center flex-shrink-0 px-3 py-2 rounded-2 bg-primary text-white">
+                        <span class="d-block h4 fw-bold mb-0 leading-none">05</span>
+                        <span class="text-uppercase small fw-semibold">Dec</span>
+                    </div>
+                    <div class="flex-grow-1">
+                        <div class="text-muted small mb-1"><i class="bi bi-clock me-1"></i> 10:00 AM - 4:00 PM &bull; Technical Wing</div>
+                        <h4 class="h6 fw-bold text-dark mb-1">TVET Practical Skills & Project Exhibition</h4>
+                        <p class="text-secondary small mb-0">Demonstrations by senior technical students in electronics and mechanics.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Event Item 3 -->
+            <div class="col-lg-6">
+                <div class="p-3 bg-white border rounded-3 shadow-sm d-flex align-items-center gap-3 event-card">
+                    <div class="event-date-badge text-center flex-shrink-0 px-3 py-2 rounded-2 bg-primary text-white">
+                        <span class="d-block h4 fw-bold mb-0 leading-none">12</span>
+                        <span class="text-uppercase small fw-semibold">Dec</span>
+                    </div>
+                    <div class="flex-grow-1">
+                        <div class="text-muted small mb-1"><i class="bi bi-clock me-1"></i> 2:00 PM - 5:00 PM &bull; School Field</div>
+                        <h4 class="h6 fw-bold text-dark mb-1">End of Term Thanksgiving & Carol Night</h4>
+                        <p class="text-secondary small mb-0">Join our school choir and brass band for an evening of musical celebration.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Event Item 4 -->
+            <div class="col-lg-6">
+                <div class="p-3 bg-white border rounded-3 shadow-sm d-flex align-items-center gap-3 event-card">
+                    <div class="event-date-badge text-center flex-shrink-0 px-3 py-2 rounded-2 bg-primary text-white">
+                        <span class="d-block h4 fw-bold mb-0 leading-none">15</span>
+                        <span class="text-uppercase small fw-semibold">Jan</span>
+                    </div>
+                    <div class="flex-grow-1">
+                        <div class="text-muted small mb-1"><i class="bi bi-clock me-1"></i> 8:00 AM &bull; All Campuses</div>
+                        <h4 class="h6 fw-bold text-dark mb-1">Resumption of Academic Term II</h4>
+                        <p class="text-secondary small mb-0">Classes commence for Primary, JHS, and Technical Division students.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================
+     FINAL CALL TO ACTION (CTA - UNIFORM COLORS)
+     ========================================== -->
+<section class="py-5 bg-primary text-white position-relative overflow-hidden" id="finalCTA">
+    <div class="container py-4 position-relative" style="z-index: 2;">
+        <div class="row align-items-center text-center text-lg-start">
+            <div class="col-lg-8 mb-4 mb-lg-0">
+                <span class="badge bg-white text-primary px-3 py-2 fw-bold text-uppercase mb-3">Admissions Open</span>
+                <h2 class="display-6 fw-bold text-white mb-2">Ready to Join the Olistar Family?</h2>
+                <p class="lead text-white-50 mb-0">Secure a place for your child in our Primary, JHS, or TVET Technical programs today.</p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <div class="d-flex flex-column flex-sm-row justify-content-lg-end gap-3">
+                    <a href="application.html" class="btn btn-light text-primary btn-lg fw-bold px-4 shadow-sm">Apply Now <i class="bi bi-pencil-square ms-1"></i></a>
+                    <a href="contact.html" class="btn btn-outline-light btn-lg px-4">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- FOOTER -->
+    <footer class="footer-harvard pt-5 pb-4">
+        <div class="container">
+            <div class="row g-4 mb-5">
+                <div class="col-lg-5">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="assets/images/logo.png" height="48" class="me-3" alt="Crest" onerror="this.style.display='none'">
+                        <div>
+                            <h5 class="fw-bold mb-0 text-white font-serif">OLISTAR SCHOOL</h5>
+                            <span class="text-warning small text-uppercase fw-semibold" style="letter-spacing: 1px;">Sunyani Abesim</span>
+                        </div>
+                    </div>
+                    <p class="text-secondary small pe-lg-4">
+                        A premier multi-tier educational institution providing foundation, junior high, and senior technical education committed to character, knowledge, and practical skill.
+                    </p>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h6 class="fw-bold text-uppercase mb-3 text-white">Navigation</h6>
+                    <ul class="list-unstyled small footer-links">
+                        <li class="mb-2"><a href="index.html">Home Page</a></li>
+                        <li class="mb-2"><a href="about.html">About Olistar</a></li>
+                        <li class="mb-2"><a href="gallery.html">Campus Gallery</a></li>
+                        <li class="mb-2"><a href="application.html">Admissions</a></li>
+                        <li class="mb-2"><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h6 class="fw-bold text-uppercase mb-3 text-white">Academics</h6>
+                    <ul class="list-unstyled small footer-links">
+                        <li class="mb-2"><a href="primary.html">Primary Stream</a></li>
+                        <li class="mb-2"><a href="jhs.html">JHS Stream</a></li>
+                        <li class="mb-2"><a href="shs-tech.html">SHS & Technical</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-4">
+                    <h6 class="fw-bold text-uppercase mb-3 text-white">Campus Address</h6>
+                    <p class="text-secondary small mb-1"><i class="bi bi-geo-alt-fill text-warning me-2"></i>Sunyani Abesim, Bono Region</p>
+                    <p class="text-secondary small mb-1"><i class="bi bi-telephone-fill text-warning me-2"></i>+233 (0) 00 000 0000</p>
+                    <p class="text-secondary small"><i class="bi bi-globe me-2 text-warning"></i>olistaredu.net</p>
+                </div>
+            </div>
+            <hr class="border-secondary opacity-25">
+            <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center text-secondary small">
+                <p class="mb-0">&copy; 2026 Olistar School. All Rights Reserved.</p>
+                <p class="mb-0 mt-2 mt-sm-0">Official Web Portal</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Hero Background Slider Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slider = document.getElementById('heroSlider');
+            const slides = document.querySelectorAll('.editorial-hero-slide');
+            const prevBtn = document.getElementById('prevHeroBtn');
+            const nextBtn = document.getElementById('nextHeroBtn');
+            const dotsContainer = document.getElementById('heroDots');
+            const heroSection = document.getElementById('heroSection');
+
+            let currentIndex = 0;
+            const totalSlides = slides.length;
+            let autoSlideTimer = null;
+
+            // Generate Navigation Dots
+            slides.forEach((_, index) => {
+                const dot = document.createElement('button');
+                dot.classList.add('hero-dot');
+                if (index === 0) dot.classList.add('active');
+                
+                dot.addEventListener('click', () => {
+                    goToSlide(index);
+                    resetTimer();
+                });
+
+                dotsContainer.appendChild(dot);
+            });
+
+            const dots = document.querySelectorAll('.hero-dot');
+
+            function goToSlide(index) {
+                if (index < 0) {
+                    currentIndex = totalSlides - 1;
+                } else if (index >= totalSlides) {
+                    currentIndex = 0;
+                } else {
+                    currentIndex = index;
+                }
+
+                // Move slider track
+                slider.style.transform = `translateX(-${currentIndex * 33.3333}%)`;
+
+                // Update active dots
+                dots.forEach((dot, idx) => {
+                    dot.classList.toggle('active', idx === currentIndex);
+                });
+            }
+
+            function nextSlide() { goToSlide(currentIndex + 1); }
+            function prevSlide() { goToSlide(currentIndex - 1); }
+
+            nextBtn.addEventListener('click', () => { nextSlide(); resetTimer(); });
+            prevBtn.addEventListener('click', () => { prevSlide(); resetTimer(); });
+
+            function startTimer() { autoSlideTimer = setInterval(nextSlide, 5000); }
+            function resetTimer() { clearInterval(autoSlideTimer); startTimer(); }
+
+            heroSection.addEventListener('mouseenter', () => clearInterval(autoSlideTimer));
+            heroSection.addEventListener('mouseleave', startTimer);
+
+            startTimer();
+        });
+    </script>
+</body>
+</html>
