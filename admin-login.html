@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olistar Admin Login</title>
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-light d-flex align-items-center" style="min-height: 100vh;">
+    <div class="container text-center max-w-sm">
+        <img src="assets/images/logo.png" height="60" class="mb-3">
+        <h1 class="h4 font-serif fw-bold mb-4">Admin Portal Access</h1>
+        <form id="loginForm" class="bg-white p-4 shadow-sm border border-dark rounded-0">
+            <div class="mb-3 text-start">
+                <label class="form-label small fw-semibold text-uppercase">Admin Email</label>
+                <input type="email" id="loginEmail" class="form-control rounded-0" required>
+            </div>
+            <div class="mb-3 text-start">
+                <label class="form-label small fw-semibold text-uppercase">Password</label>
+                <input type="password" id="loginPassword" class="form-control rounded-0" required>
+            </div>
+            <div id="loginError" class="alert alert-danger d-none rounded-0 small p-2" role="alert"></div>
+            <button type="submit" class="btn btn-dark w-100 rounded-0 text-warning text-uppercase fw-bold mt-2">Log In</button>
+        </form>
+        <p class="text-muted small mt-4">&copy; 2026 Olistar School</p>
+    </div>
+    <script type="module" src="js/admin-login.js"></script>
+</body>
+</html>

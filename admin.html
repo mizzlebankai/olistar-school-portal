@@ -69,6 +69,25 @@
             </div>
         </div>
     </div>
+    <!-- admin.html - Management Interface Structure -->
+<table class="table table-hover table-striped align-middle mb-0">
+    <thead class="table-dark text-uppercase small" style="letter-spacing: 0.5px;">
+        <tr>
+            <th scope="col" class="px-3"><input type="checkbox" id="selectAllApplications"></th>
+            <th scope="col">Date/Ref</th>
+            <th scope="col">Applicant</th>
+            <th scope="col">Educational Stream</th>
+            <th scope="col">Guardian</th>
+            <th scope="col">Documents</th>
+            <th scope="col">Status</th>
+            <th scope="col" class="px-3 text-end">Action</th>
+        </tr>
+    </thead>
+    <tbody id="applicationsTableBody">
+        <tr><td colspan="8" class="text-center py-5 text-muted">Awaiting connection to Olistar database...</td></tr>
+    </tbody>
+</table>
+<!-- ... modal definitions, e.g., for document preview or full applicant profile modal ... -->
 
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script type="module" src="js/admin.js"></script>
