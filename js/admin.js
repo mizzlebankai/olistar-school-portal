@@ -1,15 +1,23 @@
 // js/admin.js
 import { db } from "./firebase-config.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-// Added serverTimestamp to the imports below:
-import { collection, onSnapshot, doc, updateDoc, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { 
+    collection, 
+    onSnapshot, 
+    doc, 
+    updateDoc, 
+    query, 
+    orderBy, 
+    serverTimestamp 
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const auth = getAuth();
+let globalApplications = [];
 
-// --- PHASE 1: Authentication Gateway & Initialization ---
+// --- PHASE 1: Auth Guard ---
 onAuthStateChanged(auth, (user) => {
     if (!user) {
-        console.log("Unauthorized admin access detected. Redirecting to login.");
+        console.log("Unauthorized admin access. Redirecting to login...");
         window.location.href = 'admin-login.html';
     } else {
         console.log("Admin Authenticated:", user.email);
@@ -21,74 +29,134 @@ onAuthStateChanged(auth, (user) => {
     }
 });
 
-// Handling Logout Action
+// Logout Handler
 const logoutBtn = document.getElementById('logoutBtn');
 if (logoutBtn) {
     logoutBtn.addEventListener('click', () => {
         signOut(auth).then(() => {
-            console.log("Admin logged out successfully.");
-        }).catch((error) => {
-            console.error("Logout error:", error);
-            alert("Error logging out.");
+            console.log("Admin logged out.");
+        }).catch((err) => {
+            console.error("Logout error:", err);
+            alert("Logout failed.");
         });
     });
 }
 
-// --- PHASE 2: Dashboard Logic (Filtering & Real-Time Listener) ---
+// --- PHASE 2: Dashboard Real-time Listener & Controls ---
 
 function initializeDashboard() {
-    const tableBody = document.getElementById('applicationsTableBody');
     const statusFilter = document.getElementById('statusFilter');
-    let applicationsList = [];
+    const searchInput = document.getElementById('searchInput');
+    const exportCsvBtn = document.getElementById('exportCsvBtn');
 
     const q = query(collection(db, "applications"), orderBy("submittedAt", "desc"));
     
     onSnapshot(q, (snapshot) => {
-        applicationsList = snapshot.docs.map(docSnapshot => ({
-            id: docSnapshot.id,
-            ...docSnapshot.data()
+        globalApplications = snapshot.docs.map(docSnap => ({
+            id: docSnap.id,
+            ...docSnap.data()
         }));
         
-        console.log(`Loaded ${applicationsList.length} applications.`);
-        renderTable(applicationsList);
+        console.log(`Synced ${globalApplications.length} records.`);
+        
+        // Update Stats & Render Table
+        updateMetricCards(globalApplications);
+        applyFiltersAndRender();
     }, (error) => {
         console.error("Firestore Listener Error:", error);
-        tableBody.innerHTML = `<tr><td colspan="8" class="text-center py-4 text-danger">Error loading data. Check security rules.</td></tr>`;
+        const tableBody = document.getElementById('applicationsTableBody');
+        if (tableBody) {
+            tableBody.innerHTML = `<tr><td colspan="8" class="text-center py-4 text-danger">Error loading data. Verify security rules.</td></tr>`;
+        }
     });
 
-    if (statusFilter) {
-        statusFilter.addEventListener('change', () => {
-            renderTable(applicationsList);
-        });
-    }
+    if (statusFilter) statusFilter.addEventListener('change', applyFiltersAndRender);
+    if (searchInput) searchInput.addEventListener('input', applyFiltersAndRender);
+    if (exportCsvBtn) exportCsvBtn.addEventListener('click', exportToCSV);
 }
 
-// --- PHASE 3: Table Rendering ---
+// --- PHASE 3: Resilient Metrics Counter ---
+
+function updateMetricCards(apps) {
+    const totalEl = document.getElementById('statTotal');
+    const pendingEl = document.getElementById('statPending');
+    const interviewEl = document.getElementById('statInterview');
+    const approvedEl = document.getElementById('statApproved');
+    const rejectedEl = document.getElementById('statRejected');
+
+    if (!totalEl) return;
+
+    const counts = { total: apps.length, pending: 0, interview: 0, approved: 0, rejected: 0 };
+
+    apps.forEach(app => {
+        const status = (app.status || 'Pending').toLowerCase().trim();
+        if (status === 'pending') {
+            counts.pending++;
+        } else if (status.includes('interview')) {
+            counts.interview++;
+        } else if (status === 'approved') {
+            counts.approved++;
+        } else if (status === 'rejected') {
+            counts.rejected++;
+        } else {
+            counts.pending++;
+        }
+    });
+
+    console.log("Calculated Metric Counts:", counts);
+
+    totalEl.textContent = counts.total;
+    if (pendingEl) pendingEl.textContent = counts.pending;
+    if (interviewEl) interviewEl.textContent = counts.interview;
+    if (approvedEl) approvedEl.textContent = counts.approved;
+    if (rejectedEl) rejectedEl.textContent = counts.rejected;
+}
+
+// --- PHASE 4: Dual Filter & Render ---
+
+function applyFiltersAndRender() {
+    const statusFilter = document.getElementById('statusFilter');
+    const searchInput = document.getElementById('searchInput');
+
+    const selectedStatus = statusFilter ? statusFilter.value : 'All';
+    const searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : '';
+
+    const filtered = globalApplications.filter(app => {
+        const matchesStatus = (selectedStatus === 'All') || (app.status === selectedStatus);
+
+        const studentName = app.studentInfo?.fullName?.toLowerCase() || '';
+        const refCode = app.referenceCode?.toLowerCase() || '';
+        const guardianPhone = app.guardianInfo?.phone?.toLowerCase() || '';
+        const guardianName = app.guardianInfo?.fullName?.toLowerCase() || '';
+
+        const matchesSearch = !searchTerm || 
+            studentName.includes(searchTerm) || 
+            refCode.includes(searchTerm) || 
+            guardianPhone.includes(searchTerm) ||
+            guardianName.includes(searchTerm);
+
+        return matchesStatus && matchesSearch;
+    });
+
+    renderTable(filtered);
+}
 
 function renderTable(apps) {
     const tableBody = document.getElementById('applicationsTableBody');
-    const statusFilter = document.getElementById('statusFilter');
-    
-    if (!tableBody || !statusFilter) return;
+    if (!tableBody) return;
 
-    const selectedStatus = statusFilter.value;
-    
-    const filteredApps = selectedStatus === "All" 
-        ? apps 
-        : apps.filter(app => app.status === selectedStatus);
-
-    if (filteredApps.length === 0) {
+    if (apps.length === 0) {
         tableBody.innerHTML = `
             <tr>
                 <td colspan="8" class="text-center py-5 text-muted">
                     <i class="bi bi-inbox fs-2 d-block mb-2"></i>
-                    No applications found matching the criteria.
+                    No matching applications found.
                 </td>
             </tr>`;
         return;
     }
 
-    tableBody.innerHTML = filteredApps.map(app => {
+    tableBody.innerHTML = apps.map(app => {
         const studentName = app.studentInfo ? app.studentInfo.fullName : 'N/A';
         const dob = app.studentInfo ? app.studentInfo.dob : 'N/A';
         const guardianName = app.guardianInfo ? app.guardianInfo.fullName : 'N/A';
@@ -163,27 +231,54 @@ function renderTable(apps) {
     }).join('');
 }
 
-// --- PHASE 4: Inline Status Update ---
+// --- PHASE 5: Real-time Inline Status Update ---
 
 window.updateApplicationStatus = async (applicationId, newStatus) => {
-    console.log(`Attempting status update for ${applicationId} to ${newStatus}...`);
-
     try {
-        const applicationRef = doc(db, "applications", applicationId);
-
-        await updateDoc(applicationRef, {
+        const appRef = doc(db, "applications", applicationId);
+        await updateDoc(appRef, {
             status: newStatus,
             lastUpdated: serverTimestamp()
         });
-
-        console.log(`Firestore updated successfully for ${applicationId}.`);
+        console.log(`Status updated successfully for ${applicationId}`);
     } catch (error) {
         console.error("Firestore Update Error:", error);
-        
-        if (error.code === 'permission-denied') {
-            alert("Error updating status: Permission Denied. Ensure your Firestore Security Rules allow authenticated updates.");
-        } else {
-            alert(`Failed to update application status: ${error.message}`);
-        }
+        alert(`Failed to update status: ${error.message}`);
     }
 };
+
+// --- PHASE 6: Export Data to CSV ---
+
+function exportToCSV() {
+    if (globalApplications.length === 0) {
+        alert("No applications available to export.");
+        return;
+    }
+
+    const headers = ["Reference Code", "Student Name", "DOB", "Division", "Stream", "Boarding", "Guardian Name", "Guardian Phone", "Status", "Submitted At"];
+    
+    const rows = globalApplications.map(app => {
+        const subDate = app.submittedAt ? app.submittedAt.toDate().toISOString().split('T')[0] : '';
+        return [
+            `"${app.referenceCode || ''}"`,
+            `"${app.studentInfo?.fullName || ''}"`,
+            `"${app.studentInfo?.dob || ''}"`,
+            `"${app.academicDivision || ''}"`,
+            `"${app.programStream || ''}"`,
+            `"${app.boardingStatus || ''}"`,
+            `"${app.guardianInfo?.fullName || ''}"`,
+            `"${app.guardianInfo?.phone || ''}"`,
+            `"${app.status || 'Pending'}"`,
+            `"${subDate}"`
+        ].join(",");
+    });
+
+    const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows].join("\n");
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `olistar_admissions_${new Date().toISOString().split('T')[0]}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
