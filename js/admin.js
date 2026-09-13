@@ -5,7 +5,7 @@ import {
     onAuthStateChanged, 
     signOut, 
     setPersistence, 
-    inMemoryPersistence 
+    browserSessionPersistence 
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { 
     collection, 
@@ -20,15 +20,15 @@ import {
 const auth = getAuth();
 let globalApplications = [];
 
-// Enforce in-memory persistence to prevent automatic login recovery from past sessions
-setPersistence(auth, inMemoryPersistence).catch((err) => {
-    console.error("Failed to set in-memory persistence:", err);
+// Enforce session persistence on dashboard load
+setPersistence(auth, browserSessionPersistence).catch((err) => {
+    console.error("Failed to set session persistence:", err);
 });
 
-// --- PHASE 1: Auth Guard & Navigation ---
+// --- PHASE 1: Auth Guard ---
 onAuthStateChanged(auth, (user) => {
     if (!user) {
-        console.log("No active in-memory session. Redirecting to login...");
+        console.log("No active session found. Redirecting to login...");
         window.location.href = 'admin-login.html';
     } else {
         console.log("Admin Authenticated:", user.email);
