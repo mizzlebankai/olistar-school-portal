@@ -1,6 +1,12 @@
 // js/admin.js
 import { db } from "./firebase-config.js";
-import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { 
+    getAuth, 
+    onAuthStateChanged, 
+    signOut, 
+    setPersistence, 
+    inMemoryPersistence 
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { 
     collection, 
     onSnapshot, 
@@ -14,10 +20,15 @@ import {
 const auth = getAuth();
 let globalApplications = [];
 
-// --- PHASE 1: Auth Guard ---
+// Enforce in-memory persistence to prevent automatic login recovery from past sessions
+setPersistence(auth, inMemoryPersistence).catch((err) => {
+    console.error("Failed to set in-memory persistence:", err);
+});
+
+// --- PHASE 1: Auth Guard & Navigation ---
 onAuthStateChanged(auth, (user) => {
     if (!user) {
-        console.log("Unauthorized admin access. Redirecting to login...");
+        console.log("No active in-memory session. Redirecting to login...");
         window.location.href = 'admin-login.html';
     } else {
         console.log("Admin Authenticated:", user.email);
@@ -29,12 +40,13 @@ onAuthStateChanged(auth, (user) => {
     }
 });
 
-// Logout Handler
+// Logout Action Handler
 const logoutBtn = document.getElementById('logoutBtn');
 if (logoutBtn) {
     logoutBtn.addEventListener('click', () => {
         signOut(auth).then(() => {
             console.log("Admin logged out.");
+            window.location.href = 'admin-login.html';
         }).catch((err) => {
             console.error("Logout error:", err);
             alert("Logout failed.");
@@ -112,7 +124,7 @@ function updateMetricCards(apps) {
     if (rejectedEl) rejectedEl.textContent = counts.rejected;
 }
 
-// --- PHASE 4: Dual Filter & Render ---
+// --- PHASE 4: Dual Filter (Status + Text Search) & Rendering ---
 
 function applyFiltersAndRender() {
     const statusFilter = document.getElementById('statusFilter');
