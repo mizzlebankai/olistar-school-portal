@@ -25,28 +25,28 @@
             <div class="d-flex align-items-center gap-3">
                 <span><i class="bi bi-geo-alt-fill text-warning me-1"></i> Sunyani Abesim, Ghana</span>
                 <span class="text-secondary">|</span>
-                <span><i class="bi bi-telephone-fill text-warning me-1"></i> +233 (0) 00 000 0000</span>
+                <span><i class="bi bi-telephone-fill text-warning me-1"></i> +233 (0) 24 000 0000</span>
             </div>
             <div class="d-flex gap-3 text-uppercase fw-semibold" style="font-size: 0.75rem; letter-spacing: 0.5px;">
                 <a href="application.html" class="text-warning">Admissions Portal</a>
-                <a href="shs-tech.html">Technical Programs</a>
-                <a href="contact.html">Portals & Contact</a>
+                <a href="shs-tech.html" class="text-white text-decoration-none">Technical Programs</a>
+                <a href="contact.html" class="text-white text-decoration-none">Portals &amp; Contact</a>
             </div>
         </div>
     </div>
 
     <!-- Main Institutional Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-harvard sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-harvard sticky-top bg-white border-bottom">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="index.html">
                 <img src="assets/images/logo.png" alt="Olistar School Crest" height="52" class="me-3" onerror="this.src='https://placehold.co/100x100/900C3F/ffffff?text=Crest'">
                 <div>
-                    <span class="d-block fw-bold text-dark fs-4 leading-none" style="font-family: var(--font-serif); letter-spacing: -0.5px;">OLISTAR SCHOOL</span>
-                    <span class="school-motto-tag d-block mt-1">Good Foundation, Firm Building &bull; Est. 1987</span>
+                    <span class="d-block fw-bold text-dark fs-4 leading-none" style="font-family: var(--font-serif, serif); letter-spacing: -0.5px;">OLISTAR SCHOOL</span>
+                    <span class="school-motto-tag d-block mt-1 text-muted small">Good Foundation, Firm Building &bull; Est. 1987</span>
                 </div>
             </a>
 
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -55,14 +55,14 @@
                     <li class="nav-item"><a class="nav-link nav-link-harvard" href="index.html">Home</a></li>
                     <li class="nav-item"><a class="nav-link nav-link-harvard" href="about.html">About</a></li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link nav-link-harvard dropdown-toggle" href="#" id="academicsDropdown" role="button" data-bs-toggle="dropdown">
+                        <a class="nav-link nav-link-harvard dropdown-toggle" href="#" id="academicsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Academics
                         </a>
-                        <ul class="dropdown-menu border-0 shadow rounded-0 mt-2">
+                        <ul class="dropdown-menu border-0 shadow rounded-0 mt-2" aria-labelledby="academicsDropdown">
                             <li><a class="dropdown-item py-2 fw-semibold" href="primary.html">Primary Division</a></li>
                             <li><a class="dropdown-item py-2 fw-semibold" href="jhs.html">Junior High School (JHS)</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item py-2 fw-semibold" href="shs-tech.html">Senior High & Technical</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="shs-tech.html">Senior High &amp; Technical</a></li>
                         </ul>
                     </li>
                     <li class="nav-item"><a class="nav-link nav-link-harvard" href="contact.html">Contact</a></li>
@@ -77,14 +77,14 @@
     </nav>
 
     <!-- Editorial Header Banner -->
-    <header class="py-5 text-white" style="background-color: var(--olistar-crimson); border-bottom: 4px solid var(--olistar-gold);">
+    <header class="py-5 text-white" style="background-color: var(--olistar-crimson, #900C3F); border-bottom: 4px solid var(--olistar-gold, #FFC107);">
         <div class="container py-2">
             <div class="row">
                 <div class="col-lg-8">
                     <span class="text-uppercase fw-bold text-warning small" style="letter-spacing: 1.5px;">Office of Admissions</span>
                     <h1 class="font-serif fw-bold display-5 mt-2 mb-3">Online Application Portal</h1>
                     <p class="lead mb-0 text-white-50 fs-6">
-                        Complete your application for Primary, Junior High School (JHS), or Senior High & Technical (TVET) streams for the 2026/2027 Academic Year.
+                        Complete your application for Primary, Junior High School (JHS), or Senior High &amp; Technical (TVET) streams for the 2026/2027 Academic Year.
                     </p>
                 </div>
             </div>
@@ -92,21 +92,27 @@
     </header>
 
     <!-- Application Form & Guidelines Section -->
-    <section class="py-5" style="background-color: var(--olistar-light-bg);">
+    <section class="py-5" style="background-color: var(--olistar-light-bg, #f8f9fa);">
         <div class="container py-3">
             <div class="row g-5">
 
                 <!-- Form Area -->
                 <div class="col-lg-8">
-                    <form id="admissionsForm" class="bg-white p-4 p-md-5 border border-2 border-dark shadow-sm">
+                    <!-- Submission Alert Container -->
+                    <div id="formAlert" class="d-none alert alert-dismissible fade show rounded-0 mb-4" role="alert">
+                        <span id="formAlertMessage"></span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+
+                    <form id="admissionsForm" class="bg-white p-4 p-md-5 border border-2 border-dark shadow-sm" novalidate>
                         
                         <!-- Form Section 1: Academic Pathway Selection -->
                         <div class="mb-5">
                             <div class="d-flex align-items-center mb-3 pb-2 border-bottom border-2 border-danger">
                                 <span class="badge bg-danger rounded-0 me-2 px-3 py-2 fs-6">1</span>
-                                <h3 class="font-serif fw-bold text-dark mb-0 fs-4">Academic Division & Stream Choice</h3>
+                                <h3 class="font-serif fw-bold text-dark mb-0 fs-4">Academic Division &amp; Stream Choice</h3>
                             </div>
-                            <p class="text-secondary small mb-4">Select the intended tier of enrollment and target specialized stream.</p>
+                            <p class="text-secondary small mb-4">Select the intended tier of enrollment to automatically filter available programs.</p>
 
                             <div class="row g-3">
                                 <div class="col-md-6">
@@ -116,34 +122,39 @@
                                         <option value="primary">Primary Division (Class 1 – 6)</option>
                                         <option value="jhs">Junior High School (JHS 1 – 3 / BECE)</option>
                                         <option value="shs-academic">Senior High School - Academic (WASSCE)</option>
-                                        <option value="shs-technical">Senior High & Technical (CTVET / NVTI)</option>
+                                        <option value="shs-technical">Senior High &amp; Technical (CTVET / NVTI)</option>
                                     </select>
+                                    <div class="invalid-feedback">Please select a target division.</div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <label for="programStream" class="form-label fw-bold small text-uppercase">Program / Specialization <span class="text-danger">*</span></label>
-                                    <select class="form-select rounded-0 border-dark" id="programStream" required>
+                                    <select class="form-select rounded-0 border-dark" id="programStream" required disabled>
                                         <option value="" selected disabled>Select Division First...</option>
-                                        <optgroup label="Primary Division">
+                                        <optgroup label="Primary Division" data-tier="primary">
                                             <option value="primary-lower">Lower Primary (Class 1 - 3)</option>
                                             <option value="primary-upper">Upper Primary (Class 4 - 6)</option>
                                         </optgroup>
-                                        <optgroup label="Junior High School">
+                                        <optgroup label="Junior High School" data-tier="jhs">
                                             <option value="jhs-general">JHS BECE Preparatory Program</option>
                                         </optgroup>
-                                        <optgroup label="Senior High & Technical Pathways">
-                                            <option value="tech-ict">ICT & Software Fundamentals</option>
-                                            <option value="tech-building">Building Construction Technology</option>
-                                            <option value="tech-catering">Catering & Home Economics</option>
+                                        <optgroup label="Senior High School - Academic" data-tier="shs-academic">
                                             <option value="shs-general-arts">General Arts</option>
                                             <option value="shs-business">Business Studies</option>
                                         </optgroup>
+                                        <optgroup label="Senior High &amp; Technical Pathways" data-tier="shs-technical">
+                                            <option value="tech-ict">ICT &amp; Software Fundamentals</option>
+                                            <option value="tech-building">Building Construction Technology</option>
+                                            <option value="tech-catering">Catering &amp; Home Economics</option>
+                                        </optgroup>
                                     </select>
+                                    <div class="invalid-feedback">Please select a specialization program.</div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <label for="entryLevel" class="form-label fw-bold small text-uppercase">Entry Level / Grade <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control rounded-0 border-dark" id="entryLevel" placeholder="e.g., JHS 1, Form 1, Class 3" required>
+                                    <div class="invalid-feedback">Please specify the entry level or grade.</div>
                                 </div>
 
                                 <div class="col-md-6">
@@ -152,6 +163,7 @@
                                         <option value="day" selected>Day Student</option>
                                         <option value="boarding">Boarding Student</option>
                                     </select>
+                                    <div class="invalid-feedback">Please select an enrollment status.</div>
                                 </div>
                             </div>
                         </div>
@@ -167,6 +179,7 @@
                                 <div class="col-md-4">
                                     <label for="firstName" class="form-label fw-bold small text-uppercase">First Name <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control rounded-0 border-dark" id="firstName" required>
+                                    <div class="invalid-feedback">First name is required.</div>
                                 </div>
                                 <div class="col-md-4">
                                     <label for="middleName" class="form-label fw-bold small text-uppercase">Middle Name(s)</label>
@@ -175,11 +188,13 @@
                                 <div class="col-md-4">
                                     <label for="lastName" class="form-label fw-bold small text-uppercase">Surname / Last Name <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control rounded-0 border-dark" id="lastName" required>
+                                    <div class="invalid-feedback">Surname is required.</div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <label for="dob" class="form-label fw-bold small text-uppercase">Date of Birth <span class="text-danger">*</span></label>
                                     <input type="date" class="form-control rounded-0 border-dark" id="dob" required>
+                                    <div class="invalid-feedback">Please enter a valid date of birth.</div>
                                 </div>
                                 <div class="col-md-4">
                                     <label for="gender" class="form-label fw-bold small text-uppercase">Gender <span class="text-danger">*</span></label>
@@ -188,15 +203,18 @@
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
                                     </select>
+                                    <div class="invalid-feedback">Please select gender.</div>
                                 </div>
                                 <div class="col-md-4">
                                     <label for="nationality" class="form-label fw-bold small text-uppercase">Nationality <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control rounded-0 border-dark" id="nationality" value="Ghanaian" required>
+                                    <div class="invalid-feedback">Nationality is required.</div>
                                 </div>
 
                                 <div class="col-12">
-                                    <label for="prevSchool" class="form-label fw-bold small text-uppercase">Previous School Attended & Location <span class="text-danger">*</span></label>
+                                    <label for="prevSchool" class="form-label fw-bold small text-uppercase">Previous School Attended &amp; Location <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control rounded-0 border-dark" id="prevSchool" placeholder="School Name, City/Town" required>
+                                    <div class="invalid-feedback">Please detail previous school and location.</div>
                                 </div>
                             </div>
                         </div>
@@ -212,24 +230,29 @@
                                 <div class="col-md-6">
                                     <label for="guardianName" class="form-label fw-bold small text-uppercase">Full Name of Parent/Guardian <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control rounded-0 border-dark" id="guardianName" required>
+                                    <div class="invalid-feedback">Guardian name is required.</div>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="relationship" class="form-label fw-bold small text-uppercase">Relationship to Student <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control rounded-0 border-dark" id="relationship" placeholder="e.g., Father, Mother, Guardian" required>
+                                    <div class="invalid-feedback">Relationship is required.</div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <label for="guardianPhone" class="form-label fw-bold small text-uppercase">Primary Phone Number <span class="text-danger">*</span></label>
-                                    <input type="tel" class="form-control rounded-0 border-dark" id="guardianPhone" placeholder="+233 xx xxx xxxx" required>
+                                    <input type="tel" class="form-control rounded-0 border-dark" id="guardianPhone" placeholder="+233 xx xxx xxxx" pattern="^(\+?233|0)[0-9]{9}$" required>
+                                    <div class="invalid-feedback">Valid Ghanaian phone number is required (e.g., 024XXXXXXX or +23324XXXXXXX).</div>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="guardianEmail" class="form-label fw-bold small text-uppercase">Email Address</label>
                                     <input type="email" class="form-control rounded-0 border-dark" id="guardianEmail" placeholder="guardian@example.com">
+                                    <div class="invalid-feedback">Please enter a valid email address.</div>
                                 </div>
 
                                 <div class="col-12">
                                     <label for="residentialAddress" class="form-label fw-bold small text-uppercase">Residential Address / Digital Address (GhanaPost GPS) <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control rounded-0 border-dark" id="residentialAddress" placeholder="House No / Street / Landmark, Sunyani or Region" required>
+                                    <div class="invalid-feedback">Residential address is required.</div>
                                 </div>
                             </div>
                         </div>
@@ -238,18 +261,18 @@
                         <div class="mb-4">
                             <div class="d-flex align-items-center mb-3 pb-2 border-bottom border-2 border-danger">
                                 <span class="badge bg-danger rounded-0 me-2 px-3 py-2 fs-6">4</span>
-                                <h3 class="font-serif fw-bold text-dark mb-0 fs-4">Supporting Documents & Declaration</h3>
+                                <h3 class="font-serif fw-bold text-dark mb-0 fs-4">Supporting Documents &amp; Declaration</h3>
                             </div>
 
                             <div class="row g-3 mb-4">
                                 <div class="col-md-6">
                                     <label for="docResult" class="form-label fw-bold small text-uppercase">Previous Report Card / BECE Results Slip</label>
-                                    <input class="form-control rounded-0 border-dark" type="file" id="docResult" accept=".pdf,.png,.jpg,.jpeg">
+                                    <input class="form-control rounded-0 border-dark file-input-limit" type="file" id="docResult" accept=".pdf,.png,.jpg,.jpeg">
                                     <span class="text-muted" style="font-size: 0.75rem;">PDF, PNG, or JPG (Max 5MB)</span>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="docBirth" class="form-label fw-bold small text-uppercase">Birth Certificate / ID Copy</label>
-                                    <input class="form-control rounded-0 border-dark" type="file" id="docBirth" accept=".pdf,.png,.jpg,.jpeg">
+                                    <input class="form-control rounded-0 border-dark file-input-limit" type="file" id="docBirth" accept=".pdf,.png,.jpg,.jpeg">
                                     <span class="text-muted" style="font-size: 0.75rem;">PDF, PNG, or JPG (Max 5MB)</span>
                                 </div>
                             </div>
@@ -260,10 +283,11 @@
                                     <label class="form-check-label small text-secondary" for="declarationCheck">
                                         I hereby declare that all information submitted in this application form is authentic and accurate. I understand that falsification of academic records or identity will lead to immediate revocation of admission at Olistar School.
                                     </label>
+                                    <div class="invalid-feedback">You must agree to the declaration before submitting.</div>
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-danger w-100 rounded-0 py-3 text-uppercase fw-bold text-white fs-6" style="background-color: var(--olistar-crimson); border: none; letter-spacing: 1.5px;">
+                            <button type="submit" id="submitBtn" class="btn btn-danger w-100 rounded-0 py-3 text-uppercase fw-bold text-white fs-6" style="background-color: var(--olistar-crimson, #900C3F); border: none; letter-spacing: 1.5px;">
                                 Submit Formal Application <i class="bi bi-arrow-right ms-2"></i>
                             </button>
                         </div>
@@ -288,14 +312,14 @@
                         </div>
 
                         <div class="mb-4">
-                            <h6 class="fw-bold text-dark mb-1"><i class="bi bi-3-square-fill text-danger me-2"></i>Interview & Assessment</h6>
+                            <h6 class="fw-bold text-dark mb-1"><i class="bi bi-3-square-fill text-danger me-2"></i>Interview &amp; Assessment</h6>
                             <p class="small text-secondary mb-0">Shortlisted candidates for JHS and Technical streams complete a brief entrance assessment and family interview.</p>
                         </div>
 
                         <div class="p-3 bg-light border-start border-4 border-warning">
                             <span class="fw-bold text-dark d-block small">Need Immediate Assistance?</span>
                             <span class="small text-secondary d-block">Call Admissions Desk:</span>
-                            <span class="fw-bold text-danger small">+233 (0) 00 000 0000</span>
+                            <span class="fw-bold text-danger small">+233 (0) 24 000 0000</span>
                         </div>
                     </div>
 
@@ -317,7 +341,7 @@
                             </li>
                             <li class="mb-2 d-flex align-items-start">
                                 <i class="bi bi-check-circle-fill text-danger me-2 mt-1"></i>
-                                <span>BECE Certificate or Result Slip (JHS & Technical Applicants)</span>
+                                <span>BECE Certificate or Result Slip (JHS &amp; Technical Applicants)</span>
                             </li>
                         </ul>
                     </div>
@@ -328,7 +352,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="footer-harvard pt-5 pb-4">
+    <footer class="footer-harvard bg-dark text-white pt-5 pb-4">
         <div class="container">
             <div class="row g-4 mb-5">
                 <div class="col-lg-5">
@@ -347,26 +371,26 @@
                 <div class="col-lg-2 col-md-4">
                     <h6 class="fw-bold text-uppercase mb-3">Navigation</h6>
                     <ul class="list-unstyled small">
-                        <li class="mb-2"><a href="index.html">Home Page</a></li>
-                        <li class="mb-2"><a href="about.html">About Olistar</a></li>
-                        <li class="mb-2"><a href="application.html">Admissions</a></li>
-                        <li class="mb-2"><a href="contact.html">Contact Us</a></li>
+                        <li class="mb-2"><a href="index.html" class="text-secondary text-decoration-none">Home Page</a></li>
+                        <li class="mb-2"><a href="about.html" class="text-secondary text-decoration-none">About Olistar</a></li>
+                        <li class="mb-2"><a href="application.html" class="text-secondary text-decoration-none">Admissions</a></li>
+                        <li class="mb-2"><a href="contact.html" class="text-secondary text-decoration-none">Contact Us</a></li>
                     </ul>
                 </div>
 
                 <div class="col-lg-2 col-md-4">
                     <h6 class="fw-bold text-uppercase mb-3">Academics</h6>
                     <ul class="list-unstyled small">
-                        <li class="mb-2"><a href="primary.html">Primary Stream</a></li>
-                        <li class="mb-2"><a href="jhs.html">JHS Stream</a></li>
-                        <li class="mb-2"><a href="shs-tech.html">SHS & Technical</a></li>
+                        <li class="mb-2"><a href="primary.html" class="text-secondary text-decoration-none">Primary Stream</a></li>
+                        <li class="mb-2"><a href="jhs.html" class="text-secondary text-decoration-none">JHS Stream</a></li>
+                        <li class="mb-2"><a href="shs-tech.html" class="text-secondary text-decoration-none">SHS &amp; Technical</a></li>
                     </ul>
                 </div>
 
                 <div class="col-lg-3 col-md-4">
                     <h6 class="fw-bold text-uppercase mb-3">Campus Address</h6>
                     <p class="text-secondary small mb-1"><i class="bi bi-geo-alt-fill text-warning me-2"></i>Sunyani Abesim, Bono Region</p>
-                    <p class="text-secondary small mb-1"><i class="bi bi-telephone-fill text-warning me-2"></i>+233 (0) 00 000 0000</p>
+                    <p class="text-secondary small mb-1"><i class="bi bi-telephone-fill text-warning me-2"></i>+233 (0) 24 000 0000</p>
                     <p class="text-secondary small"><i class="bi bi-globe me-2 text-warning"></i>olistaredu.net</p>
                 </div>
             </div>
@@ -381,6 +405,100 @@
 
     <!-- Local Bootstrap 5 JS Bundle -->
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Application Logic Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Dynamic Year Update
+            const yearElem = document.getElementById('current-year');
+            if (yearElem) yearElem.textContent = new Date().getFullYear();
+
+            // 2. Set Max Date for Date of Birth (Prevents future dates)
+            const dobInput = document.getElementById('dob');
+            if (dobInput) {
+                const today = new Date().toISOString().split('T')[0];
+                dobInput.setAttribute('max', today);
+            }
+
+            // 3. Dynamic Filtering: Educational Division -> Program / Specialization
+            const academicTierSelect = document.getElementById('academicTier');
+            const programStreamSelect = document.getElementById('programStream');
+            const optgroups = Array.from(programStreamSelect.querySelectorAll('optgroup'));
+
+            academicTierSelect.addEventListener('change', function () {
+                const selectedTier = this.value;
+
+                // Reset stream selection
+                programStreamSelect.value = '';
+                programStreamSelect.disabled = false;
+
+                // Hide/show relevant optgroups based on data-tier attribute
+                optgroups.forEach(group => {
+                    if (group.getAttribute('data-tier') === selectedTier) {
+                        group.hidden = false;
+                        group.disabled = false;
+                    } else {
+                        group.hidden = true;
+                        group.disabled = true;
+                    }
+                });
+            });
+
+            // 4. Client-side File Size Validation (Max 5MB)
+            const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
+            const fileInputs = document.querySelectorAll('.file-input-limit');
+
+            fileInputs.forEach(input => {
+                input.addEventListener('change', function () {
+                    if (this.files[0] && this.files[0].size > MAX_FILE_SIZE) {
+                        alert(`File "${this.files[0].name}" exceeds the 5MB size limit. Please upload a smaller file.`);
+                        this.value = ''; // Reset input
+                    }
+                });
+            });
+
+            // 5. Form Validation & Submission Handling
+            const form = document.getElementById('admissionsForm');
+            const alertBox = document.getElementById('formAlert');
+            const alertMsg = document.getElementById('formAlertMessage');
+
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                if (!form.checkValidity()) {
+                    form.classList.add('was-validated');
+                    alertBox.className = 'alert alert-danger alert-dismissible fade show rounded-0 mb-4';
+                    alertMsg.textContent = 'Please fill out all required fields correctly before submitting.';
+                    alertBox.classList.remove('d-none');
+                    alertBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    return;
+                }
+
+                form.classList.add('was-validated');
+                
+                // Simulate Successful Submission
+                const submitBtn = document.getElementById('submitBtn');
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Submitting Application...';
+
+                setTimeout(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = 'Submit Formal Application <i class="bi bi-arrow-right ms-2"></i>';
+                    
+                    alertBox.className = 'alert alert-success alert-dismissible fade show rounded-0 mb-4';
+                    alertMsg.innerHTML = '<strong>Application Submitted Successfully!</strong> Your reference code is <strong>OLIST-' + Math.floor(100000 + Math.random() * 900000) + '</strong>. Our admissions team will contact you shortly.';
+                    alertBox.classList.remove('d-none');
+                    
+                    form.reset();
+                    form.classList.remove('was-validated');
+                    programStreamSelect.disabled = true;
+                    alertBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 1500);
+            });
+        });
+    </script>
+    
     <!-- Custom JS -->
     <script src="js/main.js"></script>
 </body>
