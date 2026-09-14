@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposal_Olistar_Educational_Complex</title>
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --accent-color: #d69e2e;
+            --text-color: #2d3748;
+            --bg-light: #f7fafc;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px;
+            background-color: #f0f2f5;
+        }
+
+        .page {
+            background: #ffffff;
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 50px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-top: 6px solid var(--primary-color);
+        }
+
+        .no-print-bar {
+            max-width: 850px;
+            margin: 0 auto 20px auto;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .btn-print {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+        }
+
+        .btn-print:hover {
+            background-color: #2b6cb0;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .header-title h1 {
+            color: var(--primary-color);
+            font-size: 22px;
+            margin: 0 0 5px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .header-title p {
+            margin: 0;
+            font-size: 13px;
+            color: #718096;
+            font-weight: 600;
+        }
+
+        .meta-box {
+            text-align: right;
+            font-size: 13px;
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 5px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 13.5px;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: left;
+            padding: 10px 12px;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: top;
+        }
+
+        tr:nth-child(even) td {
+            background-color: var(--bg-light);
+        }
+
+        .total-row td {
+            font-weight: bold;
+            background-color: #edf2f7 !important;
+            color: var(--primary-color);
+            font-size: 14px;
+        }
+
+        ul {
+            margin: 0;
+            padding-left: 20px;
+            font-size: 13.5px;
+        }
+
+        li {
+            margin-bottom: 6px;
+        }
+
+        .signatures {
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-between;
+            page-break-inside: avoid;
+        }
+
+        .sig-block {
+            width: 45%;
+            font-size: 13px;
+        }
+
+        .sig-line {
+            border-top: 1px solid #a0aec0;
+            margin-top: 40px;
+            padding-top: 5px;
+            font-weight: bold;
+        }
+
+        @media print {
+            body {
+                background: none;
+                padding: 0;
+            }
+            .page {
+                box-shadow: none;
+                padding: 0;
+                max-width: 100%;
+            }
+            .no-print-bar {
+                display: none;
+            }
+            @page {
+                margin: 1.5cm;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="no-print-bar">
+        <button class="btn-print" onclick="window.print()">Print / Save as PDF</button>
+    </div>
+
+    <div class="page">
+        <div class="header">
+            <div class="header-title">
+                <h1>Statement of Proposal</h1>
+                <p>Managed Web Infrastructure & Online Admissions Portal</p>
+            </div>
+            <div class="meta-box">
+                <strong>Date:</strong> September 14, 2026<br>
+                <strong>Ref Code:</strong> OLI-PROP-2026-V2<br>
+                <strong>Billing Cycle:</strong> Annual (Year 1)
+            </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 25px;">
+            <div>
+                <strong style="color: var(--primary-color);">PREPARED FOR:</strong><br>
+                The Management & Admissions Board<br>
+                Olistar Educational Complex<br>
+                Sunyani Abesim, Bono Region, Ghana
+            </div>
+            <div>
+                <strong style="color: var(--primary-color);">PREPARED BY:</strong><br>
+                AMAKYE-DANSO GODSON<br>
+                Lead Systems Consultant & Web Developer<br>
+                Sunyani Abesim, Ghana
+            </div>
+        </div>
+
+        <div class="section-title">1. Executive Summary</div>
+        <p style="font-size: 13.5px; margin: 0 0 15px 0;">
+            This proposal outlines the deployment and annual cloud infrastructure requirements for the official <strong>Olistar Educational Complex Web Portal & Online Admissions System</strong>. While the complete frontend user interface, customized administrative portal, automated application generator, and database architecture development labor are provided <strong>free of service charge ($0.00)</strong>, this statement covers the essential managed server, domain, security, and search engine infrastructure needed to operate the system reliably 24/7.
+        </p>
+
+        <div class="section-title">2. Infrastructure Cost Breakdown</div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 8%;">No.</th>
+                    <th style="width: 52%;">Service Description & Scope</th>
+                    <th style="width: 20%;">Annual (USD)</th>
+                    <th style="width: 20%;">Annual (GHS)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1.0</td>
+                    <td><strong>Custom Domain Name Registration & Reservation</strong><br><small>Annual acquisition and DNS routing for institutional identity (e.g., <code>olistar.edu.gh</code> or <code>olistaredu.com</code>).</small></td>
+                    <td>$20.00</td>
+                    <td>GH₵ 310.00</td>
+                </tr>
+                <tr>
+                    <td>2.0</td>
+                    <td><strong>High-Performance Managed Cloud Hosting</strong><br><small>Deployment on Global Content Delivery Network (CDN) with 99.9% uptime guarantee and high-speed delivery across Ghana.</small></td>
+                    <td>$90.00</td>
+                    <td>GH₵ 1,395.00</td>
+                </tr>
+                <tr>
+                    <td>3.0</td>
+                    <td><strong>Cloud Database Operations & Authentication</strong><br><small>Secure Firestore database storage for student applications, reference tracking, and administrative access controls.</small></td>
+                    <td>$40.00</td>
+                    <td>GH₵ 620.00</td>
+                </tr>
+                <tr>
+                    <td>4.0</td>
+                    <td><strong>SSL Security Certificate (HTTPS)</strong><br><small>End-to-end data encryption for student application forms to guarantee privacy and security.</small></td>
+                    <td>Included ($0)</td>
+                    <td>Included (GH₵ 0)</td>
+                </tr>
+                <tr>
+                    <td>5.0</td>
+                    <td><strong>Search Engine Indexing & Local SEO Setup</strong><br><small>Configuration of Google Search Console, site map submissions, and integration with Google Business Profile for local visibility in Sunyani Abesim.</small></td>
+                    <td>$6.50</td>
+                    <td>GH₵ 100.00</td>
+                </tr>
+                <tr>
+                    <td>6.0</td>
+                    <td><strong>PDF Engine & Administrative Portal Support</strong><br><small>Maintenance of automated application summary receipt generator and admin portal troubleshooting.</small></td>
+                    <td>$30.00</td>
+                    <td>GH₵ 465.00</td>
+                </tr>
+                <tr class="total-row">
+                    <td colspan="2" style="text-align: right;">TOTAL ANNUAL INFRASTRUCTURE PACKAGE:</td>
+                    <td>$186.50</td>
+                    <td>GH₵ 2,890.00</td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="font-size: 11px; color: #718096; margin-top: -10px;">*Ghanaian Cedi (GHS) values are estimated at current standard conversion rates (1 USD = 15.5 GHS).</p>
+
+        <div class="section-title">3. Domain Strategy Options</div>
+        <ul>
+            <li><strong>Option A (Recommended): <code>olistar.edu.gh</code></strong> – Requires official school registration documents (GES certificate / Registrar General's documents). Provides highest official authority and trust for parents in Ghana.</li>
+            <li><strong>Option B (Fast-Track): <code>olistaredu.com</code> / <code>olistareschool.education</code></strong> – Can be activated instantly within minutes without document verification delays.</li>
+        </ul>
+
+        <div class="section-title">4. Core System Deliverables</div>
+        <ul>
+            <li><strong>Official School Web Portal:</strong> Public informational portal detailing academic divisions, facilities, and contact channels.</li>
+            <li><strong>Digital Admission System:</strong> Public application portal issuing unique reference numbers (e.g., <code>OLI-XXXXXX</code>).</li>
+            <li><strong>Automated PDF Receipts:</strong> Immediate generation of printable application summary sheets featuring official headers upon submission.</li>
+            <li><strong>Secure Administrative Portal:</strong> Dashboard for school administrators to search, filter, review documents, and update applicant statuses in real-time.</li>
+            <li><strong>Search Engine & Maps Visibility:</strong> Indexing on Google Search and linkage to Google Maps for parents searching locally.</li>
+        </ul>
+
+        <div class="section-title">5. Payment Schedule & Governance</div>
+        <ul>
+            <li><strong>Payment Terms:</strong> 100% upfront payment upon proposal approval to enable domain reservation, CDN activation, and SSL issuance.</li>
+            <li><strong>Renewal Cycle:</strong> Annual cycle. Subsequent renewal will be due in September 2027.</li>
+        </ul>
+
+        <div class="signatures">
+            <div class="sig-block">
+                <strong>SUBMITTED BY:</strong>
+                <div class="sig-line">
+                    AMAKYE-DANSO GODSON<br>
+                    <span style="font-weight: normal; font-size: 12px; color: #4a5568;">Lead Systems Consultant</span>
+                </div>
+            </div>
+            <div class="sig-block">
+                <strong>APPROVED BY (SCHOOL MANAGEMENT):</strong>
+                <div class="sig-line">
+                    Headmaster / Administrator<br>
+                    <span style="font-weight: normal; font-size: 12px; color: #4a5568;">Olistar Educational Complex</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

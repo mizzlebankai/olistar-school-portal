@@ -1,9 +1,8 @@
-// js/firebase-config.js
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-import { getStorage } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
+// Replace with your Firebase project configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCzEXDrGHSB9IZpZHZIorRcziJCDzNd60Y",
   authDomain: "cararide-58e30.firebaseapp.com",
@@ -14,7 +13,5 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-
 export const db = getFirestore(app);
-export const storage = getStorage(app);
-export const auth = getAuth(app);
+export const auth = getAuth(app); // Needed by admin-login.js and admin.js

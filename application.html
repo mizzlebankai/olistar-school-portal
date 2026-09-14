@@ -59,6 +59,7 @@
                             Academics
                         </a>
                         <ul class="dropdown-menu border-0 shadow rounded-0 mt-2" aria-labelledby="academicsDropdown">
+                            <li><a class="dropdown-item py-2 fw-semibold" href="early-grade.html">Early Grade</a></li>
                             <li><a class="dropdown-item py-2 fw-semibold" href="primary.html">Primary Division</a></li>
                             <li><a class="dropdown-item py-2 fw-semibold" href="jhs.html">Junior High School (JHS)</a></li>
                             <li><hr class="dropdown-divider"></li>
@@ -405,101 +406,54 @@
 
     <!-- Local Bootstrap 5 JS Bundle -->
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- Application Logic Script -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // 1. Dynamic Year Update
-            const yearElem = document.getElementById('current-year');
-            if (yearElem) yearElem.textContent = new Date().getFullYear();
 
-            // 2. Set Max Date for Date of Birth (Prevents future dates)
-            const dobInput = document.getElementById('dob');
-            if (dobInput) {
-                const today = new Date().toISOString().split('T')[0];
-                dobInput.setAttribute('max', today);
-            }
+    <!-- Consolidated Application Logic & Firebase Firestore Integration -->
+    <script type="module">
+  // Adjust this path if your JS file is inside the 'js' folder
+  import { db } from "./js/firebase-config.js"; 
+  import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-            // 3. Dynamic Filtering: Educational Division -> Program / Specialization
-            const academicTierSelect = document.getElementById('academicTier');
-            const programStreamSelect = document.getElementById('programStream');
-            const optgroups = Array.from(programStreamSelect.querySelectorAll('optgroup'));
+  const form = document.getElementById("admissionsForm");
+  const alertBox = document.getElementById("formAlert");
 
-            academicTierSelect.addEventListener('change', function () {
-                const selectedTier = this.value;
+  if (form) {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
 
-                // Reset stream selection
-                programStreamSelect.value = '';
-                programStreamSelect.disabled = false;
+      const submitBtn = form.querySelector('button[type="submit"]');
+      if (submitBtn) submitBtn.disabled = true;
 
-                // Hide/show relevant optgroups based on data-tier attribute
-                optgroups.forEach(group => {
-                    if (group.getAttribute('data-tier') === selectedTier) {
-                        group.hidden = false;
-                        group.disabled = false;
-                    } else {
-                        group.hidden = true;
-                        group.disabled = true;
-                    }
-                });
-            });
+      const applicationPayload = {
+        fullName: document.getElementById("fullName")?.value || "",
+        email: document.getElementById("email")?.value || "",
+        phone: document.getElementById("phone")?.value || "",
+        program: document.getElementById("program")?.value || "",
+        gender: document.getElementById("gender")?.value || "",
+        status: "Pending",
+        submittedAt: serverTimestamp()
+      };
 
-            // 4. Client-side File Size Validation (Max 5MB)
-            const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
-            const fileInputs = document.querySelectorAll('.file-input-limit');
-
-            fileInputs.forEach(input => {
-                input.addEventListener('change', function () {
-                    if (this.files[0] && this.files[0].size > MAX_FILE_SIZE) {
-                        alert(`File "${this.files[0].name}" exceeds the 5MB size limit. Please upload a smaller file.`);
-                        this.value = ''; // Reset input
-                    }
-                });
-            });
-
-            // 5. Form Validation & Submission Handling
-            const form = document.getElementById('admissionsForm');
-            const alertBox = document.getElementById('formAlert');
-            const alertMsg = document.getElementById('formAlertMessage');
-
-            form.addEventListener('submit', function (event) {
-                event.preventDefault();
-                event.stopPropagation();
-
-                if (!form.checkValidity()) {
-                    form.classList.add('was-validated');
-                    alertBox.className = 'alert alert-danger alert-dismissible fade show rounded-0 mb-4';
-                    alertMsg.textContent = 'Please fill out all required fields correctly before submitting.';
-                    alertBox.classList.remove('d-none');
-                    alertBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    return;
-                }
-
-                form.classList.add('was-validated');
-                
-                // Simulate Successful Submission
-                const submitBtn = document.getElementById('submitBtn');
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Submitting Application...';
-
-                setTimeout(() => {
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = 'Submit Formal Application <i class="bi bi-arrow-right ms-2"></i>';
-                    
-                    alertBox.className = 'alert alert-success alert-dismissible fade show rounded-0 mb-4';
-                    alertMsg.innerHTML = '<strong>Application Submitted Successfully!</strong> Your reference code is <strong>OLIST-' + Math.floor(100000 + Math.random() * 900000) + '</strong>. Our admissions team will contact you shortly.';
-                    alertBox.classList.remove('d-none');
-                    
-                    form.reset();
-                    form.classList.remove('was-validated');
-                    programStreamSelect.disabled = true;
-                    alertBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 1500);
-            });
-        });
-    </script>
-    
-    <!-- Custom JS -->
-    <script type="module" src="js/application.js"></script>
+      try {
+        await addDoc(collection(db, "applications"), applicationPayload);
+        
+        if (alertBox) {
+          alertBox.className = "alert alert-success";
+          alertBox.textContent = "Application submitted successfully!";
+          alertBox.classList.remove("d-none");
+        }
+        form.reset();
+      } catch (error) {
+        console.error("Error submitting application:", error);
+        if (alertBox) {
+          alertBox.className = "alert alert-danger";
+          alertBox.textContent = "Failed to submit application. Please try again.";
+          alertBox.classList.remove("d-none");
+        }
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+      }
+    });
+  }
+</script>
 </body>
 </html>

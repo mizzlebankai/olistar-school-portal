@@ -1,135 +1,77 @@
-// js/application.js
-import { db, storage } from "./firebase-config.js";
-import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-import { ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+import { db } from "./firebase-config.js";
+import { 
+    collection, 
+    addDoc, 
+    serverTimestamp 
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('admissionsForm');
-    const alertBox = document.getElementById('formAlert');
-    const alertMsg = document.getElementById('formAlertMessage');
-    const submitBtn = document.getElementById('submitBtn');
-    const academicTierSelect = document.getElementById('academicTier');
-    const programStreamSelect = document.getElementById('programStream');
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("applicationForm");
 
-    // Dynamic Filter for Academic Division -> Specialization
-    if (academicTierSelect && programStreamSelect) {
-        const optgroups = Array.from(programStreamSelect.querySelectorAll('optgroup'));
-        academicTierSelect.addEventListener('change', function () {
-            const selectedTier = this.value;
-            programStreamSelect.value = '';
-            programStreamSelect.disabled = false;
+    if (!form) return;
 
-            optgroups.forEach(group => {
-                if (group.getAttribute('data-tier') === selectedTier) {
-                    group.hidden = false;
-                    group.disabled = false;
-                } else {
-                    group.hidden = true;
-                    group.disabled = true;
-                }
-            });
-        });
-    }
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-    // Helper: Upload file to Firebase Storage
-    async function uploadDocument(fileInputId, refCode, docType) {
-        const input = document.getElementById(fileInputId);
-        if (!input || !input.files || input.files.length === 0) return null;
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn ? submitBtn.innerHTML : "Submit";
 
-        const file = input.files[0];
-        const fileExt = file.name.split('.').pop();
-        const fileName = `${docType}_${Date.now()}.${fileExt}`;
-        const storagePath = `applications/${refCode}/${fileName}`;
-        const fileRef = ref(storage, storagePath);
-
-        const snapshot = await uploadBytes(fileRef, file);
-        return await getDownloadURL(snapshot.ref);
-    }
-
-    // Form Submission Listener
-    if (form) {
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-
-            if (!form.checkValidity()) {
-                form.classList.add('was-validated');
-                showAlert('danger', 'Please fill out all required fields correctly before submitting.');
-                return;
-            }
-
-            form.classList.add('was-validated');
+        if (submitBtn) {
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status"></span> Submitting Application...';
+            submitBtn.innerHTML = `Submitting...`;
+        }
 
-            try {
-                // Generate Reference Code (e.g., OLI-583920)
-                const refCode = 'OLI-' + Math.floor(100000 + Math.random() * 900000);
+        try {
+            const refCode = "APP-" + Math.floor(100000 + Math.random() * 900000);
 
-                // Upload documents concurrently
-                const [docResultUrl, docBirthUrl] = await Promise.all([
-                    uploadDocument('docResult', refCode, 'ReportCard'),
-                    uploadDocument('docBirth', refCode, 'BirthCertificate')
-                ]);
+            // Read values using your existing input IDs
+            const firstName = document.getElementById("firstName")?.value.trim() || "";
+            const lastName = document.getElementById("lastName")?.value.trim() || "";
+            const fullName = `${firstName} ${lastName}`.trim();
 
-                // Application record format
-                const applicationData = {
-                    referenceCode: refCode,
-                    academicDivision: document.getElementById('academicTier').value,
-                    programStream: document.getElementById('programStream').value,
-                    entryLevel: document.getElementById('entryLevel').value,
-                    boardingStatus: document.getElementById('boardingStatus').value,
+            const guardianName = document.getElementById("guardianName")?.value.trim() || "";
+            const guardianPhone = document.getElementById("guardianPhone")?.value.trim() || "";
+            const guardianEmail = document.getElementById("guardianEmail")?.value.trim() || "";
 
-                    studentInfo: {
-                        firstName: document.getElementById('firstName').value.trim(),
-                        middleName: document.getElementById('middleName').value.trim() || '',
-                        lastName: document.getElementById('lastName').value.trim(),
-                        fullName: `${document.getElementById('firstName').value.trim()} ${document.getElementById('lastName').value.trim()}`,
-                        dob: document.getElementById('dob').value,
-                        gender: document.getElementById('gender').value,
-                        nationality: document.getElementById('nationality').value.trim(),
-                        previousSchool: document.getElementById('prevSchool').value.trim()
-                    },
+            const stream = document.getElementById("programStream")?.value || "";
+            const academicTier = document.getElementById("academicTier")?.value || "";
+            const entryLevel = document.getElementById("entryLevel")?.value || "";
+            const boardingStatus = document.getElementById("boardingStatus")?.value || "";
+            const address = document.getElementById("residentialAddress")?.value.trim() || "";
 
-                    guardianInfo: {
-                        fullName: document.getElementById('guardianName').value.trim(),
-                        relationship: document.getElementById('relationship').value.trim(),
-                        phone: document.getElementById('guardianPhone').value.trim(),
-                        email: document.getElementById('guardianEmail').value.trim() || 'N/A',
-                        address: document.getElementById('residentialAddress').value.trim()
-                    },
+            const applicationData = {
+                refCode: refCode,
+                fullName: fullName,
+                applicantName: fullName,
+                email: guardianEmail || "No email provided",
+                phone: guardianPhone,
+                guardianName: guardianName,
+                guardianPhone: guardianPhone,
+                stream: stream,
+                academicTier: academicTier,
+                entryLevel: entryLevel,
+                boardingStatus: boardingStatus,
+                address: address,
+                yearBatch: "2026/2027",
+                documentsUrl: window.uploadedDocUrl || null,
+                status: "Pending",
+                createdAt: serverTimestamp(),  // Required for orderBy("createdAt") query
+                submittedAt: serverTimestamp() // Maintained for backward compatibility
+            };
 
-                    documents: {
-                        reportCard: docResultUrl || null,
-                        birthCertificate: docBirthUrl || null
-                    },
+            await addDoc(collection(db, "applications"), applicationData);
 
-                    status: 'Pending',
-                    submittedAt: serverTimestamp()
-                };
+            alert(`Application submitted successfully! Ref Code: ${refCode}`);
+            form.reset();
 
-                // Save into Firestore
-                await addDoc(collection(db, "applications"), applicationData);
-
-                showAlert('success', `<strong>Application Submitted Successfully!</strong> Reference Code: <strong>${refCode}</strong>.`);
-                form.reset();
-                form.classList.remove('was-validated');
-                if (programStreamSelect) programStreamSelect.disabled = true;
-
-            } catch (error) {
-                console.error("Submission Error:", error);
-                showAlert('danger', `An error occurred while submitting: ${error.message || 'Please check your connection.'}`);
-            } finally {
+        } catch (error) {
+            console.error("Error submitting application:", error);
+            alert(`Submission failed: ${error.message}`);
+        } finally {
+            if (submitBtn) {
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = 'Submit Formal Application <i class="bi bi-arrow-right ms-2"></i>';
-                alertBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                submitBtn.innerHTML = originalBtnText;
             }
-        });
-    }
-
-    function showAlert(type, message) {
-        alertBox.className = `alert alert-${type} alert-dismissible fade show rounded-0 mb-4`;
-        alertMsg.innerHTML = message;
-        alertBox.classList.remove('d-none');
-    }
+        }
+    });
 });
