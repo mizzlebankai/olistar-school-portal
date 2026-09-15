@@ -31,6 +31,7 @@
                 <a href="application.html" class="text-warning">Admissions Portal</a>
                 <a href="shs-tech.html" class="text-white text-decoration-none">Technical Programs</a>
                 <a href="contact.html" class="text-white text-decoration-none">Portals &amp; Contact</a>
+                <a href="admin.html" class="text-warning fw-bold">Admin Login</a>
             </div>
         </div>
     </div>
@@ -77,16 +78,25 @@
         </div>
     </nav>
 
-    <!-- Editorial Header Banner -->
-    <header class="py-5 text-white" style="background-color: var(--olistar-crimson, #900C3F); border-bottom: 4px solid var(--olistar-gold, #FFC107);">
-        <div class="container py-2">
+    <!-- Page Hero -->
+    <header class="page-hero text-white" style="background-image: url('assets/images/hero-campus.jpg');">
+        <div class="container py-5">
             <div class="row">
                 <div class="col-lg-8">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb small">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Admissions Portal</li>
+                        </ol>
+                    </nav>
                     <span class="text-uppercase fw-bold text-warning small" style="letter-spacing: 1.5px;">Office of Admissions</span>
                     <h1 class="font-serif fw-bold display-5 mt-2 mb-3">Online Application Portal</h1>
                     <p class="lead mb-0 text-white-50 fs-6">
                         Complete your application for Primary, Junior High School (JHS), or Senior High &amp; Technical (TVET) streams for the 2026/2027 Academic Year.
                     </p>
+                    <a href="contact.html" class="btn btn-warning fw-bold text-dark text-uppercase rounded-0 px-4 py-2 mt-4" style="font-size: 0.8rem; letter-spacing: 1px;">
+                        Contact Admissions Desk <i class="bi bi-telephone ms-1"></i>
+                    </a>
                 </div>
             </div>
         </div>
@@ -408,52 +418,7 @@
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Consolidated Application Logic & Firebase Firestore Integration -->
-    <script type="module">
-  // Adjust this path if your JS file is inside the 'js' folder
-  import { db } from "./js/firebase-config.js"; 
-  import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-  const form = document.getElementById("admissionsForm");
-  const alertBox = document.getElementById("formAlert");
-
-  if (form) {
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      const submitBtn = form.querySelector('button[type="submit"]');
-      if (submitBtn) submitBtn.disabled = true;
-
-      const applicationPayload = {
-        fullName: document.getElementById("fullName")?.value || "",
-        email: document.getElementById("email")?.value || "",
-        phone: document.getElementById("phone")?.value || "",
-        program: document.getElementById("program")?.value || "",
-        gender: document.getElementById("gender")?.value || "",
-        status: "Pending",
-        submittedAt: serverTimestamp()
-      };
-
-      try {
-        await addDoc(collection(db, "applications"), applicationPayload);
-        
-        if (alertBox) {
-          alertBox.className = "alert alert-success";
-          alertBox.textContent = "Application submitted successfully!";
-          alertBox.classList.remove("d-none");
-        }
-        form.reset();
-      } catch (error) {
-        console.error("Error submitting application:", error);
-        if (alertBox) {
-          alertBox.className = "alert alert-danger";
-          alertBox.textContent = "Failed to submit application. Please try again.";
-          alertBox.classList.remove("d-none");
-        }
-      } finally {
-        if (submitBtn) submitBtn.disabled = false;
-      }
-    });
-  }
-</script>
+    <script src="js/scroll-effects.js"></script>
+    <script type="module" src="js/application.js"></script>
 </body>
 </html>

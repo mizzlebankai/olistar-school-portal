@@ -227,6 +227,57 @@ header::before, .editorial-hero::before {
     transform: translateY(0);
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
+/* --- Back to Top Button --- */
+.back-to-top {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 1040;
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 0;
+    background-color: var(--olistar-crimson, #900C3F);
+    color: var(--olistar-gold, #FFC107);
+    font-size: 1.1rem;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s, background-color 0.2s ease;
+    cursor: pointer;
+}
+
+.back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    background-color: var(--olistar-gold, #FFC107);
+    color: var(--olistar-crimson, #900C3F);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .reveal-on-scroll {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+
 /* --- Footer Link Interactions --- */
 footer a {
     color: rgba(255, 255, 255, 0.7);
@@ -582,4 +633,49 @@ body {
 
 .tracking-wider {
     letter-spacing: 0.08em;
+}
+
+/* ------------------------------------------------------------------ */
+/* Shared Page Hero (all portal pages except admin)                    */
+/* ------------------------------------------------------------------ */
+.page-hero {
+    position: relative;
+    min-height: 420px;
+    display: flex;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: var(--olistar-crimson, #900C3F);
+    border-bottom: 4px solid var(--olistar-gold, #FFC107);
+}
+
+.page-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    width: auto;
+    height: auto;
+    background: linear-gradient(135deg, rgba(144, 12, 63, 0.93) 0%, rgba(11, 15, 25, 0.82) 100%);
+    pointer-events: none;
+}
+
+.page-hero .container {
+    position: relative;
+    z-index: 1;
+}
+
+.page-hero .breadcrumb {
+    --bs-breadcrumb-divider-color: rgba(255, 255, 255, 0.5);
+    --bs-breadcrumb-item-active-color: var(--olistar-gold, #FFC107);
+    margin-bottom: 0.5rem;
+}
+
+.page-hero .breadcrumb a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+}
+
+.page-hero .breadcrumb a:hover {
+    color: var(--olistar-gold, #FFC107);
 }
