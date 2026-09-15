@@ -1,8 +1,6 @@
 import { db, auth } from "./firebase-config.js";
 import {
     collection,
-    query,
-    orderBy,
     onSnapshot,
     doc,
     updateDoc,
@@ -20,9 +18,6 @@ const logoutBtn = document.getElementById("logoutBtn");
 
 // ---------------------------------------------------------------------
 // AUTH GUARD: wait for a confirmed login before touching Firestore.
-// With locked-down rules (read/write requires request.auth != null),
-// firing the Firestore query before auth resolves causes permission
-// errors and the "Connecting to Olistar database..." row never clears.
 // ---------------------------------------------------------------------
 onAuthStateChanged(auth, (user) => {
     if (!user) {
@@ -39,26 +34,28 @@ if (logoutBtn) {
     });
 }
 
+// NOTE: no orderBy() on the query itself anymore. Firestore's orderBy()
+// silently EXCLUDES any document missing that field from the results
+// (no error) — and your submitted applications don't currently have a
+// "createdAt" field (only "submittedAt", and some may have neither).
+// Fetching unordered and sorting client-side means no document ever
+// gets dropped just because a timestamp field is missing or named
+// differently.
 export function initRealtimeListeners() {
     const appsRef = collection(db, "applications");
-    const q = query(appsRef, orderBy("createdAt", "desc"));
 
-    onSnapshot(q, (snapshot) => {
-        rawApplications = mapSnapshot(snapshot);
-        updateSummaryStats(rawApplications);
-        renderApplicationsTable(rawApplications);
-    }, (error) => {
-        console.warn("Firestore ordered listener failed, using unordered fallback:", error);
-        fallbackFetchUnordered(appsRef);
-    });
-}
-
-function fallbackFetchUnordered(appsRef) {
     onSnapshot(appsRef, (snapshot) => {
         rawApplications = mapSnapshot(snapshot);
         rawApplications.sort((a, b) => b.rawTimestamp - a.rawTimestamp);
         updateSummaryStats(rawApplications);
         renderApplicationsTable(rawApplications);
+    }, (error) => {
+        console.error("Firestore listener error:", error);
+        if (tableBody) {
+            tableBody.innerHTML = `<tr><td colspan="9" class="text-center py-4 text-danger">
+                Error loading applications: ${error.message}
+            </td></tr>`;
+        }
     });
 }
 
@@ -70,13 +67,15 @@ function mapSnapshot(snapshot) {
 
         apps.push({
             id: docSnap.id,
-            refCode: data.refCode || docSnap.id.substring(0, 8).toUpperCase(),
+            // referenceCode is what your actual documents use; refCode kept as a fallback
+            refCode: data.referenceCode || data.refCode || docSnap.id.substring(0, 8).toUpperCase(),
             fullName: data.fullName || data.applicantName || data.studentInfo?.fullName || "N/A",
             email: data.email || data.guardianEmail || "N/A",
             phone: data.guardianPhone || data.phone || data.guardianInfo?.phone || "N/A",
             guardianName: data.guardianName || data.guardianInfo?.fullName || "N/A",
-            stream: data.stream || data.programStream || "N/A",
-            entryLevel: data.entryLevel || "N/A",
+            // programStream is what your actual documents use
+            stream: data.programStream || data.stream || "N/A",
+            entryLevel: data.entryLevel || data.studentInfo?.entryLevel || "N/A",
             boardingStatus: data.boardingStatus || "N/A",
             yearBatch: data.yearBatch || "2026/2027",
             status: data.status || "Pending",
@@ -155,8 +154,6 @@ window.deleteApplication = async function (docId) {
     }
 };
 
-// IDs match the actual stat cards in admin.html: statTotal, statPending,
-// statInterview, statApproved, statRejected (NOT totalAppsCount / etc.)
 function updateSummaryStats(apps) {
     const totalEl = document.getElementById("statTotal");
     const pendingEl = document.getElementById("statPending");
@@ -170,6 +167,3 @@ function updateSummaryStats(apps) {
     if (approvedEl) approvedEl.innerText = apps.filter(a => a.status === 'Approved').length;
     if (rejectedEl) rejectedEl.innerText = apps.filter(a => a.status === 'Rejected').length;
 }
-
-// Note: initRealtimeListeners() is now called from onAuthStateChanged above,
-// not on DOMContentLoaded, so it only ever runs once a user is confirmed logged in.
