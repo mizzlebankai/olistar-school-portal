@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Gallery Filtering
-    const filterButtons = document.querySelectorAll('.gallery-filter-btn');
-    const galleryItems = document.querySelectorAll('.gallery-item');
+    const filterButtons = document.querySelectorAll('#galleryFilters [data-filter]');
 
     if (filterButtons.length > 0) {
         filterButtons.forEach(button => {
@@ -13,12 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     btn.classList.add('btn-outline-dark');
                 });
 
-                // Fixed vanilla JS method
                 button.classList.remove('btn-outline-dark');
                 button.classList.add('btn-dark');
 
-                galleryItems.forEach(item => {
-                    if (filter === 'all' || item.classList.contains(filter)) {
+                document.querySelectorAll('.gallery-item').forEach(item => {
+                    if (filter === 'all' || item.dataset.category === filter) {
                         item.style.display = 'block';
                     } else {
                         item.style.display = 'none';

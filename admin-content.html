@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Content | Olistar Admin Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
+    <link rel="stylesheet" href="vendor/bootstrap-icons/bootstrap-icons.css">
+    <style>
+        body { background: #f8f9fa; }
+        .content-row img { width: 72px; height: 52px; object-fit: cover; }
+        .content-row + .content-row { border-top: 1px solid #dee2e6; }
+        #contentBodyEditor { min-height: 190px; background: #fff; }
+        #contentBodyEditor .ql-editor { min-height: 190px; font-size: 1rem; }
+        #contentPreviewBody { overflow-wrap: anywhere; }
+        #contentPreviewBody > :first-child { margin-top: 0; }
+        #contentPreviewBody > :last-child { margin-bottom: 0; }
+        .ql-font-arial { font-family: Arial, sans-serif; }
+        .ql-font-georgia { font-family: Georgia, serif; }
+        .ql-font-times-new-roman { font-family: "Times New Roman", serif; }
+        .ql-font-trebuchet-ms { font-family: "Trebuchet MS", sans-serif; }
+        .ql-font-verdana { font-family: Verdana, sans-serif; }
+        .ql-font-serif { font-family: Georgia, serif; }
+        .ql-font-monospace { font-family: "Courier New", monospace; }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark border-bottom border-warning border-3">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-warning" href="admin.html">Olistar Admin</a>
+            <div class="d-flex align-items-center gap-3">
+                <span id="contentAdminEmail" class="small text-white-50">Checking sign-in…</span>
+                <a class="btn btn-sm btn-outline-light" href="admin-media.html">Media Library</a>
+                <a class="btn btn-sm btn-outline-light" href="admin.html">Admissions</a>
+                <button id="contentLogoutBtn" class="btn btn-sm btn-outline-warning">Log out</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container py-5" style="max-width: 1100px;">
+        <h1 class="h2 fw-bold">Website Content</h1>
+        <p class="text-secondary">Manage public news, events, gallery photos, leadership profiles, and page hero images.</p>
+        <div id="contentNotice" class="alert alert-info" role="status">Checking administrator access…</div>
+
+        <div id="contentEditor" hidden>
+            <ul class="nav nav-tabs mb-4" id="contentTabs">
+                <li class="nav-item"><button class="nav-link active" type="button" data-content-type="news">News</button></li>
+                <li class="nav-item"><button class="nav-link" type="button" data-content-type="event">Events</button></li>
+                <li class="nav-item"><button class="nav-link" type="button" data-content-type="gallery">Gallery</button></li>
+                <li class="nav-item"><button class="nav-link" type="button" data-content-type="leader">Leadership</button></li>
+                <li class="nav-item"><button class="nav-link" type="button" data-content-type="hero">Page images</button></li>
+            </ul>
+
+            <div class="row g-4">
+                <section class="col-lg-5">
+                    <div class="card border-0 shadow-sm p-4">
+                        <div class="d-flex justify-content-between align-items-start gap-2 mb-3">
+                            <div>
+                                <h2 id="editorHeading" class="h5 fw-bold mb-1">Add news article</h2>
+                                <p id="editorHelp" class="small text-secondary mb-0"></p>
+                            </div>
+                            <a href="admin-media.html" target="_blank" rel="noopener" class="btn btn-sm btn-outline-dark flex-shrink-0">Upload image</a>
+                        </div>
+
+                        <form id="contentForm">
+                            <input id="contentId" type="hidden">
+                            <div id="slotField" class="mb-3" hidden>
+                                <label id="slotLabel" for="contentSlot" class="form-label fw-semibold"></label>
+                                <select id="contentSlot" class="form-select"></select>
+                            </div>
+                            <div class="mb-3">
+                                <label id="titleLabel" for="contentTitle" class="form-label fw-semibold">Title</label>
+                                <input id="contentTitle" class="form-control" maxlength="140" required>
+                            </div>
+                            <div id="categoryField" class="mb-3">
+                                <label for="contentCategory" class="form-label fw-semibold">Category</label>
+                                <select id="contentCategory" class="form-select"></select>
+                            </div>
+                            <div id="bodyField" class="mb-3">
+                                <label id="bodyLabel" for="contentBodyEditor" class="form-label fw-semibold">Summary</label>
+                                <div id="richEditorNotice" class="alert alert-warning py-2" role="alert" hidden></div>
+                                <div id="contentBodyToolbar" aria-label="Text formatting toolbar">
+                                    <span class="ql-formats">
+                                        <select class="ql-font" aria-label="Font">
+                                            <option selected></option>
+                                            <option value="arial">Arial</option>
+                                            <option value="georgia">Georgia</option>
+                                            <option value="times-new-roman">Times New Roman</option>
+                                            <option value="trebuchet-ms">Trebuchet MS</option>
+                                            <option value="verdana">Verdana</option>
+                                            <option value="serif">Serif</option>
+                                            <option value="monospace">Monospace</option>
+                                        </select>
+                                        <select class="ql-size" aria-label="Text size">
+                                            <option value="small">Small</option>
+                                            <option selected>Normal</option>
+                                            <option value="large">Large</option>
+                                            <option value="huge">Very large</option>
+                                        </select>
+                                    </span>
+                                    <span class="ql-formats">
+                                        <button class="ql-bold" aria-label="Bold"></button>
+                                        <button class="ql-italic" aria-label="Italic"></button>
+                                        <button class="ql-underline" aria-label="Underline"></button>
+                                        <button class="ql-strike" aria-label="Strikethrough"></button>
+                                    </span>
+                                    <span class="ql-formats">
+                                        <select class="ql-color" aria-label="Text colour"></select>
+                                        <select class="ql-background" aria-label="Text highlight"></select>
+                                    </span>
+                                    <span class="ql-formats">
+                                        <select class="ql-header" aria-label="Paragraph style">
+                                            <option selected></option>
+                                            <option value="2">Heading 2</option>
+                                            <option value="3">Heading 3</option>
+                                            <option value="4">Heading 4</option>
+                                        </select>
+                                        <button class="ql-list" value="ordered" aria-label="Numbered list"></button>
+                                        <button class="ql-list" value="bullet" aria-label="Bulleted list"></button>
+                                        <select class="ql-align" aria-label="Text alignment"></select>
+                                    </span>
+                                    <span class="ql-formats">
+                                        <button class="ql-link" aria-label="Insert link"></button>
+                                        <button class="ql-clean" aria-label="Remove formatting"></button>
+                                    </span>
+                                </div>
+                                <div id="contentBodyEditor" aria-label="Article text editor"></div>
+                                <div class="form-text">Select text to format it. Use headings, lists, colour and alignment to make the article clear and easy to read.</div>
+                            </div>
+                            <div id="dateField" class="mb-3" hidden>
+                                <label for="contentDate" class="form-label fw-semibold">Date and time</label>
+                                <input id="contentDate" class="form-control" type="datetime-local">
+                            </div>
+                            <div id="linkField" class="mb-3" hidden>
+                                <label for="contentLink" class="form-label fw-semibold">Link (optional)</label>
+                                <input id="contentLink" class="form-control" type="url" placeholder="https://…">
+                            </div>
+                            <div class="mb-3">
+                                <label for="contentImageUrl" class="form-label fw-semibold">Image URL (optional)</label>
+                                <input id="contentImageUrl" class="form-control" type="url" placeholder="Paste the URL from Media Library">
+                                <div class="form-text">Upload and crop first in Media Library, then copy its URL here.</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="savedImages" class="form-label fw-semibold">Choose a previously uploaded image</label>
+                                <div class="input-group">
+                                    <select id="savedImages" class="form-select">
+                                        <option value="">Select an image from your library…</option>
+                                    </select>
+                                    <button id="useSavedImageBtn" class="btn btn-outline-dark" type="button">Use image</button>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="contentAlt" class="form-label fw-semibold">Image description (alt text)</label>
+                                <input id="contentAlt" class="form-control" maxlength="180" placeholder="Describe what is shown">
+                            </div>
+                            <div id="descriptionField" class="mb-3" hidden>
+                                <label for="contentDescription" class="form-label fw-semibold">Description</label>
+                                <textarea id="contentDescription" class="form-control" rows="3" maxlength="500"></textarea>
+                            </div>
+                            <div id="publishField" class="form-check mb-3">
+                                <input id="contentPublished" class="form-check-input" type="checkbox">
+                                <label class="form-check-label" for="contentPublished">Published — visible to website visitors</label>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button id="saveContentBtn" class="btn btn-dark" type="submit">Save</button>
+                                <button id="cancelEditBtn" class="btn btn-outline-secondary" type="button" hidden>Cancel edit</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="historyDraftTools" class="card border-0 shadow-sm p-4 mt-4" hidden>
+                        <h2 class="h6 fw-bold">Start with the proprietor’s recollections</h2>
+                        <p class="small text-secondary">Creates an editable draft. Review the details before publishing.</p>
+                        <button id="createHistoryDraftBtn" class="btn btn-outline-dark align-self-start" type="button">Load history draft</button>
+                    </div>
+                    <div id="contentPreview" class="card border-0 shadow-sm p-4 mt-4">
+                        <h2 class="h6 fw-bold">Preview</h2>
+                        <div id="previewFrame" class="border rounded p-3">
+                            <span id="previewCategory" class="badge text-bg-secondary mb-2">News</span>
+                            <h3 id="previewTitle" class="h5 fw-bold">Your title will appear here</h3>
+                            <div id="contentPreviewBody" class="small text-secondary mb-2">Your summary will appear here.</div>
+                            <img id="previewImage" class="img-fluid rounded" alt="" hidden>
+                            <p id="previewDate" class="small text-muted mt-2 mb-0"></p>
+                        </div>
+                        <p id="previewNote" class="form-text mb-0 mt-2">Approximate card preview. Final crop depends on the page layout.</p>
+                    </div>
+                </section>
+
+                <section class="col-lg-7">
+                    <div class="card border-0 shadow-sm p-4">
+                        <div class="d-flex justify-content-between align-items-center gap-2 mb-3">
+                            <h2 id="listHeading" class="h5 fw-bold mb-0">News articles</h2>
+                            <select id="contentFilter" class="form-select form-select-sm" style="max-width: 170px" aria-label="Filter content">
+                                <option value="all">All entries</option>
+                                <option value="published">Published</option>
+                                <option value="draft">Drafts</option>
+                            </select>
+                        </div>
+                        <div id="contentList">
+                            <p class="text-secondary mb-0">Loading content…</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+    <script type="module" src="js/admin-content.js?v=20260928-rich-text"></script>
+</body>
+</html>

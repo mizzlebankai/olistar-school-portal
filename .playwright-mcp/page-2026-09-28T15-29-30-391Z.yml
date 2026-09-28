@@ -1,0 +1,33 @@
+- generic [ref=f1e2]:
+  - generic [ref=f1e3]:
+    - link "Student / Teacher School Portal" [ref=f1e4] [cursor=pointer]:
+      - /url: ../OLISTAR/login.html
+    - link " Return to Main Website" [ref=f1e5] [cursor=pointer]:
+      - /url: index.html
+      - generic [ref=f1e6]: 
+      - text: Return to Main Website
+  - generic [ref=f1e7]:
+    - generic [ref=f1e8]:
+      - generic [ref=f1e9]:
+        - generic [ref=f1e10]: 
+        - heading "Admin Portal" [level=3] [ref=f1e11]
+        - paragraph [ref=f1e12]: Sign in with your administrative credentials
+      - generic [ref=f1e13]:
+        - generic [ref=f1e14]:
+          - generic [ref=f1e15]: Email Address
+          - textbox "Email Address" [ref=f1e16]:
+            - /placeholder: admin@olistar.edu.gh
+        - generic [ref=f1e17]:
+          - generic [ref=f1e18]: Password
+          - generic [ref=f1e19]:
+            - textbox "Password" [ref=f1e20]:
+              - /placeholder: ••••••••
+            - button "" [ref=f1e21] [cursor=pointer]
+        - generic [ref=f1e24]:
+          - checkbox "Remember me" [ref=f1e25]
+          - generic [ref=f1e26]: Remember me
+        - button "Log In" [ref=f1e27] [cursor=pointer]
+    - link " Home Page" [ref=f1e29] [cursor=pointer]:
+      - /url: index.html
+      - generic [ref=f1e30]: 
+      - text: Home Page

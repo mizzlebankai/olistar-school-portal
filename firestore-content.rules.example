@@ -1,0 +1,31 @@
+// Merge these matches into the existing Firebase Firestore rules. Do not
+// replace the whole ruleset: the school portal already uses other collections.
+
+match /olistar_website_media/{mediaId} {
+  allow read, create, update, delete: if isOlistarAdmin();
+}
+
+match /olistar_website_news/{itemId} {
+  allow read: if isOlistarAdmin() || resource.data.published == true;
+  allow create, update, delete: if isOlistarAdmin();
+}
+
+match /olistar_website_events/{itemId} {
+  allow read: if isOlistarAdmin() || resource.data.published == true;
+  allow create, update, delete: if isOlistarAdmin();
+}
+
+match /olistar_website_gallery/{itemId} {
+  allow read: if isOlistarAdmin() || resource.data.published == true;
+  allow create, update, delete: if isOlistarAdmin();
+}
+
+match /olistar_website_leaders/{profileId} {
+  allow read: if true;
+  allow create, update, delete: if isOlistarAdmin();
+}
+
+match /olistar_website_heroes/{heroId} {
+  allow read: if true;
+  allow create, update, delete: if isOlistarAdmin();
+}

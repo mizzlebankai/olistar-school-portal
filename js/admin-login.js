@@ -40,3 +40,20 @@ if (loginForm) {
 } else {
     console.error("admin-login.js: #loginForm not found on this page — check the HTML.");
 }
+
+const togglePassword = document.getElementById("togglePassword");
+const loginPasswordInput = document.getElementById("loginPassword");
+const togglePasswordIcon = document.getElementById("togglePasswordIcon");
+
+if (togglePassword && loginPasswordInput) {
+    togglePassword.addEventListener("click", () => {
+        if (loginPasswordInput.type === "password") {
+            loginPasswordInput.type = "text";
+            togglePasswordIcon?.classList.replace("bi-eye", "bi-eye-slash");
+        } else {
+            loginPasswordInput.type = "password";
+            togglePasswordIcon?.classList.replace("bi-eye-slash", "bi-eye");
+        }
+    });
+}
+

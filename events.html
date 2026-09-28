@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events | Olistar School</title>
+
+    <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico">
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="vendor/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="utility-bar text-white py-2 d-none d-md-block">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-3">
+                <span><i class="bi bi-geo-alt-fill text-warning me-1"></i> Sunyani Abesim, Ghana</span>
+                <span class="text-secondary">|</span>
+                <span><i class="bi bi-telephone-fill text-warning me-1"></i> +233 (0) 00 000 0000</span>
+            </div>
+            <div class="d-flex gap-3 text-uppercase fw-semibold utility-links">
+                <a href="application.html">Admissions</a>
+                <a href="news.html">News</a>
+                <a href="events.html">Events</a>
+                <a href="contact.html">Portals &amp; Contact</a>
+                <a href="admin.html" class="text-warning fw-bold">Admin Login</a>
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-harvard sticky-top bg-white border-bottom">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="assets/images/logo.png" alt="Olistar School Crest" height="52" class="me-3" onerror="this.src='assets/images/image-placeholder.svg'">
+                <div>
+                    <span class="d-block fw-bold text-dark fs-4 leading-none" style="font-family: var(--font-serif, serif); letter-spacing: -0.5px;">OLISTAR SCHOOL</span>
+                    <span class="school-motto-tag d-block mt-1 text-muted small">Good Foundation, Firm Building &bull; Est. 1987</span>
+                </div>
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
+                    <li class="nav-item"><a class="nav-link nav-link-harvard" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link nav-link-harvard" href="about.html">About</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link nav-link-harvard dropdown-toggle" href="#" id="academicsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Academics
+                        </a>
+                        <ul class="dropdown-menu border-0 shadow rounded-0 mt-2" aria-labelledby="academicsDropdown">
+                            <li><a class="dropdown-item py-2 fw-semibold" href="early-grade.html">Early Grade Division</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="primary.html">Primary Division</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="jhs.html">Junior High School (JHS)</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="shs-tech.html">Senior High &amp; Technical</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link nav-link-harvard" href="news.html">News</a></li>
+                    <li class="nav-item"><a class="nav-link nav-link-harvard active" href="events.html">Events</a></li>
+                    <li class="nav-item"><a class="nav-link nav-link-harvard" href="gallery.html">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link nav-link-harvard" href="contact.html">Contact</a></li>
+                </ul>
+                <div class="ms-lg-4 mt-3 mt-lg-0">
+                    <a href="application.html" class="btn btn-dark px-4 py-2 rounded-0 text-uppercase fw-bold text-warning" style="font-size: 0.8rem; letter-spacing: 1px;">
+                        Apply Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="page-hero text-white" data-managed-hero="events" style="background-image: url('assets/images/image-placeholder.svg');">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-8">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb small">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Events</li>
+                        </ol>
+                    </nav>
+                    <span class="text-uppercase fw-bold text-warning small" style="letter-spacing: 1.5px;">Upcoming Highlights</span>
+                    <h1 class="font-serif fw-bold display-5 mt-2 mb-3">Events &amp; Activities</h1>
+                    <p class="lead mb-0 text-white-50 fs-6">
+                        Explore school gatherings, student showcases, workshops, and the moments that bring our campus community together.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="py-5 bg-light">
+        <div class="container">
+            <div class="row g-4" id="eventsContentGrid">
+                <div class="col-lg-6">
+                    <article class="tile-card bg-white shadow-sm h-100">
+                        <div class="tile-img-container" style="height: 260px;">
+                            <img src="assets/images/hero-campus.jpg" alt="School event" class="tile-img" onerror="this.src='assets/images/image-placeholder.svg'">
+                        </div>
+                        <div class="p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="small text-uppercase text-danger fw-bold">Open Day</span>
+                                <span class="small text-muted">12 Oct 2026</span>
+                            </div>
+                            <h3 class="font-serif fw-bold text-dark fs-4 mb-2">School Open Day &amp; Parent Orientation</h3>
+                            <p class="text-secondary small mb-3">Families are invited to tour campus facilities, meet teachers, and learn about academic pathways and admissions opportunities.</p>
+                            <a href="application.html" class="btn btn-danger rounded-0 px-3 py-2 text-uppercase fw-bold small">Register Interest</a>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="col-lg-6">
+                    <article class="tile-card bg-white shadow-sm h-100">
+                        <div class="tile-img-container" style="height: 260px;">
+                            <img src="assets/images/jhs-division.jpg" alt="Science event" class="tile-img" onerror="this.src='assets/images/image-placeholder.svg'">
+                        </div>
+                        <div class="p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="small text-uppercase text-danger fw-bold">STEM</span>
+                                <span class="small text-muted">27 Nov 2026</span>
+                            </div>
+                            <h3 class="font-serif fw-bold text-dark fs-4 mb-2">STEM Challenge &amp; Innovation Fair</h3>
+                            <p class="text-secondary small mb-3">Students will present scientific ideas, prototypes, and creative problem-solving projects in a full-campus showcase.</p>
+                            <a href="contact.html" class="btn btn-outline-dark rounded-0 px-3 py-2 text-uppercase fw-bold small">Contact Campus</a>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="col-lg-6">
+                    <article class="tile-card bg-white shadow-sm h-100">
+                        <div class="tile-img-container" style="height: 260px;">
+                            <img src="assets/images/primary-division.jpg" alt="Sports event" class="tile-img" onerror="this.src='assets/images/image-placeholder.svg'">
+                        </div>
+                        <div class="p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="small text-uppercase text-danger fw-bold">Sports</span>
+                                <span class="small text-muted">18 Dec 2026</span>
+                            </div>
+                            <h3 class="font-serif fw-bold text-dark fs-4 mb-2">Inter-Division Sports Festival</h3>
+                            <p class="text-secondary small mb-3">A day of athletics, teamwork, and healthy competition designed to build discipline, spirit, and school pride.</p>
+                            <a href="gallery.html" class="btn btn-outline-dark rounded-0 px-3 py-2 text-uppercase fw-bold small">See Gallery</a>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="col-lg-6">
+                    <article class="tile-card bg-white shadow-sm h-100">
+                        <div class="tile-img-container" style="height: 260px;">
+                            <img src="assets/images/tvet-division.jpg" alt="Technical event" class="tile-img" onerror="this.src='assets/images/image-placeholder.svg'">
+                        </div>
+                        <div class="p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="small text-uppercase text-danger fw-bold">TVET</span>
+                                <span class="small text-muted">22 Jan 2027</span>
+                            </div>
+                            <h3 class="font-serif fw-bold text-dark fs-4 mb-2">Skills Exhibition &amp; Trade Expo</h3>
+                            <p class="text-secondary small mb-3">Students in technical and vocational pathways will present their practical projects, craftsmanship, and industry readiness.</p>
+                            <a href="shs-tech.html" class="btn btn-danger rounded-0 px-3 py-2 text-uppercase fw-bold small">Learn More</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer-harvard bg-dark text-white pt-5 pb-4">
+        <div class="container">
+            <div class="row g-4 mb-5">
+                <div class="col-lg-5">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="assets/images/logo.png" height="48" class="me-3" alt="Crest" onerror="this.style.display='none'">
+                        <div>
+                            <h5 class="fw-bold mb-0 text-white font-serif">OLISTAR SCHOOL</h5>
+                            <span class="text-warning small text-uppercase fw-semibold" style="letter-spacing: 1px;">Sunyani Abesim</span>
+                        </div>
+                    </div>
+                    <p class="text-secondary small pe-lg-4">
+                        A premier multi-tier educational institution providing foundation, junior high, and senior technical education committed to character, knowledge, and practical skill.
+                    </p>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h6 class="fw-bold text-uppercase mb-3">Navigation</h6>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2"><a href="index.html" class="text-secondary text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="about.html" class="text-secondary text-decoration-none">About</a></li>
+                        <li class="mb-2"><a href="application.html" class="text-secondary text-decoration-none">Admissions</a></li>
+                        <li class="mb-2"><a href="events.html" class="text-secondary text-decoration-none">Events</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h6 class="fw-bold text-uppercase mb-3">Academics</h6>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2"><a href="primary.html" class="text-secondary text-decoration-none">Primary Stream</a></li>
+                        <li class="mb-2"><a href="jhs.html" class="text-secondary text-decoration-none">JHS Stream</a></li>
+                        <li class="mb-2"><a href="shs-tech.html" class="text-secondary text-decoration-none">SHS &amp; Technical</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-4">
+                    <h6 class="fw-bold text-uppercase mb-3">Campus Address</h6>
+                    <p class="text-secondary small mb-1"><i class="bi bi-geo-alt-fill text-warning me-2"></i>Sunyani Abesim, Bono Region</p>
+                    <p class="text-secondary small mb-1"><i class="bi bi-telephone-fill text-warning me-2"></i>+233 (0) 00 000 0000</p>
+                    <p class="text-secondary small"><i class="bi bi-globe me-2 text-warning"></i>olistaredu.net</p>
+                </div>
+            </div>
+            <hr class="border-secondary opacity-25">
+            <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center text-secondary small">
+                <p class="mb-0">&copy; <span id="current-year">2026</span> Olistar School. All Rights Reserved.</p>
+                <p class="mb-0 mt-2 mt-sm-0">Built by APEX LABS</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="js/scroll-effects.js"></script>
+    <script type="module" src="js/public-content.js?v=20260928-news-links"></script>
+</body>
+</html>

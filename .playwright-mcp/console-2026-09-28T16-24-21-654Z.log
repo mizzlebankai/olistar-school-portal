@@ -1,0 +1,6 @@
+[    2471ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:5500/assets/images/primary-division.jpg:0
+[    2498ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:5500/assets/images/news-3.jpg:0
+[    3282ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:5500/assets/images/news-2.jpg:0
+[    3282ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:5500/assets/images/news-1.jpg:0
+[    3283ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:5500/assets/images/tvet-division.jpg:0
+[    3283ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:5500/assets/images/jhs-division.jpg:0

@@ -30,11 +30,11 @@
 <body class="bg-light d-flex flex-column min-vh-100">
 
     <!-- Page Hero -->
-    <header class="page-hero text-white no-print" style="background-image: url('assets/images/hero-campus.jpg'); min-height: 360px;">
+    <header class="page-hero text-white no-print" data-managed-hero="success" style="background-image: url('assets/images/image-placeholder.svg'); min-height: 360px;">
         <div class="container py-5">
             <div class="d-flex align-items-center mb-4">
                 <img src="assets/images/logo.png" alt="Olistar School Crest" height="56" class="me-3"
-                     onerror="this.src='https://placehold.co/100x100/900C3F/ffffff?text=Crest'">
+                     onerror="this.src='assets/images/image-placeholder.svg'">
                 <div>
                     <span class="d-block fw-bold fs-4" style="letter-spacing: -0.5px;">OLISTAR SCHOOL</span>
                     <span class="d-block small text-white-50">Good Foundation, Firm Building &bull; Est. 1987</span>
@@ -109,13 +109,32 @@
                         Status: <span class="badge bg-warning text-dark">Pending Review</span>
                     </p>
 
-                    <h3 class="h6 fw-bold text-uppercase text-dark border-bottom border-2 pb-1 mb-3" style="border-color: var(--olistar-crimson) !important;">Applicant Information</h3>
-                    <div class="row g-3 mb-4">
-                        <div class="col-md-6"><span class="summary-label d-block">Full Name</span><span class="summary-value" id="sumFullName">—</span></div>
-                        <div class="col-md-3"><span class="summary-label d-block">Date of Birth</span><span class="summary-value" id="sumDob">—</span></div>
-                        <div class="col-md-3"><span class="summary-label d-block">Gender</span><span class="summary-value" id="sumGender">—</span></div>
-                        <div class="col-md-4"><span class="summary-label d-block">Nationality</span><span class="summary-value" id="sumNationality">—</span></div>
-                        <div class="col-md-8"><span class="summary-label d-block">Previous School &amp; Location</span><span class="summary-value" id="sumPrevSchool">—</span></div>
+                    <div class="row g-3 align-items-center mb-4">
+                        <div class="col-md-8">
+                            <h3 class="h6 fw-bold text-uppercase text-dark border-bottom border-2 pb-1 mb-3" style="border-color: var(--olistar-crimson) !important;">Applicant Information</h3>
+                            <div class="row g-3">
+                                <div class="col-md-6"><span class="summary-label d-block">Full Name</span><span class="summary-value" id="sumFullName">—</span></div>
+                                <div class="col-md-3"><span class="summary-label d-block">Date of Birth</span><span class="summary-value" id="sumDob">—</span></div>
+                                <div class="col-md-3"><span class="summary-label d-block">Gender</span><span class="summary-value" id="sumGender">—</span></div>
+                                <div class="col-md-4"><span class="summary-label d-block">Nationality</span><span class="summary-value" id="sumNationality">—</span></div>
+                                <div class="col-md-4"><span class="summary-label d-block">Home Town</span><span class="summary-value" id="sumHomeTown">—</span></div>
+                                <div class="col-md-4"><span class="summary-label d-block">Previous School</span><span class="summary-value" id="sumPrevSchool">—</span></div>
+                            </div>
+                        </div>
+                        <div id="summaryDocuments" class="mb-4" hidden>
+                            <h3 class="h6 fw-bold text-uppercase text-dark border-bottom border-2 pb-1 mb-3" style="border-color: var(--olistar-crimson) !important;">Submitted Documents</h3>
+                            <ul class="mb-0">
+                                <li id="summaryReportCard" hidden></li>
+                                <li id="summaryBirthCertificate" hidden></li>
+                            </ul>
+                            <p class="small text-muted mt-2 mb-0">Private document links are temporary. Print or save this summary during this session if you need a copy.</p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <div class="border border-2 border-dark p-2 d-inline-block bg-light">
+                                <img id="summaryPassport" src="" alt="Passport photo preview" style="width: 120px; height: 140px; object-fit: cover; display: none; background: #f5f5f5;" />
+                                <div id="summaryPassportPlaceholder" class="small text-muted" style="width: 120px; height: 140px; display: flex; align-items: center; justify-content: center;">Passport Photo</div>
+                            </div>
+                        </div>
                     </div>
 
                     <h3 class="h6 fw-bold text-uppercase text-dark border-bottom border-2 pb-1 mb-3" style="border-color: var(--olistar-crimson) !important;">Academic Pathway</h3>
@@ -128,11 +147,22 @@
 
                     <h3 class="h6 fw-bold text-uppercase text-dark border-bottom border-2 pb-1 mb-3" style="border-color: var(--olistar-crimson) !important;">Parent / Guardian Contact</h3>
                     <div class="row g-3 mb-2">
+                        <div class="col-md-6"><span class="summary-label d-block">Father's Name</span><span class="summary-value" id="sumFatherName">—</span></div>
+                        <div class="col-md-6"><span class="summary-label d-block">Mother's Name</span><span class="summary-value" id="sumMotherName">—</span></div>
                         <div class="col-md-6"><span class="summary-label d-block">Guardian Full Name</span><span class="summary-value" id="sumGuardianName">—</span></div>
                         <div class="col-md-6"><span class="summary-label d-block">Relationship to Student</span><span class="summary-value" id="sumRelationship">—</span></div>
                         <div class="col-md-6"><span class="summary-label d-block">Primary Phone Number</span><span class="summary-value" id="sumPhone">—</span></div>
                         <div class="col-md-6"><span class="summary-label d-block">Email Address</span><span class="summary-value" id="sumEmail">—</span></div>
                         <div class="col-12"><span class="summary-label d-block">Residential / Digital Address</span><span class="summary-value" id="sumAddress">—</span></div>
+                    </div>
+
+                    <h3 class="h6 fw-bold text-uppercase text-dark border-bottom border-2 pb-1 mb-3" style="border-color: var(--olistar-crimson) !important;">Health &amp; Medical Information</h3>
+                    <div class="row g-3 mb-2">
+                        <div class="col-md-3"><span class="summary-label d-block">Any Health Condition?</span><span class="summary-value" id="sumHealthCondition">—</span></div>
+                        <div class="col-md-3"><span class="summary-label d-block">Any Allergies?</span><span class="summary-value" id="sumAllergyStatus">—</span></div>
+                        <div class="col-md-6"><span class="summary-label d-block">Special Needs / Notes</span><span class="summary-value" id="sumSpecialNeeds">—</span></div>
+                        <div class="col-md-6"><span class="summary-label d-block">Health Condition Details</span><span class="summary-value" id="sumHealthDetails">—</span></div>
+                        <div class="col-md-6"><span class="summary-label d-block">Allergy Details</span><span class="summary-value" id="sumAllergyDetails">—</span></div>
                     </div>
 
                     <p class="text-muted small mt-4 mb-0 border-top pt-3">
@@ -185,7 +215,8 @@
     </main>
 
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="js/success.js"></script>
+    <script src="js/success.js?v=20260928-private-files"></script>
     <script src="js/scroll-effects.js"></script>
+    <script type="module" src="js/public-content.js?v=20260928-news-links"></script>
 </body>
 </html>

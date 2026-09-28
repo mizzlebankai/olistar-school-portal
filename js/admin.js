@@ -10,6 +10,9 @@ import {
     onAuthStateChanged,
     signOut
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { provisionFromApplication } from "./enroll-student.js";
+import { isAdminEmail } from "./collections.js";
+import { deleteAdmissionFiles, getAdmissionFileUrls } from "./admission-files.js";
 
 let rawApplications = [];
 let filteredApplications = [];
@@ -54,16 +57,33 @@ function escapeHtml(value) {
 // ---------------------------------------------------------------------
 // AUTH GUARD: wait for a confirmed login before touching Firestore.
 // ---------------------------------------------------------------------
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, async (user) => {
     if (!user) {
         window.location.replace("admin-login.html");
         return;
     }
-    if (adminUserEmail) adminUserEmail.textContent = user.email;
-    applicantModal = applicantModalEl ? new bootstrap.Modal(applicantModalEl) : null;
-    deleteConfirmModal = deleteConfirmModalEl ? new bootstrap.Modal(deleteConfirmModalEl) : null;
-    initRealtimeListeners();
+    const email = (user.email || "").trim().toLowerCase();
+    if (!isAdminEmail(email)) {
+        if (adminUserEmail) adminUserEmail.textContent = email || "Unauthorized account";
+        showDashboardError("This account is not authorized to access the Olistar admin dashboard.");
+        return;
+    }
+    if (adminUserEmail) adminUserEmail.textContent = email;
+    try {
+        applicantModal = applicantModalEl ? new bootstrap.Modal(applicantModalEl) : null;
+        deleteConfirmModal = deleteConfirmModalEl ? new bootstrap.Modal(deleteConfirmModalEl) : null;
+        initRealtimeListeners();
+    } catch (error) {
+        console.error("Admin dashboard initialization failed:", error);
+        showDashboardError(`Could not initialize the dashboard: ${error.message}`);
+    }
 });
+
+function showDashboardError(message) {
+    if (tableBody) {
+        tableBody.innerHTML = `<tr><td colspan="9" class="text-center py-4 text-danger">${escapeHtml(message)}</td></tr>`;
+    }
+}
 
 if (logoutBtn) {
     logoutBtn.addEventListener("click", () => {
@@ -74,31 +94,49 @@ if (logoutBtn) {
 // NOTE: no orderBy() on the query itself. Firestore's orderBy() silently
 // EXCLUDES documents missing that field. Fetch unordered, sort client-side.
 export function initRealtimeListeners() {
-    const appsRef = collection(db, "applications");
+    const applicationsByCollection = new Map([
+        ["applications", []],
+        ["admissions_applications", []]
+    ]);
 
-    onSnapshot(appsRef, (snapshot) => {
-        rawApplications = mapSnapshot(snapshot);
+    const refreshApplications = () => {
+        rawApplications = [...applicationsByCollection.entries()]
+            .flatMap(([collectionName, rows]) => rows.map((app) => ({ ...app, collectionName })));
         rawApplications.sort((a, b) => b.rawTimestamp - a.rawTimestamp);
         updateSummaryStats(rawApplications);
         applyFiltersAndRender();
-    }, (error) => {
-        console.error("Firestore listener error:", error);
-        if (tableBody) {
-            tableBody.innerHTML = `<tr><td colspan="9" class="text-center py-4 text-danger">
-                Error loading applications: ${error.message}
-            </td></tr>`;
-        }
-    });
+    };
+
+    for (const collectionName of applicationsByCollection.keys()) {
+        onSnapshot(collection(db, collectionName), (snapshot) => {
+            applicationsByCollection.set(collectionName, mapSnapshot(snapshot, collectionName));
+            refreshApplications();
+        }, (error) => {
+            console.error(`Firestore listener error for ${collectionName}:`, error);
+            if (tableBody) {
+                tableBody.innerHTML = `<tr><td colspan="9" class="text-center py-4 text-danger">
+                    Error loading ${escapeHtml(collectionName)}: ${escapeHtml(error.message)}
+                </td></tr>`;
+            }
+        });
+    }
 }
 
-function mapSnapshot(snapshot) {
+function applicationRef(id) {
+    const app = rawApplications.find((item) => item.id === id);
+    if (!app) throw new Error("Application record was not found. Refresh the dashboard and try again.");
+    return doc(db, app.collectionName, app.docId);
+}
+
+function mapSnapshot(snapshot, collectionName) {
     const apps = [];
     snapshot.forEach((docSnap) => {
         const data = docSnap.data();
         const timestamp = data.createdAt || data.submittedAt;
 
         apps.push({
-            id: docSnap.id,
+            id: `${collectionName}:${docSnap.id}`,
+            docId: docSnap.id,
             refCode: data.referenceCode || data.refCode || docSnap.id.substring(0, 8).toUpperCase(),
             fullName: data.fullName || data.applicantName || data.studentInfo?.fullName || "N/A",
             firstName: data.firstName || "",
@@ -108,17 +146,29 @@ function mapSnapshot(snapshot) {
             gender: data.gender || "N/A",
             nationality: data.nationality || "N/A",
             prevSchool: data.prevSchool || "N/A",
+            homeTown: data.homeTown || "N/A",
             email: data.email || data.guardianEmail || "N/A",
             phone: data.guardianPhone || data.phone || data.guardianInfo?.phone || "N/A",
             guardianName: data.guardianName || data.guardianInfo?.fullName || "N/A",
             relationship: data.relationship || "N/A",
-            address: data.address || data.residentialAddress || "N/A",
+            address: data.address || data.residentialAddress || data.guardianAddress || "N/A",
+            fatherName: data.fatherName || "N/A",
+            motherName: data.motherName || "N/A",
             academicTier: data.academicTier || "N/A",
             stream: data.programStream || data.stream || "N/A",
             entryLevel: data.entryLevel || data.studentInfo?.entryLevel || "N/A",
             boardingStatus: data.boardingStatus || "N/A",
+            healthCondition: data.healthCondition || "No",
+            healthDetails: data.healthDetails || "N/A",
+            allergyStatus: data.allergyStatus || "No",
+            allergyDetails: data.allergyDetails || "N/A",
+            specialNeeds: data.specialNeeds || "N/A",
+            passportPhoto: data.passportPhoto || "",
+            applicationFiles: data.applicationFiles || {},
             yearBatch: data.yearBatch || "2026/2027",
             status: data.status || "Pending",
+            studentId: data.studentId || "",
+            institutionalEmail: data.institutionalEmail || "",
             documentsUrl: data.documentsUrl || data.documents?.reportCard || null,
             createdAtFormatted: timestamp?.toDate
                 ? timestamp.toDate().toLocaleDateString("en-GB")
@@ -192,6 +242,8 @@ function renderApplicationsTable() {
             <td>
                 ${app.documentsUrl
                     ? `<a href="${escapeHtml(app.documentsUrl)}" target="_blank" rel="noopener" class="btn btn-sm btn-outline-primary rounded-0">View Doc</a>`
+                    : Object.values(app.applicationFiles || {}).some(Boolean)
+                        ? '<span class="text-primary small">Attached — open details</span>'
                     : '<span class="text-muted">None</span>'}
             </td>
             <td><span class="badge ${getStatusBadgeClass(app.status)}">${escapeHtml(app.status)}</span></td>
@@ -300,8 +352,23 @@ applyBulkBtn?.addEventListener("click", async () => {
     applyBulkBtn.disabled = true;
     try {
         await Promise.all([...selectedIds].map(id =>
-            updateDoc(doc(db, "applications", id), { status: action })
+            updateDoc(applicationRef(id), { status: action })
         ));
+        if (action === "Approved") {
+            for (const id of [...selectedIds]) {
+                const app = rawApplications.find(a => a.id === id);
+                if (app && !app.studentId) {
+                    await provisionFromApplication({
+                        ...app,
+                        applicationId: app.docId,
+                        applicationCollection: app.collectionName,
+                        email: app.email,
+                        phone: app.phone,
+                        stream: app.stream
+                    });
+                }
+            }
+        }
         selectedIds.clear();
         bulkStatusSelect.value = "";
         // Snapshot listener re-renders automatically
@@ -320,7 +387,7 @@ window.requestDeleteApplication = function (docId) {
     pendingDeleteIds = [docId];
     if (deleteModalMessage) {
         deleteModalMessage.textContent =
-            `Are you sure you want to delete the application of "${app?.fullName || docId}" (${app?.refCode || ""})? This action cannot be undone.`;
+            `Permanently delete the application of "${app?.fullName || docId}" (${app?.refCode || ""}) and its uploaded passport photo and documents? This cannot be undone.`;
     }
     if (deleteConfirmModal) deleteConfirmModal.show();
     else if (confirm("Delete this application record permanently?")) performDelete();
@@ -330,7 +397,7 @@ function requestBulkDelete() {
     pendingDeleteIds = [...selectedIds];
     if (deleteModalMessage) {
         deleteModalMessage.textContent =
-            `Are you sure you want to delete ${pendingDeleteIds.length} selected application(s)? This action cannot be undone.`;
+            `Permanently delete ${pendingDeleteIds.length} selected application(s) and their uploaded passport photos and documents? This cannot be undone.`;
     }
     if (deleteConfirmModal) deleteConfirmModal.show();
     else if (confirm("Delete selected applications permanently?")) performDelete();
@@ -340,16 +407,28 @@ confirmDeleteBtn?.addEventListener("click", performDelete);
 
 async function performDelete() {
     if (pendingDeleteIds.length === 0) return;
-    confirmDeleteBtn.disabled = true;
+    if (confirmDeleteBtn) confirmDeleteBtn.disabled = true;
     try {
-        await Promise.all(pendingDeleteIds.map(id => deleteDoc(doc(db, "applications", id))));
+        const applicationsToDelete = pendingDeleteIds.map((id) => {
+            const application = rawApplications.find((entry) => entry.id === id);
+            if (!application) throw new Error("An application was not found. Refresh the dashboard and try again.");
+            return application;
+        });
+        const applicationRefs = pendingDeleteIds.map(applicationRef);
+        const applicantFilePaths = applicationsToDelete.flatMap((application) =>
+            Object.values(application.applicationFiles || {})
+                .filter((path) => typeof path === "string" && path)
+        );
+
+        await deleteAdmissionFiles(applicantFilePaths);
+        await Promise.all(applicationRefs.map((reference) => deleteDoc(reference)));
         pendingDeleteIds.forEach(id => selectedIds.delete(id));
         pendingDeleteIds = [];
         deleteConfirmModal?.hide();
     } catch (err) {
-        alert("Delete failed: " + err.message);
+        alert(`Delete failed: ${err.message}`);
     } finally {
-        confirmDeleteBtn.disabled = false;
+        if (confirmDeleteBtn) confirmDeleteBtn.disabled = false;
     }
 }
 
@@ -358,7 +437,20 @@ window.deleteApplication = window.requestDeleteApplication;
 
 window.changeApplicationStatus = async function (docId, newStatus) {
     try {
-        await updateDoc(doc(db, "applications", docId), { status: newStatus });
+        await updateDoc(applicationRef(docId), { status: newStatus });
+        if (newStatus === "Approved") {
+            const app = rawApplications.find(a => a.id === docId);
+            if (app && !app.studentId) {
+                await provisionFromApplication({
+                    ...app,
+                    applicationId: app.docId,
+                    applicationCollection: app.collectionName,
+                    email: app.email,
+                    phone: app.phone,
+                    stream: app.stream
+                });
+            }
+        }
     } catch (err) {
         alert("Status update failed: " + err.message);
     }
@@ -375,17 +467,20 @@ exportCsvBtn?.addEventListener("click", () => {
 
     const headers = [
         "Ref Code", "Date", "Batch", "Full Name", "Gender", "Date of Birth",
-        "Nationality", "Previous School", "Division", "Program / Stream",
-        "Entry Level", "Boarding Status", "Guardian Name", "Relationship",
-        "Guardian Phone", "Email", "Address", "Status"
+        "Nationality", "Previous School", "Home Town", "Division", "Program / Stream",
+        "Entry Level", "Boarding Status", "Father's Name", "Mother's Name",
+        "Guardian Name", "Relationship", "Guardian Phone", "Email", "Address",
+        "Health Condition", "Health Details", "Allergies", "Allergy Details",
+        "Special Needs / Notes", "Status"
     ];
 
     const rows = filteredApplications.map(app => [
         app.refCode, app.createdAtFormatted, app.yearBatch, app.fullName,
-        app.gender, app.dob, app.nationality, app.prevSchool,
+        app.gender, app.dob, app.nationality, app.prevSchool, app.homeTown,
         app.academicTier, app.stream, app.entryLevel, app.boardingStatus,
-        app.guardianName, app.relationship, app.phone, app.email,
-        app.address, app.status
+        app.fatherName, app.motherName, app.guardianName, app.relationship, app.phone,
+        app.email, app.address, app.healthCondition, app.healthDetails,
+        app.allergyStatus, app.allergyDetails, app.specialNeeds, app.status
     ]);
 
     const csvContent = [headers, ...rows]
@@ -408,9 +503,25 @@ exportCsvBtn?.addEventListener("click", () => {
 // ---------------------------------------------------------------------
 // APPLICANT DETAILS MODAL
 // ---------------------------------------------------------------------
-function viewApplication(docId) {
+async function viewApplication(docId) {
     const app = rawApplications.find(a => a.id === docId);
     if (!app || !applicantModalBody) return;
+
+    const paths = Object.fromEntries(
+        Object.entries(app.applicationFiles || {}).filter(([, path]) => typeof path === "string" && path)
+    );
+    let fileUrls = {};
+    let fileError = "";
+    if (Object.keys(paths).length) {
+        applicantModalBody.innerHTML = '<p class="text-secondary mb-0">Loading private applicant files…</p>';
+        applicantModal?.show();
+        try {
+            fileUrls = await getAdmissionFileUrls(paths);
+        } catch (error) {
+            console.error("Could not load private applicant files:", error);
+            fileError = error.message;
+        }
+    }
 
     const field = (label, value) => `
         <div class="mb-2">
@@ -436,6 +547,7 @@ function viewApplication(docId) {
                 ${field("Gender", app.gender)}
                 ${field("Nationality", app.nationality)}
                 ${field("Previous School", app.prevSchool)}
+                ${field("Home Town", app.homeTown)}
             </div>
             <div class="col-md-6">
                 <h6 class="fw-bold text-danger text-uppercase small border-bottom pb-1 mb-2">Academic Pathway</h6>
@@ -446,18 +558,40 @@ function viewApplication(docId) {
                 ${field("Academic Batch", app.yearBatch)}
             </div>
             <div class="col-md-6">
-                <h6 class="fw-bold text-danger text-uppercase small border-bottom pb-1 mb-2">Guardian</h6>
+                <h6 class="fw-bold text-danger text-uppercase small border-bottom pb-1 mb-2">Parents / Guardian</h6>
+                ${field("Father's Name", app.fatherName)}
+                ${field("Mother's Name", app.motherName)}
                 ${field("Guardian Name", app.guardianName)}
                 ${field("Relationship", app.relationship)}
                 ${field("Phone", app.phone)}
                 ${field("Email", app.email)}
             </div>
             <div class="col-md-6">
-                <h6 class="fw-bold text-danger text-uppercase small border-bottom pb-1 mb-2">Other</h6>
+                <h6 class="fw-bold text-danger text-uppercase small border-bottom pb-1 mb-2">Health &amp; Other</h6>
                 ${field("Residential Address", app.address)}
+                ${field("Health Condition", app.healthCondition)}
+                ${field("Health Details", app.healthDetails)}
+                ${field("Allergies", app.allergyStatus)}
+                ${field("Allergy Details", app.allergyDetails)}
+                ${field("Special Needs / Notes", app.specialNeeds)}
                 ${field("Submitted On", app.createdAtFormatted)}
-                ${field("Documents", app.documentsUrl ? "Attached" : "None")}
+                ${field("Documents", app.documentsUrl || Object.keys(paths).length ? "Attached" : "None")}
             </div>
+            ${(fileUrls.passportPhoto || app.passportPhoto) ? `
+                <div class="col-12">
+                    <h6 class="fw-bold text-danger text-uppercase small border-bottom pb-1 mb-2">Passport Photo</h6>
+                    <img src="${escapeHtml(fileUrls.passportPhoto || app.passportPhoto)}" alt="Applicant passport photo" style="max-width: 180px; max-height: 220px; border: 1px solid #ddd; background: #fff;" />
+                </div>
+            ` : ""}
+            ${(fileUrls.reportCard || fileUrls.birthCertificate || app.documentsUrl || fileError) ? `
+                <div class="col-12">
+                    <h6 class="fw-bold text-danger text-uppercase small border-bottom pb-1 mb-2">Supporting Documents</h6>
+                    ${fileUrls.reportCard ? `<a class="btn btn-sm btn-outline-primary me-2 mb-2" href="${escapeHtml(fileUrls.reportCard)}" target="_blank" rel="noopener">View report card / results</a>` : ""}
+                    ${fileUrls.birthCertificate ? `<a class="btn btn-sm btn-outline-primary me-2 mb-2" href="${escapeHtml(fileUrls.birthCertificate)}" target="_blank" rel="noopener">View birth certificate / ID</a>` : ""}
+                    ${app.documentsUrl ? `<a class="btn btn-sm btn-outline-primary me-2 mb-2" href="${escapeHtml(app.documentsUrl)}" target="_blank" rel="noopener">View existing document</a>` : ""}
+                    ${fileError ? `<p class="text-danger small mb-0">${escapeHtml(fileError)}</p>` : ""}
+                </div>
+            ` : ""}
         </div>`;
 
     applicantModal?.show();
@@ -466,11 +600,9 @@ function viewApplication(docId) {
 // ---------------------------------------------------------------------
 // PRINTABLE APPLICATION FORM GENERATOR (with school logo)
 // ---------------------------------------------------------------------
-window.generateApplicationForm = function (docId) {
+window.generateApplicationForm = async function (docId) {
     const app = rawApplications.find(a => a.id === docId);
     if (!app) return;
-
-    const logoUrl = new URL("assets/images/logo.png", window.location.href).href;
 
     const formWindow = window.open("", "_blank", "width=900,height=1000");
     if (!formWindow) {
@@ -478,11 +610,32 @@ window.generateApplicationForm = function (docId) {
         return;
     }
 
+    let fileUrls = {};
+    const paths = Object.fromEntries(
+        Object.entries(app.applicationFiles || {}).filter(([, path]) => typeof path === "string" && path)
+    );
+    try {
+        if (Object.keys(paths).length) fileUrls = await getAdmissionFileUrls(paths);
+    } catch (error) {
+        console.error("Could not load private files for the application form:", error);
+        formWindow.close();
+        alert(`Could not load private applicant files: ${error.message}`);
+        return;
+    }
+
+    const logoUrl = new URL("assets/images/logo.png", window.location.href).href;
     const row = (label, value) => `
         <tr>
             <td class="label">${label}</td>
             <td class="value">${escapeHtml(value || "N/A")}</td>
         </tr>`;
+
+    const passportUrl = fileUrls.passportPhoto || app.passportPhoto;
+    const passportMarkup = passportUrl ? `<div style="text-align:center; margin-bottom: 18px;"><img src="${escapeHtml(passportUrl)}" alt="Passport photo" style="width: 140px; height: 170px; object-fit: cover; border: 2px solid #900C3F; background: #f5f5f5;" /></div>` : "";
+    const documentsMarkup = [
+        fileUrls.reportCard ? `<a href="${escapeHtml(fileUrls.reportCard)}">Report card / results slip</a>` : "",
+        fileUrls.birthCertificate ? `<a href="${escapeHtml(fileUrls.birthCertificate)}">Birth certificate / ID copy</a>` : ""
+    ].filter(Boolean).join(" &nbsp; | &nbsp; ");
 
     formWindow.document.write(`<!DOCTYPE html>
 <html lang="en">
@@ -538,6 +691,9 @@ window.generateApplicationForm = function (docId) {
         &nbsp;&bull;&nbsp; Date Submitted: <strong>${escapeHtml(app.createdAtFormatted)}</strong>
     </div>
 
+    ${passportMarkup}
+    ${documentsMarkup ? `<div style="margin:0 0 18px;text-align:center;font-size:12px;">Supporting documents: ${documentsMarkup}</div>` : ""}
+
     <h3>Section A &mdash; Academic Pathway</h3>
     <table>
         ${row("Educational Division", app.academicTier)}
@@ -552,16 +708,28 @@ window.generateApplicationForm = function (docId) {
         ${row("Date of Birth", app.dob)}
         ${row("Gender", app.gender)}
         ${row("Nationality", app.nationality)}
+        ${row("Home Town / Current Residence", app.homeTown)}
         ${row("Previous School & Location", app.prevSchool)}
+        ${row("Residential / Digital Address", app.address)}
     </table>
 
     <h3>Section C &mdash; Parent / Guardian Contact</h3>
     <table>
+        ${row("Father's Name", app.fatherName)}
+        ${row("Mother's Name", app.motherName)}
         ${row("Guardian Full Name", app.guardianName)}
         ${row("Relationship to Student", app.relationship)}
         ${row("Primary Phone Number", app.phone)}
         ${row("Email Address", app.email)}
-        ${row("Residential / Digital Address", app.address)}
+    </table>
+
+    <h3>Section D &mdash; Health / Medical Information</h3>
+    <table>
+        ${row("Any Health Condition?", app.healthCondition)}
+        ${row("Health Condition Details", app.healthDetails)}
+        ${row("Any Allergies?", app.allergyStatus)}
+        ${row("Allergy Details", app.allergyDetails)}
+        ${row("Special Needs / Medical Notes", app.specialNeeds)}
     </table>
 
     <div class="declaration">

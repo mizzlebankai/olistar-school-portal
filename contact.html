@@ -31,6 +31,7 @@
                 <a href="application.html">Admissions</a>
                 <a href="shs-tech.html">Technical Programs</a>
                 <a href="contact.html" class="text-warning">Portals & Contact</a>
+                <a href="../OLISTAR/login.html" class="text-warning">School Portal</a>
                 <a href="admin.html" class="text-warning fw-bold">Admin Login</a>
             </div>
         </div>
@@ -40,7 +41,7 @@
     <nav class="navbar navbar-expand-lg navbar-harvard sticky-top">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="index.html">
-                <img src="assets/images/logo.png" alt="Olistar School Crest" height="52" class="me-3" onerror="this.src='https://placehold.co/100x100/900C3F/ffffff?text=Crest'">
+                <img src="assets/images/logo.png" alt="Olistar School Crest" height="52" class="me-3" onerror="this.src='assets/images/image-placeholder.svg'">
                 <div>
                     <span class="d-block fw-bold text-dark fs-4 leading-none" style="font-family: var(--font-serif); letter-spacing: -0.5px;">OLISTAR SCHOOL</span>
                     <span class="school-motto-tag d-block mt-1">Good Foundation, Firm Building &bull; Est. 1987</span>
@@ -79,7 +80,7 @@
     </nav>
 
     <!-- Page Hero -->
-    <header class="page-hero text-white" style="background-image: url('assets/images/hero-campus.jpg');">
+    <header class="page-hero text-white" data-managed-hero="contact" style="background-image: url('assets/images/image-placeholder.svg');">
         <div class="container py-5">
             <div class="row">
                 <div class="col-lg-8">
@@ -92,7 +93,7 @@
                     <span class="text-uppercase fw-bold text-warning small" style="letter-spacing: 1.5px;">Reach Our Administration</span>
                     <h1 class="font-serif fw-bold display-5 mt-2 mb-3">Contact & Campus Directory</h1>
                     <p class="lead mb-0 text-white-50 fs-6">
-                        Connect with administrative offices, schedule campus visits, or submit general inquiries to Olistar School in Sunyani Abesim.
+                        Connect with administrative offices, schedule campus visits, or submit general inquiries to Olistar School. Early Grade to JHS operates from Site A in Abesim and Site B at Abesim Nkrankrom Road, home to the SHS/Technical campus.
                     </p>
                     <a href="application.html" class="btn btn-warning fw-bold text-dark text-uppercase rounded-0 px-4 py-2 mt-4" style="font-size: 0.8rem; letter-spacing: 1px;">
                         Apply Now <i class="bi bi-arrow-right ms-1"></i>
@@ -169,20 +170,21 @@
                     <!-- Campus Location Map Frame -->
                     <div class="bg-white p-4 border border-2 border-dark shadow-sm">
                         <div class="d-flex align-items-center justify-content-between mb-3 pb-2 border-bottom border-2 border-dark">
-                            <h4 class="font-serif fw-bold text-dark mb-0">Campus Location</h4>
-                            <span class="badge bg-danger rounded-0 text-uppercase" style="letter-spacing: 0.5px;">Sunyani Abesim</span>
+                            <h4 class="font-serif fw-bold text-dark mb-0">Campus Locations</h4>
+                            <span class="badge bg-danger rounded-0 text-uppercase" style="letter-spacing: 0.5px;">Site A &amp; Site B</span>
                         </div>
-                        <p class="text-secondary small mb-3">
-                            Located conveniently along the Sunyani–Kumasi road at Abesim in the Bono Region of Ghana.
-                        </p>
+                        <div class="mb-3 small text-secondary">
+                            <p class="mb-2"><strong>Site A:</strong> Abesim, Sunyani – Early Grade to JHS campus.</p>
+                            <p class="mb-0"><strong>Site B:</strong> Abesim Nkrankrom Road – SHS / Technical campus.</p>
+                        </div>
                         <div class="ratio ratio-16x9 border border-dark">
-                            <iframe 
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15814.288289457813!2d-2.3150!3d7.3180!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfe301234567890%3A0x1234567890abcdef!2sAbesim%2C%20Sunyani%2C%20Ghana!5e0!3m2!1sen!2sgh!4v1700000000000!5m2!1sen!2sgh" 
-                                style="border:0;" 
-                                allowfullscreen="" 
-                                loading="lazy" 
+                            <iframe
+                                src="https://www.google.com/maps?q=Abesim%20Nkrankrom%20Road%20Sunyani&output=embed"
+                                style="border:0;"
+                                allowfullscreen=""
+                                loading="lazy"
                                 referrerpolicy="no-referrer-when-downgrade"
-                                title="Olistar School Sunyani Abesim Location Map">
+                                title="Olistar School Campus Locations Map">
                             </iframe>
                         </div>
                     </div>
@@ -345,5 +347,6 @@
     <!-- Custom JS -->
     <script src="js/main.js"></script>
     <script src="js/scroll-effects.js"></script>
+    <script type="module" src="js/public-content.js?v=20260928-news-links"></script>
 </body>
 </html>

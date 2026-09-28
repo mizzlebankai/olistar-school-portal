@@ -1,0 +1,8 @@
+[functions.upload-school-image]
+verify_jwt = false
+
+[functions.delete-school-image]
+verify_jwt = false
+
+[functions.admission-files]
+verify_jwt = false

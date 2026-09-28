@@ -29,8 +29,11 @@
             </div>
             <div class="d-flex gap-3 text-uppercase fw-semibold" style="font-size: 0.75rem; letter-spacing: 0.5px;">
                 <a href="application.html" class="text-warning">Admissions Portal</a>
+                <a href="news.html" class="text-white text-decoration-none">News</a>
+                <a href="events.html" class="text-white text-decoration-none">Events</a>
                 <a href="shs-tech.html" class="text-white text-decoration-none">Technical Programs</a>
                 <a href="contact.html" class="text-white text-decoration-none">Portals &amp; Contact</a>
+                <a href="../OLISTAR/login.html" class="text-warning">School Portal</a>
                 <a href="admin.html" class="text-warning fw-bold">Admin Login</a>
             </div>
         </div>
@@ -40,7 +43,7 @@
     <nav class="navbar navbar-expand-lg navbar-harvard sticky-top bg-white border-bottom">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="index.html">
-                <img src="assets/images/logo.png" alt="Olistar School Crest" height="52" class="me-3" onerror="this.src='https://placehold.co/100x100/900C3F/ffffff?text=Crest'">
+                <img src="assets/images/logo.png" alt="Olistar School Crest" height="52" class="me-3" onerror="this.src='assets/images/image-placeholder.svg'">
                 <div>
                     <span class="d-block fw-bold text-dark fs-4 leading-none" style="font-family: var(--font-serif, serif); letter-spacing: -0.5px;">OLISTAR SCHOOL</span>
                     <span class="school-motto-tag d-block mt-1 text-muted small">Good Foundation, Firm Building &bull; Est. 1987</span>
@@ -67,6 +70,8 @@
                             <li><a class="dropdown-item py-2 fw-semibold" href="shs-tech.html">Senior High &amp; Technical</a></li>
                         </ul>
                     </li>
+                    <li class="nav-item"><a class="nav-link nav-link-harvard" href="news.html">News</a></li>
+                    <li class="nav-item"><a class="nav-link nav-link-harvard" href="events.html">Events</a></li>
                     <li class="nav-item"><a class="nav-link nav-link-harvard" href="contact.html">Contact</a></li>
                 </ul>
                 <div class="ms-lg-4 mt-3 mt-lg-0">
@@ -79,7 +84,7 @@
     </nav>
 
     <!-- Page Hero -->
-    <header class="page-hero text-white" style="background-image: url('assets/images/hero-campus.jpg');">
+    <header class="page-hero text-white" data-managed-hero="application" style="background-image: url('assets/images/image-placeholder.svg');">
         <div class="container py-5">
             <div class="row">
                 <div class="col-lg-8">
@@ -92,7 +97,7 @@
                     <span class="text-uppercase fw-bold text-warning small" style="letter-spacing: 1.5px;">Office of Admissions</span>
                     <h1 class="font-serif fw-bold display-5 mt-2 mb-3">Online Application Portal</h1>
                     <p class="lead mb-0 text-white-50 fs-6">
-                        Complete your application for Primary, Junior High School (JHS), or Senior High &amp; Technical (TVET) streams for the 2026/2027 Academic Year.
+                        Complete your application for either the SHS &amp; Technical division or the Early Grade through JHS division for the 2026/2027 Academic Year. The Early Grade to JHS pathway operates at Site A in Abesim and Site B at Abesim Nkrankrom Road.
                     </p>
                     <a href="contact.html" class="btn btn-warning fw-bold text-dark text-uppercase rounded-0 px-4 py-2 mt-4" style="font-size: 0.8rem; letter-spacing: 1px;">
                         Contact Admissions Desk <i class="bi bi-telephone ms-1"></i>
@@ -127,33 +132,29 @@
 
                             <div class="row g-3">
                                 <div class="col-md-6">
-                                    <label for="academicTier" class="form-label fw-bold small text-uppercase">Target Educational Division <span class="text-danger">*</span></label>
+                                    <label for="academicTier" class="form-label fw-bold small text-uppercase">Target Division <span class="text-danger">*</span></label>
                                     <select class="form-select rounded-0 border-dark" id="academicTier" required>
-                                        <option value="" selected disabled>Select Educational Division...</option>
-                                        <option value="primary">Primary Division (Class 1 – 6)</option>
-                                        <option value="jhs">Junior High School (JHS 1 – 3 / BECE)</option>
-                                        <option value="shs-academic">Senior High School - Academic (WASSCE)</option>
-                                        <option value="shs-technical">Senior High &amp; Technical (CTVET / NVTI)</option>
+                                        <option value="" selected disabled>Select Division...</option>
+                                        <option value="early-grade-jhs">Early Grade to JHS Division</option>
+                                        <option value="shs-technical">SHS / Technical Division</option>
                                     </select>
                                     <div class="invalid-feedback">Please select a target division.</div>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label for="programStream" class="form-label fw-bold small text-uppercase">Program / Specialization <span class="text-danger">*</span></label>
+                                    <label for="programStream" class="form-label fw-bold small text-uppercase">Program / Class Path <span class="text-danger">*</span></label>
                                     <select class="form-select rounded-0 border-dark" id="programStream" required disabled>
                                         <option value="" selected disabled>Select Division First...</option>
-                                        <optgroup label="Primary Division" data-tier="primary">
-                                            <option value="primary-lower">Lower Primary (Class 1 - 3)</option>
-                                            <option value="primary-upper">Upper Primary (Class 4 - 6)</option>
+                                        <optgroup label="Early Grade to JHS" data-tier="early-grade-jhs">
+                                            <option value="creche">Creche</option>
+                                            <option value="nursery">Nursery</option>
+                                            <option value="kindergarten">Kindergarten</option>
+                                            <option value="primary">Primary (Class 1 - 6)</option>
+                                            <option value="jhs">Junior High School (JHS 1 - 3)</option>
                                         </optgroup>
-                                        <optgroup label="Junior High School" data-tier="jhs">
-                                            <option value="jhs-general">JHS BECE Preparatory Program</option>
-                                        </optgroup>
-                                        <optgroup label="Senior High School - Academic" data-tier="shs-academic">
+                                        <optgroup label="SHS / Technical" data-tier="shs-technical">
                                             <option value="shs-general-arts">General Arts</option>
-                                            <option value="shs-business">Business Studies</option>
-                                        </optgroup>
-                                        <optgroup label="Senior High &amp; Technical Pathways" data-tier="shs-technical">
+                                            <option value="shs-business">Business</option>
                                             <option value="tech-ict">ICT &amp; Software Fundamentals</option>
                                             <option value="tech-building">Building Construction Technology</option>
                                             <option value="tech-catering">Catering &amp; Home Economics</option>
@@ -202,12 +203,12 @@
                                     <div class="invalid-feedback">Surname is required.</div>
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <label for="dob" class="form-label fw-bold small text-uppercase">Date of Birth <span class="text-danger">*</span></label>
                                     <input type="date" class="form-control rounded-0 border-dark" id="dob" required>
                                     <div class="invalid-feedback">Please enter a valid date of birth.</div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <label for="gender" class="form-label fw-bold small text-uppercase">Gender <span class="text-danger">*</span></label>
                                     <select class="form-select rounded-0 border-dark" id="gender" required>
                                         <option value="" selected disabled>Select...</option>
@@ -216,16 +217,30 @@
                                     </select>
                                     <div class="invalid-feedback">Please select gender.</div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
+                                    <label for="religion" class="form-label fw-bold small text-uppercase">Religion</label>
+                                    <input type="text" class="form-control rounded-0 border-dark" id="religion" placeholder="Christian / Muslim / Other">
+                                </div>
+                                <div class="col-md-3">
                                     <label for="nationality" class="form-label fw-bold small text-uppercase">Nationality <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control rounded-0 border-dark" id="nationality" value="Ghanaian" required>
                                     <div class="invalid-feedback">Nationality is required.</div>
                                 </div>
 
-                                <div class="col-12">
+                                <div class="col-md-6">
                                     <label for="prevSchool" class="form-label fw-bold small text-uppercase">Previous School Attended &amp; Location <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control rounded-0 border-dark" id="prevSchool" placeholder="School Name, City/Town" required>
                                     <div class="invalid-feedback">Please detail previous school and location.</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="homeTown" class="form-label fw-bold small text-uppercase">Home Town / Current Residence</label>
+                                    <input type="text" class="form-control rounded-0 border-dark" id="homeTown" placeholder="Town / Community / Area">
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="residentialAddress" class="form-label fw-bold small text-uppercase">Residential Address / Digital Address (GhanaPost GPS) <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control rounded-0 border-dark" id="residentialAddress" placeholder="House No / Street / Landmark, Sunyani or Region" required>
+                                    <div class="invalid-feedback">Residential address is required.</div>
                                 </div>
                             </div>
                         </div>
@@ -234,10 +249,73 @@
                         <div class="mb-5">
                             <div class="d-flex align-items-center mb-3 pb-2 border-bottom border-2 border-danger">
                                 <span class="badge bg-danger rounded-0 me-2 px-3 py-2 fs-6">3</span>
-                                <h3 class="font-serif fw-bold text-dark mb-0 fs-4">Parent / Guardian Contact</h3>
+                                <h3 class="font-serif fw-bold text-dark mb-0 fs-4">Parents / Guardian Details</h3>
+                            </div>
+
+                            <div class="row g-3 mb-4">
+                                <div class="col-12">
+                                    <h4 class="h6 fw-bold text-dark text-uppercase border-bottom border-2 pb-1 mb-3" style="border-color: var(--olistar-crimson) !important;">Father's Details</h4>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="fatherName" class="form-label fw-bold small text-uppercase">Father's Name</label>
+                                    <input type="text" class="form-control rounded-0 border-dark" id="fatherName">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="fatherOccupation" class="form-label fw-bold small text-uppercase">Occupation</label>
+                                    <input type="text" class="form-control rounded-0 border-dark" id="fatherOccupation">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="fatherPhone" class="form-label fw-bold small text-uppercase">Telephone</label>
+                                    <input type="tel" class="form-control rounded-0 border-dark" id="fatherPhone" placeholder="024xxxxxxx">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="fatherNationality" class="form-label fw-bold small text-uppercase">Nationality</label>
+                                    <input type="text" class="form-control rounded-0 border-dark" id="fatherNationality" value="Ghanaian">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="fatherHomeTown" class="form-label fw-bold small text-uppercase">Home Town</label>
+                                    <input type="text" class="form-control rounded-0 border-dark" id="fatherHomeTown">
+                                </div>
+                                <div class="col-12">
+                                    <label for="fatherAddress" class="form-label fw-bold small text-uppercase">Address</label>
+                                    <input type="text" class="form-control rounded-0 border-dark" id="fatherAddress">
+                                </div>
+                            </div>
+
+                            <div class="row g-3 mb-4">
+                                <div class="col-12">
+                                    <h4 class="h6 fw-bold text-dark text-uppercase border-bottom border-2 pb-1 mb-3" style="border-color: var(--olistar-crimson) !important;">Mother's Details</h4>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="motherName" class="form-label fw-bold small text-uppercase">Mother's Name</label>
+                                    <input type="text" class="form-control rounded-0 border-dark" id="motherName">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="motherOccupation" class="form-label fw-bold small text-uppercase">Occupation</label>
+                                    <input type="text" class="form-control rounded-0 border-dark" id="motherOccupation">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="motherPhone" class="form-label fw-bold small text-uppercase">Telephone</label>
+                                    <input type="tel" class="form-control rounded-0 border-dark" id="motherPhone" placeholder="024xxxxxxx">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="motherNationality" class="form-label fw-bold small text-uppercase">Nationality</label>
+                                    <input type="text" class="form-control rounded-0 border-dark" id="motherNationality" value="Ghanaian">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="motherHomeTown" class="form-label fw-bold small text-uppercase">Home Town</label>
+                                    <input type="text" class="form-control rounded-0 border-dark" id="motherHomeTown">
+                                </div>
+                                <div class="col-12">
+                                    <label for="motherAddress" class="form-label fw-bold small text-uppercase">Address</label>
+                                    <input type="text" class="form-control rounded-0 border-dark" id="motherAddress">
+                                </div>
                             </div>
 
                             <div class="row g-3">
+                                <div class="col-12">
+                                    <h4 class="h6 fw-bold text-dark text-uppercase border-bottom border-2 pb-1 mb-3" style="border-color: var(--olistar-crimson) !important;">Guardian / Emergency Contact</h4>
+                                </div>
                                 <div class="col-md-6">
                                     <label for="guardianName" class="form-label fw-bold small text-uppercase">Full Name of Parent/Guardian <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control rounded-0 border-dark" id="guardianName" required>
@@ -261,30 +339,75 @@
                                 </div>
 
                                 <div class="col-12">
-                                    <label for="residentialAddress" class="form-label fw-bold small text-uppercase">Residential Address / Digital Address (GhanaPost GPS) <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control rounded-0 border-dark" id="residentialAddress" placeholder="House No / Street / Landmark, Sunyani or Region" required>
+                                    <label for="guardianAddress" class="form-label fw-bold small text-uppercase">Residential Address / Digital Address (GhanaPost GPS) <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control rounded-0 border-dark" id="guardianAddress" placeholder="House No / Street / Landmark, Sunyani or Region" required>
                                     <div class="invalid-feedback">Residential address is required.</div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Form Section 4: Document Attachments & Declaration -->
-                        <div class="mb-4">
+                        <!-- Form Section 4: Health & Special Needs -->
+                        <div class="mb-5">
                             <div class="d-flex align-items-center mb-3 pb-2 border-bottom border-2 border-danger">
                                 <span class="badge bg-danger rounded-0 me-2 px-3 py-2 fs-6">4</span>
+                                <h3 class="font-serif fw-bold text-dark mb-0 fs-4">Health Records &amp; Special Needs</h3>
+                            </div>
+
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <label for="passportPhoto" class="form-label fw-bold small text-uppercase">Passport Photo</label>
+                                    <input class="form-control rounded-0 border-dark" type="file" id="passportPhoto" accept="image/jpeg,image/png,image/webp">
+                                    <span class="text-muted" style="font-size: 0.75rem;">JPG, PNG, or WebP; maximum 2 MB. Stored privately for admissions review.</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="healthCondition" class="form-label fw-bold small text-uppercase">Any Health Condition?</label>
+                                    <select class="form-select rounded-0 border-dark" id="healthCondition">
+                                        <option value="No">No</option>
+                                        <option value="Yes">Yes</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="allergyStatus" class="form-label fw-bold small text-uppercase">Any Allergies?</label>
+                                    <select class="form-select rounded-0 border-dark" id="allergyStatus">
+                                        <option value="No">No</option>
+                                        <option value="Yes">Yes</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="healthDetails" class="form-label fw-bold small text-uppercase">Health Condition Details</label>
+                                    <textarea class="form-control rounded-0 border-dark" id="healthDetails" rows="4" placeholder="Describe any medical condition, disability, chronic illness, or treatment plan"></textarea>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="allergyDetails" class="form-label fw-bold small text-uppercase">Allergy Details</label>
+                                    <textarea class="form-control rounded-0 border-dark" id="allergyDetails" rows="4" placeholder="Describe allergy type and treatment or emergency note"></textarea>
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="specialNeeds" class="form-label fw-bold small text-uppercase">Other Special Needs / Medical Notes</label>
+                                    <textarea class="form-control rounded-0 border-dark" id="specialNeeds" rows="3" placeholder="Any doctor recommendations, medications, or special support needs"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Form Section 5: Documents & Declaration -->
+                        <div class="mb-4">
+                            <div class="d-flex align-items-center mb-3 pb-2 border-bottom border-2 border-danger">
+                                <span class="badge bg-danger rounded-0 me-2 px-3 py-2 fs-6">5</span>
                                 <h3 class="font-serif fw-bold text-dark mb-0 fs-4">Supporting Documents &amp; Declaration</h3>
                             </div>
 
+                            <p class="small text-secondary">Uploaded files are stored privately and can only be opened with temporary links by the applicant during submission and by authorized admissions administrators.</p>
                             <div class="row g-3 mb-4">
                                 <div class="col-md-6">
                                     <label for="docResult" class="form-label fw-bold small text-uppercase">Previous Report Card / BECE Results Slip</label>
-                                    <input class="form-control rounded-0 border-dark file-input-limit" type="file" id="docResult" accept=".pdf,.png,.jpg,.jpeg">
-                                    <span class="text-muted" style="font-size: 0.75rem;">PDF, PNG, or JPG (Max 5MB)</span>
+                                    <input class="form-control rounded-0 border-dark" type="file" id="docResult" accept="application/pdf,image/png,image/jpeg">
+                                    <span class="text-muted" style="font-size: 0.75rem;">PDF, PNG, or JPG (Max 5 MB). Stored privately for admissions review.</span>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="docBirth" class="form-label fw-bold small text-uppercase">Birth Certificate / ID Copy</label>
-                                    <input class="form-control rounded-0 border-dark file-input-limit" type="file" id="docBirth" accept=".pdf,.png,.jpg,.jpeg">
-                                    <span class="text-muted" style="font-size: 0.75rem;">PDF, PNG, or JPG (Max 5MB)</span>
+                                    <input class="form-control rounded-0 border-dark" type="file" id="docBirth" accept="application/pdf,image/png,image/jpeg">
+                                    <span class="text-muted" style="font-size: 0.75rem;">PDF, PNG, or JPG (Max 5 MB). Stored privately for admissions review.</span>
                                 </div>
                             </div>
 
@@ -419,6 +542,7 @@
 
     <!-- Consolidated Application Logic & Firebase Firestore Integration -->
     <script src="js/scroll-effects.js"></script>
-    <script type="module" src="js/application.js"></script>
+    <script type="module" src="js/application.js?v=20260928-private-files"></script>
+    <script type="module" src="js/public-content.js?v=20260928-news-links"></script>
 </body>
 </html>

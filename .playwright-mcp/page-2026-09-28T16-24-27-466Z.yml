@@ -1,0 +1,312 @@
+- generic [active] [ref=f2e1]:
+  - generic [ref=f2e3]:
+    - generic [ref=f2e4]:
+      - generic [ref=f2e5]:
+        - generic [ref=f2e6]: 
+        - text: Sunyani Abesim, Ghana
+      - generic [ref=f2e7]: "|"
+      - generic [ref=f2e8]:
+        - generic [ref=f2e9]: 
+        - text: +233 (0) 00 000 0000
+    - generic [ref=f2e10]:
+      - link "Admissions" [ref=f2e11] [cursor=pointer]:
+        - /url: application.html
+      - link "News" [ref=f2e12] [cursor=pointer]:
+        - /url: news.html
+      - link "Events" [ref=f2e13] [cursor=pointer]:
+        - /url: events.html
+      - link "Technical Programs" [ref=f2e14] [cursor=pointer]:
+        - /url: shs-tech.html
+      - link "Portals & Contact" [ref=f2e15] [cursor=pointer]:
+        - /url: contact.html
+      - link "School Portal" [ref=f2e16] [cursor=pointer]:
+        - /url: ../OLISTAR/login.html
+      - link "Admin Login" [ref=f2e17] [cursor=pointer]:
+        - /url: admin.html
+  - navigation [ref=f2e18]:
+    - generic [ref=f2e19]:
+      - link "Olistar School Crest OLISTAR SCHOOL Good Foundation, Firm Building • Est. 1987" [ref=f2e20] [cursor=pointer]:
+        - /url: index.html
+        - img "Olistar School Crest" [ref=f2e21]
+        - generic [ref=f2e22]:
+          - generic [ref=f2e23]: OLISTAR SCHOOL
+          - generic [ref=f2e24]: Good Foundation, Firm Building • Est. 1987
+      - generic [ref=f2e25]:
+        - list [ref=f2e26]:
+          - listitem [ref=f2e27]:
+            - link "Home" [ref=f2e28] [cursor=pointer]:
+              - /url: index.html
+          - listitem [ref=f2e29]:
+            - link "About" [ref=f2e30] [cursor=pointer]:
+              - /url: about.html
+          - listitem [ref=f2e31]:
+            - button "Academics" [ref=f2e32] [cursor=pointer]
+          - listitem [ref=f2e33]:
+            - link "News" [ref=f2e34] [cursor=pointer]:
+              - /url: news.html
+          - listitem [ref=f2e35]:
+            - link "Events" [ref=f2e36] [cursor=pointer]:
+              - /url: events.html
+          - listitem [ref=f2e37]:
+            - link "Gallery" [ref=f2e38] [cursor=pointer]:
+              - /url: gallery.html
+          - listitem [ref=f2e39]:
+            - link "Contact" [ref=f2e40] [cursor=pointer]:
+              - /url: contact.html
+        - link "Apply Now" [ref=f2e42] [cursor=pointer]:
+          - /url: application.html
+  - banner [ref=f2e43]:
+    - generic [ref=f2e50]:
+      - generic [ref=f2e51]:
+        - text: Site A Abesim • Site B Nkrankrom Road
+        - heading "Building Character, Intellect, & Practical Skill" [level=1] [ref=f2e52]
+        - paragraph [ref=f2e53]: "Providing holistic basic education, JHS academic rigor, and TVET technical mastery since 1987 across our two school sites: Site A in Abesim and Site B at Abesim Nkrankrom Road."
+        - generic [ref=f2e54]:
+          - link "Start Admission Application " [ref=f2e55] [cursor=pointer]:
+            - /url: application.html
+            - text: Start Admission Application
+            - generic [ref=f2e56]: 
+          - link "Explore Our Heritage" [ref=f2e57] [cursor=pointer]:
+            - /url: about.html
+      - generic [ref=f2e59]:
+        - generic [ref=f2e60]:
+          - img "Campus Life" [ref=f2e61]
+          - generic [ref=f2e62]: Est. 1987
+        - generic [ref=f2e63]:
+          - heading "Oliver Star-K. Baah" [level=5] [ref=f2e64]
+          - paragraph [ref=f2e65]: Founding Director & Visionary Pioneer
+    - button "Previous Slide" [ref=f2e66] [cursor=pointer]:
+      - generic [ref=f2e67]: 
+    - button "Next Slide" [ref=f2e68] [cursor=pointer]:
+      - generic [ref=f2e69]: 
+    - generic [ref=f2e70]:
+      - button [ref=f2e71] [cursor=pointer]
+      - button [ref=f2e72] [cursor=pointer]
+      - button [ref=f2e73] [cursor=pointer]
+  - generic [ref=f2e75]:
+    - generic [ref=f2e76]:
+      - text: Educational Pathways
+      - heading "Our Academic & Technical Divisions" [level=2] [ref=f2e77]
+    - generic [ref=f2e79]:
+      - link "Primary School Basic Education Primary Division Foundational literacy, mathematics, science, and character development tailored for early childhood growth. Learn More " [ref=f2e81] [cursor=pointer]:
+        - /url: primary.html
+        - generic [ref=f2e82]:
+          - generic [ref=f2e83]:
+            - img "Primary School" [ref=f2e84]
+            - generic [ref=f2e85]: Basic Education
+          - generic [ref=f2e86]:
+            - heading "Primary Division" [level=5] [ref=f2e87]
+            - paragraph [ref=f2e88]: Foundational literacy, mathematics, science, and character development tailored for early childhood growth.
+            - generic [ref=f2e89]:
+              - text: Learn More
+              - generic [ref=f2e90]: 
+      - link "Junior High School BECE Stream Junior High School (JHS) Intensive academic prep, ICT literacy, and BECE examination mastery producing top percentile candidates. Learn More " [ref=f2e92] [cursor=pointer]:
+        - /url: jhs.html
+        - generic [ref=f2e93]:
+          - generic [ref=f2e94]:
+            - img "Junior High School" [ref=f2e95]
+            - generic [ref=f2e96]: BECE Stream
+          - generic [ref=f2e97]:
+            - heading "Junior High School (JHS)" [level=5] [ref=f2e98]
+            - paragraph [ref=f2e99]: Intensive academic prep, ICT literacy, and BECE examination mastery producing top percentile candidates.
+            - generic [ref=f2e100]:
+              - text: Learn More
+              - generic [ref=f2e101]: 
+      - link "Technical Workshops TVET Vocational Senior High & Technical Practical technical craft, electrical installations, mechanical work, and hands-on workshop training. Learn More " [ref=f2e103] [cursor=pointer]:
+        - /url: shs-tech.html
+        - generic [ref=f2e104]:
+          - generic [ref=f2e105]:
+            - img "Technical Workshops" [ref=f2e106]
+            - generic [ref=f2e107]: TVET Vocational
+          - generic [ref=f2e108]:
+            - heading "Senior High & Technical" [level=5] [ref=f2e109]
+            - paragraph [ref=f2e110]: Practical technical craft, electrical installations, mechanical work, and hands-on workshop training.
+            - generic [ref=f2e111]:
+              - text: Learn More
+              - generic [ref=f2e112]: 
+  - generic [ref=f2e115]:
+    - generic [ref=f2e117]:
+      - heading "100%" [level=3] [ref=f2e118]
+      - paragraph [ref=f2e119]: BECE Pass Rate
+    - generic [ref=f2e121]:
+      - heading "35+" [level=3] [ref=f2e122]
+      - paragraph [ref=f2e123]: Years of Service
+    - generic [ref=f2e125]:
+      - heading "5" [level=3] [ref=f2e126]
+      - paragraph [ref=f2e127]: Technical Labs
+    - generic [ref=f2e129]:
+      - heading "1000s" [level=3] [ref=f2e130]
+      - paragraph [ref=f2e131]: Alumni Worldwide
+  - generic [ref=f2e133]:
+    - generic [ref=f2e134]:
+      - generic [ref=f2e135]:
+        - text: Stay Updated
+        - heading "Latest News & Insights" [level=2] [ref=f2e136]
+      - link "View all news " [ref=f2e137] [cursor=pointer]:
+        - /url: news.html
+        - text: View all news
+        - generic [ref=f2e138]: 
+    - generic [ref=f2e139]:
+      - article [ref=f2e141]:
+        - img "BECE Performance" [ref=f2e142]
+        - generic [ref=f2e143]:
+          - generic [ref=f2e144]:
+            - generic [ref=f2e145]: Academics
+            - generic [ref=f2e146]:
+              - generic [ref=f2e147]: 
+              - text: Oct 24, 2026
+          - heading [level=3] [ref=f2e148]:
+            - link "BECE Examination Results Highlight Top Performance" [ref=f2e149] [cursor=pointer]:
+              - /url: news.html
+          - paragraph [ref=f2e150]: Our Junior High School graduating class recorded outstanding performance in national assessments...
+          - link "Read Full Story " [ref=f2e151] [cursor=pointer]:
+            - /url: news.html
+            - text: Read Full Story
+            - generic [ref=f2e152]: 
+      - article [ref=f2e154]:
+        - img "TVET Workshop Upgrade" [ref=f2e155]
+        - generic [ref=f2e156]:
+          - generic [ref=f2e157]:
+            - generic [ref=f2e158]: Technical / TVET
+            - generic [ref=f2e159]:
+              - generic [ref=f2e160]: 
+              - text: Nov 02, 2026
+          - heading [level=3] [ref=f2e161]:
+            - link "New Electrical Workshop Equipment Commissioned" [ref=f2e162] [cursor=pointer]:
+              - /url: news.html
+          - paragraph [ref=f2e163]: State-of-the-art diagnostic kits and industrial machinery have been added to our technical wing...
+          - link "Read Full Story " [ref=f2e164] [cursor=pointer]:
+            - /url: news.html
+            - text: Read Full Story
+            - generic [ref=f2e165]: 
+      - article [ref=f2e167]:
+        - img "Inter-House Sports" [ref=f2e168]
+        - generic [ref=f2e169]:
+          - generic [ref=f2e170]:
+            - generic [ref=f2e171]: Campus Life
+            - generic [ref=f2e172]:
+              - generic [ref=f2e173]: 
+              - text: Nov 15, 2026
+          - heading [level=3] [ref=f2e174]:
+            - link "Annual Inter-House Sports & Cultural Festival" [ref=f2e175] [cursor=pointer]:
+              - /url: news.html
+          - paragraph [ref=f2e176]: Students across Primary and JHS divisions showcased talents in athletics, cultural dance, and debate...
+          - link "Read Full Story " [ref=f2e177] [cursor=pointer]:
+            - /url: news.html
+            - text: Read Full Story
+            - generic [ref=f2e178]: 
+  - generic [ref=f2e180]:
+    - generic [ref=f2e182]:
+      - text: Mark Your Calendar
+      - heading "Upcoming Campus Events" [level=2] [ref=f2e183]
+    - generic [ref=f2e184]:
+      - generic [ref=f2e186]:
+        - generic [ref=f2e187]:
+          - generic [ref=f2e188]: "28"
+          - text: Nov
+        - generic [ref=f2e189]:
+          - generic [ref=f2e190]:
+            - generic [ref=f2e191]: 
+            - text: 9:00 AM - 2:00 PM • Main Auditorium
+          - heading "Open Day & Prospective Parents Orientation" [level=4] [ref=f2e192]
+          - paragraph [ref=f2e193]: Guided campus tours, faculty introductions, and admission consultations.
+      - generic [ref=f2e195]:
+        - generic [ref=f2e196]:
+          - generic [ref=f2e197]: "05"
+          - text: Dec
+        - generic [ref=f2e198]:
+          - generic [ref=f2e199]:
+            - generic [ref=f2e200]: 
+            - text: 10:00 AM - 4:00 PM • Technical Wing
+          - heading "TVET Practical Skills & Project Exhibition" [level=4] [ref=f2e201]
+          - paragraph [ref=f2e202]: Demonstrations by senior technical students in electronics and mechanics.
+      - generic [ref=f2e204]:
+        - generic [ref=f2e205]:
+          - generic [ref=f2e206]: "12"
+          - text: Dec
+        - generic [ref=f2e207]:
+          - generic [ref=f2e208]:
+            - generic [ref=f2e209]: 
+            - text: 2:00 PM - 5:00 PM • School Field
+          - heading "End of Term Thanksgiving & Carol Night" [level=4] [ref=f2e210]
+          - paragraph [ref=f2e211]: Join our school choir and brass band for an evening of musical celebration.
+      - generic [ref=f2e213]:
+        - generic [ref=f2e214]:
+          - generic [ref=f2e215]: "15"
+          - text: Jan
+        - generic [ref=f2e216]:
+          - generic [ref=f2e217]:
+            - generic [ref=f2e218]: 
+            - text: 8:00 AM • All Campuses
+          - heading "Resumption of Academic Term II" [level=4] [ref=f2e219]
+          - paragraph [ref=f2e220]: Classes commence for Primary, JHS, and Technical Division students.
+  - generic [ref=f2e223]:
+    - generic [ref=f2e224]:
+      - generic [ref=f2e225]: Admissions Open
+      - heading "Ready to Join the Olistar Family?" [level=2] [ref=f2e226]
+      - paragraph [ref=f2e227]: Secure a place for your child in our Primary, JHS, or TVET Technical programs today.
+    - generic [ref=f2e229]:
+      - link "Apply Now " [ref=f2e230] [cursor=pointer]:
+        - /url: application.html
+        - text: Apply Now
+        - generic [ref=f2e231]: 
+      - link "Contact Us" [ref=f2e232] [cursor=pointer]:
+        - /url: contact.html
+  - contentinfo [ref=f2e233]:
+    - generic [ref=f2e234]:
+      - generic [ref=f2e235]:
+        - generic [ref=f2e236]:
+          - generic [ref=f2e237]:
+            - img "Crest" [ref=f2e238]
+            - generic [ref=f2e239]:
+              - heading "OLISTAR SCHOOL" [level=5] [ref=f2e240]
+              - text: Sunyani Abesim
+          - paragraph [ref=f2e241]: A premier multi-tier educational institution providing foundation, junior high, and senior technical education committed to character, knowledge, and practical skill.
+        - generic [ref=f2e242]:
+          - heading "Navigation" [level=6] [ref=f2e243]
+          - list [ref=f2e244]:
+            - listitem [ref=f2e245]:
+              - link "Home Page" [ref=f2e246] [cursor=pointer]:
+                - /url: index.html
+            - listitem [ref=f2e247]:
+              - link "About Olistar" [ref=f2e248] [cursor=pointer]:
+                - /url: about.html
+            - listitem [ref=f2e249]:
+              - link "Campus Gallery" [ref=f2e250] [cursor=pointer]:
+                - /url: gallery.html
+            - listitem [ref=f2e251]:
+              - link "Admissions" [ref=f2e252] [cursor=pointer]:
+                - /url: application.html
+            - listitem [ref=f2e253]:
+              - link "Contact Us" [ref=f2e254] [cursor=pointer]:
+                - /url: contact.html
+        - generic [ref=f2e255]:
+          - heading "Academics" [level=6] [ref=f2e256]
+          - list [ref=f2e257]:
+            - listitem [ref=f2e258]:
+              - link "Early Grade Division" [ref=f2e259] [cursor=pointer]:
+                - /url: early-grade.html
+            - listitem [ref=f2e260]:
+              - link "Primary Stream" [ref=f2e261] [cursor=pointer]:
+                - /url: primary.html
+            - listitem [ref=f2e262]:
+              - link "JHS Stream" [ref=f2e263] [cursor=pointer]:
+                - /url: jhs.html
+            - listitem [ref=f2e264]:
+              - link "SHS & Technical" [ref=f2e265] [cursor=pointer]:
+                - /url: shs-tech.html
+        - generic [ref=f2e266]:
+          - heading "Campus Address" [level=6] [ref=f2e267]
+          - paragraph [ref=f2e268]:
+            - generic [ref=f2e269]: 
+            - text: Sunyani Abesim, Bono Region
+          - paragraph [ref=f2e270]:
+            - generic [ref=f2e271]: 
+            - text: +233 (0) 00 000 0000
+          - paragraph [ref=f2e272]:
+            - generic [ref=f2e273]: 
+            - text: olistaredu.net
+      - separator [ref=f2e274]
+      - generic [ref=f2e275]:
+        - paragraph [ref=f2e276]: © 2026 Olistar School. All Rights Reserved.
+        - paragraph [ref=f2e277]: Built by APEX LABS

@@ -1,0 +1,54 @@
+[  147294ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:5500/OLISTAR/login.html:0
+[  152507ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:5500/assets/images/primary-division.jpg:0
+[  152509ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:5500/assets/images/jhs-division.jpg:0
+[  152510ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:5500/assets/images/tvet-division.jpg:0
+[  152511ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:5500/assets/images/news-1.jpg:0
+[  152512ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:5500/assets/images/news-2.jpg:0
+[  152778ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:5500/assets/images/news-3.jpg:0
+[  153780ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:5500/assets/icons/favicon.ico:0
+[  176408ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:5500/assets/images/primary-division.jpg:0
+[  176411ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:5500/assets/images/jhs-division.jpg:0
+[  176412ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:5500/assets/images/tvet-division.jpg:0
+[  176413ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:5500/assets/images/news-2.jpg:0
+[  176414ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:5500/assets/images/news-1.jpg:0
+[  176415ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:5500/assets/images/news-3.jpg:0
+[  185546ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:5500/assets/images/jhs-division.jpg:0
+[  185547ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:5500/assets/images/primary-division.jpg:0
+[  185547ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:5500/assets/images/tvet-division.jpg:0
+[  200906ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:5500/assets/images/hero-campus.jpg:0
+[  200907ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:5500/assets/images/primary-division.jpg:0
+[  200908ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:5500/assets/images/jhs-division.jpg:0
+[  200909ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:5500/assets/images/tvet-division.jpg:0
+[  209770ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:5500/assets/images/gallery-tvet-1.jpg:0
+[  210153ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:5500/assets/images/gallery-academics-1.jpg:0
+[  210178ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:5500/assets/images/gallery-campus-1.jpg:0
+[  228695ms] TypeError: Cannot read properties of undefined (reading 'backdrop')
+    at Ln._initializeBackDrop (http://127.0.0.1:5500/vendor/bootstrap/js/bootstrap.bundle.min.js:6:52393)
+    at new Ln (http://127.0.0.1:5500/vendor/bootstrap/js/bootstrap.bundle.min.js:6:51304)
+    at Ln.getOrCreateInstance (http://127.0.0.1:5500/vendor/bootstrap/js/bootstrap.bundle.min.js:6:7897)
+    at HTMLButtonElement.<anonymous> (http://127.0.0.1:5500/vendor/bootstrap/js/bootstrap.bundle.min.js:6:55266)
+    at HTMLDocument.n (http://127.0.0.1:5500/vendor/bootstrap/js/bootstrap.bundle.min.js:6:4326)
+[  229930ms] TypeError: Cannot read properties of undefined (reading 'backdrop')
+    at Ln._initializeBackDrop (http://127.0.0.1:5500/vendor/bootstrap/js/bootstrap.bundle.min.js:6:52393)
+    at new Ln (http://127.0.0.1:5500/vendor/bootstrap/js/bootstrap.bundle.min.js:6:51304)
+    at Ln.getOrCreateInstance (http://127.0.0.1:5500/vendor/bootstrap/js/bootstrap.bundle.min.js:6:7897)
+    at HTMLButtonElement.<anonymous> (http://127.0.0.1:5500/vendor/bootstrap/js/bootstrap.bundle.min.js:6:55266)
+    at HTMLDocument.n (http://127.0.0.1:5500/vendor/bootstrap/js/bootstrap.bundle.min.js:6:4326)
+[  230474ms] TypeError: Cannot read properties of undefined (reading 'backdrop')
+    at Ln._initializeBackDrop (http://127.0.0.1:5500/vendor/bootstrap/js/bootstrap.bundle.min.js:6:52393)
+    at new Ln (http://127.0.0.1:5500/vendor/bootstrap/js/bootstrap.bundle.min.js:6:51304)
+    at Ln.getOrCreateInstance (http://127.0.0.1:5500/vendor/bootstrap/js/bootstrap.bundle.min.js:6:7897)
+    at HTMLButtonElement.<anonymous> (http://127.0.0.1:5500/vendor/bootstrap/js/bootstrap.bundle.min.js:6:55266)
+    at HTMLDocument.n (http://127.0.0.1:5500/vendor/bootstrap/js/bootstrap.bundle.min.js:6:4326)
+[  240184ms] TypeError: Cannot read properties of undefined (reading 'backdrop')
+    at Ln._initializeBackDrop (http://127.0.0.1:5500/vendor/bootstrap/js/bootstrap.bundle.min.js:6:52393)
+    at new Ln (http://127.0.0.1:5500/vendor/bootstrap/js/bootstrap.bundle.min.js:6:51304)
+    at Ln.getOrCreateInstance (http://127.0.0.1:5500/vendor/bootstrap/js/bootstrap.bundle.min.js:6:7897)
+    at HTMLButtonElement.<anonymous> (http://127.0.0.1:5500/vendor/bootstrap/js/bootstrap.bundle.min.js:6:55266)
+    at HTMLDocument.n (http://127.0.0.1:5500/vendor/bootstrap/js/bootstrap.bundle.min.js:6:4326)
+[  242458ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:5500/assets/images/jhs-division.jpg:0
+[  242459ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:5500/assets/images/primary-division.jpg:0
+[  242460ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:5500/assets/images/news-3.jpg:0
+[  242893ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:5500/assets/images/news-2.jpg:0
+[  242894ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:5500/assets/images/news-1.jpg:0
+[  242894ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:5500/assets/images/tvet-division.jpg:0
