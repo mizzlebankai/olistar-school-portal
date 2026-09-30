@@ -230,6 +230,10 @@ section:not(.page-hero):not(.editorial-hero):not(.olistar-cta) {
     position: relative;
 }
 
+.primary-testimonials {
+    background-image: none !important;
+}
+
 .tile-card::before,
 .bg-white.border::before,
 .card::before {
