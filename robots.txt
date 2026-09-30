@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /admin-content.html
+Disallow: /admin-login.html
+Disallow: /admin-media.html
+Disallow: /success.html
+
+Sitemap: https://olistaredu.net/sitemap.xml

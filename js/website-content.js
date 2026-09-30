@@ -4,6 +4,7 @@ export const WEBSITE_CONTENT = Object.freeze({
     gallery: "olistar_website_gallery",
     leaders: "olistar_website_leaders",
     heroes: "olistar_website_heroes",
+    divisions: "olistar_website_divisions",
     media: "olistar_website_media"
 });
 
@@ -12,8 +13,15 @@ export const CONTENT_TYPES = Object.freeze({
     event: { collection: WEBSITE_CONTENT.events, label: "Event", imageCategory: "gallery" },
     gallery: { collection: WEBSITE_CONTENT.gallery, label: "Gallery photo", imageCategory: "gallery" },
     leader: { collection: WEBSITE_CONTENT.leaders, label: "Leadership profile", imageCategory: "headshots" },
-    hero: { collection: WEBSITE_CONTENT.heroes, label: "Page hero", imageCategory: "hero" }
+    hero: { collection: WEBSITE_CONTENT.heroes, label: "Page hero", imageCategory: "hero" },
+    division: { collection: WEBSITE_CONTENT.divisions, label: "Division", imageCategory: "divisions" }
 });
+
+export const DIVISIONS = Object.freeze([
+    { id: "primary", label: "Primary Division" },
+    { id: "jhs", label: "Junior High School (JHS)" },
+    { id: "shs-tech", label: "Senior High & Technical" }
+]);
 
 export const PAGE_HEROES = Object.freeze([
     { id: "home-slide-1", label: "Home page — slide 1" },
@@ -22,6 +30,8 @@ export const PAGE_HEROES = Object.freeze([
     { id: "about", label: "About page" },
     { id: "early-grade", label: "Early Grade page" },
     { id: "primary", label: "Primary page" },
+    { id: "jhs", label: "JHS page" },
+    { id: "jhs-feature", label: "JHS feature image" },
     { id: "shs-tech", label: "SHS & Technical page" },
     { id: "news", label: "News page" },
     { id: "events", label: "Events page" },

@@ -1,4 +1,10 @@
-document.addEventListener('DOMContentLoaded', () => {
+function initializeMain() {
+    document.querySelectorAll('header.page-hero, .editorial-hero').forEach((hero) => {
+        requestAnimationFrame(() => {
+            hero.classList.add('hero-ready');
+        });
+    });
+
     // Gallery Filtering
     const filterButtons = document.querySelectorAll('#galleryFilters [data-filter]');
 
@@ -31,4 +37,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (yearSpan) {
         yearSpan.textContent = new Date().getFullYear();
     }
-});
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeMain, { once: true });
+} else {
+    initializeMain();
+}

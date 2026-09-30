@@ -14,6 +14,7 @@ const CONTENT_COLLECTIONS = [
     WEBSITE_CONTENT.news,
     WEBSITE_CONTENT.events,
     WEBSITE_CONTENT.gallery,
+    WEBSITE_CONTENT.divisions,
     WEBSITE_CONTENT.leaders,
     WEBSITE_CONTENT.heroes
 ];
@@ -51,7 +52,7 @@ export async function findImageUsage(imageUrl, exclude = null) {
 
 export async function deleteStorageImage(path) {
     if (
-        !/^(hero|news|gallery|headshots)\/[0-9a-f-]{36}\.webp$/i.test(path)
+        !/^(hero|news|gallery|divisions|headshots)\/[0-9a-f-]{36}\.webp$/i.test(path)
         || path.includes("..")
         || path.includes("%")
         || path.includes("\\")

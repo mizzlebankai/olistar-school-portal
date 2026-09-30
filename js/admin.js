@@ -649,7 +649,7 @@ window.generateApplicationForm = async function (docId) {
         .header img { width: 90px; height: 90px; object-fit: contain; }
         .school-name { font-size: 26px; font-weight: bold; color: #900C3F; letter-spacing: 1px; }
         .motto { font-size: 12px; font-style: italic; color: #555; margin-top: 2px; }
-        .contact { font-size: 11px; color: #555; margin-top: 4px; }
+        .contact { font-size: 11px; color: #555; margin-top: 4px; line-height: 1.6; }
         .form-title { text-align: center; text-transform: uppercase; letter-spacing: 3px; font-size: 16px; font-weight: bold; margin-bottom: 4px; }
         .ref-line { text-align: center; font-size: 12px; margin-bottom: 24px; }
         .ref-code { font-family: 'Courier New', monospace; font-weight: bold; background: #f5f5f5; border: 1px solid #900C3F; padding: 2px 10px; }
@@ -679,7 +679,7 @@ window.generateApplicationForm = async function (docId) {
         <div>
             <div class="school-name">OLISTAR SCHOOL</div>
             <div class="motto">Good Foundation, Firm Building &bull; Est. 1987</div>
-            <div class="contact">Sunyani Abesim, Bono Region &bull; +233 (0) 24 000 0000 &bull; olistaredu.net</div>
+            <div class="contact">P.O. Box 1583, Abesim, Sunyani &bull; 0208613624 / 0244449600 &bull; olistaredu.net</div>
         </div>
         <div class="status-stamp">${escapeHtml(app.status)}</div>
     </div>

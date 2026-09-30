@@ -1,8 +1,17 @@
 const BUCKET = "school-media";
-const ALLOWED_ORIGINS = (Deno.env.get("ALLOWED_ORIGINS") || "")
-  .split(",")
-  .map((origin) => origin.trim())
-  .filter(Boolean);
+const DEFAULT_ALLOWED_ORIGINS = [
+  "http://localhost:8000",
+  "http://127.0.0.1:8000",
+  "http://localhost:3000",
+  "http://127.0.0.1:3000"
+];
+const ALLOWED_ORIGINS = [...new Set([
+  ...DEFAULT_ALLOWED_ORIGINS,
+  ...(Deno.env.get("ALLOWED_ORIGINS") || "")
+    .split(",")
+    .map((origin) => origin.trim())
+    .filter(Boolean)
+])];
 
 function corsHeaders(origin: string | null) {
   const allowedOrigin = origin && ALLOWED_ORIGINS.includes(origin) ? origin : "";
@@ -70,7 +79,7 @@ Deno.serve(async (request) => {
     const body = await request.json().catch(() => null);
     const path = typeof body?.path === "string" ? body.path : "";
     if (
-      !/^(hero|news|gallery|headshots)\/[0-9a-f-]{36}\.webp$/i.test(path)
+      !/^(hero|news|gallery|divisions|headshots)\/[0-9a-f-]{36}\.webp$/i.test(path)
       || path.includes("..")
       || path.includes("%")
       || path.includes("\\")

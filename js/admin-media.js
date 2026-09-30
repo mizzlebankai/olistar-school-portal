@@ -11,6 +11,7 @@ const PRESETS = {
     hero: { width: 1920, height: 900 },
     news: { width: 1200, height: 675 },
     gallery: { width: 1200, height: 800 },
+    divisions: { width: 1200, height: 800 },
     headshots: { width: 600, height: 600 }
 };
 const MAX_SOURCE_BYTES = 15 * 1024 * 1024;
@@ -26,6 +27,10 @@ const previewFrame = document.getElementById("previewFrame");
 const focusControls = document.getElementById("focusControls");
 const focusX = document.getElementById("focusX");
 const focusY = document.getElementById("focusY");
+const zoomControl = document.getElementById("zoomControl");
+const zoomValue = document.getElementById("zoomValue");
+const fillFrameButton = document.getElementById("fillFrameBtn");
+const fitImageButton = document.getElementById("fitImageBtn");
 const dimensions = document.getElementById("mediaDimensions");
 const uploadButton = document.getElementById("mediaUploadBtn");
 const result = document.getElementById("uploadResult");
@@ -35,6 +40,7 @@ const mediaLibraryList = document.getElementById("mediaLibraryList");
 
 let selectedImage = null;
 let previewUrl = "";
+let previewRequestId = 0;
 
 function showNotice(message, type = "info") {
     notice.className = `alert alert-${type}`;
@@ -49,11 +55,17 @@ function setPreviewShape() {
     const preset = currentPreset();
     previewFrame.classList.toggle("preview-headshot", categorySelect.value === "headshots");
     previewFrame.style.aspectRatio = `${preset.width} / ${preset.height}`;
-    if (selectedImage) updatePreviewPosition();
+    if (selectedImage) {
+        zoomControl.min = String(Math.min(1, fitZoom(selectedImage, preset)));
+        if (Number(zoomControl.value) < Number(zoomControl.min)) zoomControl.value = zoomControl.min;
+        zoomValue.value = `${Math.round(Number(zoomControl.value) * 100)}%`;
+    }
 }
 
-function updatePreviewPosition() {
-    preview.style.objectPosition = `${focusX.value}% ${focusY.value}%`;
+function fitZoom(image, preset) {
+    const widthScale = preset.width / image.width;
+    const heightScale = preset.height / image.height;
+    return Math.min(widthScale, heightScale) / Math.max(widthScale, heightScale);
 }
 
 function releasePreviewUrl() {
@@ -61,37 +73,23 @@ function releasePreviewUrl() {
     previewUrl = "";
 }
 
-function drawCroppedImage(image, preset, horizontalFocus, verticalFocus) {
-    const sourceAspect = image.width / image.height;
-    const targetAspect = preset.width / preset.height;
-    let cropWidth = image.width;
-    let cropHeight = image.height;
-
-    if (sourceAspect > targetAspect) {
-        cropWidth = image.height * targetAspect;
-    } else {
-        cropHeight = image.width / targetAspect;
-    }
-
-    const sourceX = (image.width - cropWidth) * horizontalFocus;
-    const sourceY = (image.height - cropHeight) * verticalFocus;
+function drawCroppedImage(image, preset, horizontalFocus, verticalFocus, zoom) {
+    const scale = Math.max(preset.width / image.width, preset.height / image.height) * zoom;
+    const drawWidth = image.width * scale;
+    const drawHeight = image.height * scale;
+    const offsetX = drawWidth > preset.width
+        ? -(drawWidth - preset.width) * horizontalFocus
+        : (preset.width - drawWidth) / 2;
+    const offsetY = drawHeight > preset.height
+        ? -(drawHeight - preset.height) * verticalFocus
+        : (preset.height - drawHeight) / 2;
     const canvas = document.createElement("canvas");
     canvas.width = preset.width;
     canvas.height = preset.height;
     const context = canvas.getContext("2d");
     if (!context) throw new Error("Could not prepare the image in this browser.");
 
-    context.drawImage(
-        image,
-        sourceX,
-        sourceY,
-        cropWidth,
-        cropHeight,
-        0,
-        0,
-        preset.width,
-        preset.height
-    );
+    context.drawImage(image, offsetX, offsetY, drawWidth, drawHeight);
 
     return new Promise((resolve, reject) => {
         canvas.toBlob((blob) => {
@@ -103,13 +101,16 @@ function drawCroppedImage(image, preset, horizontalFocus, verticalFocus) {
 
 async function refreshPreview() {
     if (!selectedImage) return;
+    const requestId = ++previewRequestId;
     try {
         const blob = await drawCroppedImage(
             selectedImage,
             currentPreset(),
             Number(focusX.value) / 100,
-            Number(focusY.value) / 100
+            Number(focusY.value) / 100,
+            Number(zoomControl.value)
         );
+        if (requestId !== previewRequestId) return;
         releasePreviewUrl();
         previewUrl = URL.createObjectURL(blob);
         preview.src = previewUrl;
@@ -117,7 +118,7 @@ async function refreshPreview() {
         previewEmpty.hidden = true;
         dimensions.textContent = `${currentPreset().width} × ${currentPreset().height} px · WebP · ${(blob.size / 1024).toFixed(0)} KB`;
     } catch (error) {
-        showNotice(error.message, "danger");
+        if (requestId === previewRequestId) showNotice(error.message, "danger");
     }
 }
 
@@ -217,6 +218,8 @@ fileInput.addEventListener("change", async () => {
         focusControls.hidden = false;
         focusX.value = "50";
         focusY.value = "50";
+        zoomControl.value = "1";
+        zoomValue.value = "100%";
         setPreviewShape();
         await refreshPreview();
         showNotice("Adjust the crop if needed, then upload.", "info");
@@ -227,6 +230,27 @@ fileInput.addEventListener("change", async () => {
 
 focusX.addEventListener("input", refreshPreview);
 focusY.addEventListener("input", refreshPreview);
+zoomControl.addEventListener("input", () => {
+    zoomValue.value = `${Math.round(Number(zoomControl.value) * 100)}%`;
+    refreshPreview();
+});
+
+fillFrameButton.addEventListener("click", () => {
+    zoomControl.value = "1";
+    focusX.value = "50";
+    focusY.value = "50";
+    zoomValue.value = "100%";
+    refreshPreview();
+});
+
+fitImageButton.addEventListener("click", () => {
+    if (!selectedImage) return;
+    zoomControl.value = String(fitZoom(selectedImage, currentPreset()));
+    focusX.value = "50";
+    focusY.value = "50";
+    zoomValue.value = `${Math.round(Number(zoomControl.value) * 100)}%`;
+    refreshPreview();
+});
 
 form.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -252,7 +276,8 @@ form.addEventListener("submit", async (event) => {
             selectedImage,
             preset,
             Number(focusX.value) / 100,
-            Number(focusY.value) / 100
+            Number(focusY.value) / 100,
+            Number(zoomControl.value)
         );
         if (image.size > MAX_OUTPUT_BYTES) {
             throw new Error("The compressed image is still too large. Choose a simpler or smaller photo.");

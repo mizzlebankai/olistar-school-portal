@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Media Library | Olistar Admin Portal</title>
+    <meta name="robots" content="noindex, nofollow">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="vendor/bootstrap-icons/bootstrap-icons.css">
     <style>
@@ -28,7 +29,7 @@
 
     <main class="container py-5" style="max-width: 900px;">
         <h1 class="h2 fw-bold">School Media Library</h1>
-        <p class="text-secondary">Prepare and upload photos for the website. Images are cropped to the selected layout and compressed as WebP.</p>
+        <p class="text-secondary">Fit the whole photo inside a layout or fill it edge to edge, then upload the compressed WebP.</p>
 
         <div id="mediaNotice" class="alert alert-info" role="status">
             Sign in with the authorized school administrator account to upload images.
@@ -42,6 +43,7 @@
                         <option value="hero">Hero banner — 1920 × 900 px</option>
                         <option value="news">News card — 1200 × 675 px</option>
                         <option value="gallery">Gallery — 1200 × 800 px</option>
+                        <option value="divisions">Division — 1200 × 800 px</option>
                         <option value="headshots">Institution headshot — 600 × 600 px</option>
                     </select>
 
@@ -54,7 +56,13 @@
                         <input id="focusX" class="form-range" type="range" min="0" max="100" value="50">
                         <label for="focusY" class="form-label">Vertical crop position</label>
                         <input id="focusY" class="form-range" type="range" min="0" max="100" value="50">
-                        <div class="form-text">Adjust the crop so people and important details stay in frame.</div>
+                        <label for="zoomControl" class="form-label">Zoom <output id="zoomValue" for="zoomControl">100%</output></label>
+                        <div class="d-flex gap-2 mb-2">
+                            <button id="fillFrameBtn" class="btn btn-sm btn-outline-secondary" type="button">Fill frame</button>
+                            <button id="fitImageBtn" class="btn btn-sm btn-outline-secondary" type="button">Fit entire image</button>
+                        </div>
+                        <input id="zoomControl" class="form-range" type="range" min="0.1" max="3" step="any" value="1">
+                        <div class="form-text">Fit keeps the whole photo visible; Fill crops to cover the selected frame.</div>
                     </div>
                 </div>
 
@@ -97,6 +105,6 @@
         </section>
     </main>
 
-    <script type="module" src="js/admin-media.js"></script>
+    <script type="module" src="js/admin-media.js?v=20260929-fit-crop"></script>
 </body>
 </html>

@@ -1,10 +1,19 @@
 const BUCKET = "school-media";
 const MAX_IMAGE_BYTES = 2 * 1024 * 1024;
-const CATEGORIES = new Set(["hero", "news", "gallery", "headshots"]);
-const ALLOWED_ORIGINS = (Deno.env.get("ALLOWED_ORIGINS") || "")
-  .split(",")
-  .map((origin) => origin.trim())
-  .filter(Boolean);
+const CATEGORIES = new Set(["hero", "news", "gallery", "divisions", "headshots"]);
+const DEFAULT_ALLOWED_ORIGINS = [
+  "http://localhost:8000",
+  "http://127.0.0.1:8000",
+  "http://localhost:3000",
+  "http://127.0.0.1:3000"
+];
+const ALLOWED_ORIGINS = [...new Set([
+  ...DEFAULT_ALLOWED_ORIGINS,
+  ...(Deno.env.get("ALLOWED_ORIGINS") || "")
+    .split(",")
+    .map((origin) => origin.trim())
+    .filter(Boolean)
+])];
 
 function corsHeaders(origin: string | null) {
   const allowedOrigin = origin && ALLOWED_ORIGINS.includes(origin) ? origin : "";

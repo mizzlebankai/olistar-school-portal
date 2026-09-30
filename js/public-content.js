@@ -44,44 +44,31 @@ function formatDate(value) {
     return date.toLocaleDateString("en", { year: "numeric", month: "short", day: "numeric" });
 }
 
+function dateMillis(value) {
+    if (value?.toMillis) return value.toMillis();
+    if (value?.toDate) return value.toDate().getTime();
+    return Date.parse(value || "") || 0;
+}
+
 function sortByDate(items, key, direction = "desc") {
     return [...items].sort((left, right) => {
-        const leftDate = Date.parse(left[key] || "") || left.updatedAt?.toMillis?.() || 0;
-        const rightDate = Date.parse(right[key] || "") || right.updatedAt?.toMillis?.() || 0;
+        const leftDate = dateMillis(left[key]) || left.updatedAt?.toMillis?.() || 0;
+        const rightDate = dateMillis(right[key]) || right.updatedAt?.toMillis?.() || 0;
         return direction === "asc" ? leftDate - rightDate : rightDate - leftDate;
     });
 }
 
-function newsCard(item, compact = false) {
+function newsCard(item) {
     const title = escapeHtml(item.title || "School update");
     const category = escapeHtml(item.category || "News");
     const summary = formattedText(item, ["summary", "body"]);
     const image = publishedImage(item, title);
     const link = safeLink(item.link);
-    const imageMarkup = image
-        ? `<div class="tile-img-container" style="height:${compact ? 200 : 220}px;">${image}</div>`
-        : "";
+    const imageMarkup = image ? `<div class="tile-img-container" style="height:220px;">${image}</div>` : "";
     const storyUrl = link && new URL(link).pathname !== window.location.pathname ? link : "news.html";
     const titleMarkup = `<a href="${escapeHtml(storyUrl)}" class="text-decoration-none text-dark">${title}</a>`;
 
-    if (compact) {
-        return `<div class="col-md-4">
-            <article class="card h-100 border-0 shadow-sm news-card">
-                ${image ? `<div class="tile-img-container" style="height:200px;">${image}</div>` : ""}
-                <div class="card-body p-4 d-flex flex-column">
-                    <div class="d-flex align-items-center gap-2 mb-2">
-                        <span class="badge bg-primary-soft text-primary px-2 py-1 rounded-1">${category}</span>
-                        <small class="text-muted"><i class="bi bi-calendar3 me-1"></i>${escapeHtml(formatDate(item.date || item.publishedAt))}</small>
-                    </div>
-                    <h3 class="h5 card-title fw-bold text-dark mb-2">${titleMarkup}</h3>
-                    <div class="card-text website-rich-summary text-secondary small flex-grow-1">${summary}</div>
-                    <a href="${escapeHtml(storyUrl)}" class="fw-bold text-primary text-decoration-none small mt-3">Read Full Story <i class="bi bi-chevron-right ms-1"></i></a>
-                </div>
-            </article>
-        </div>`;
-    }
-
-    return `<div class="col-lg-4">
+    return `<div class="col-lg-6">
         <article class="tile-card bg-white h-100 shadow-sm">
             ${imageMarkup}
             <div class="p-4">
@@ -94,6 +81,129 @@ function newsCard(item, compact = false) {
     </div>`;
 }
 
+function homeNewsSlide(item, index, total) {
+    const title = escapeHtml(item.title || "School update");
+    const category = escapeHtml(item.category || "News");
+    const summary = formattedText(item, ["summary", "body"]);
+    const image = publishedImage(item, title)
+        || '<img src="assets/images/image-placeholder.svg" alt="Olistar School news" class="tile-img">';
+    const date = formatDate(item.date || item.publishedAt);
+    const link = safeLink(item.link);
+    const storyUrl = link && new URL(link).pathname !== window.location.pathname ? link : "news.html";
+
+    return `<article class="home-news-feature" data-home-news-slide="${index}" role="group" aria-roledescription="slide" aria-label="Story ${index + 1} of ${total}"${index ? " hidden" : ""}>
+        <div class="home-news-photo">${image}</div>
+        <div class="home-news-content">
+            <div class="home-news-meta">
+                <span class="badge bg-primary-soft text-primary">${category}</span>
+                <time>${escapeHtml(date || "Latest update")}</time>
+            </div>
+            <h3 class="home-news-title">${title}</h3>
+            <div class="home-news-summary website-rich-summary">${summary}</div>
+            <a class="home-news-link" href="${escapeHtml(storyUrl)}">Read the full story <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+        </div>
+    </article>`;
+}
+
+function homeNewsCarousel(items) {
+    return `<div class="home-news-carousel" role="region" aria-label="Latest school news" data-home-news-carousel>
+        <div class="home-news-stage">${items.map((item, index) => homeNewsSlide(item, index, items.length)).join("")}</div>
+        <div class="home-news-controls">
+            <button class="home-news-arrow" type="button" data-news-direction="previous" aria-label="Previous story"${items.length < 2 ? " disabled" : ""}><i class="bi bi-arrow-left" aria-hidden="true"></i></button>
+            <div class="home-news-pagination" role="group" aria-label="Choose a news story">
+                ${items.map((_, index) => `<button class="home-news-dot" type="button" data-news-index="${index}" aria-label="Show story ${index + 1}" aria-pressed="${index === 0}"></button>`).join("")}
+            </div>
+            <span class="home-news-status" data-news-status aria-live="polite">Story 1 of ${items.length}</span>
+            <button class="home-news-arrow" type="button" data-news-direction="next" aria-label="Next story"${items.length < 2 ? " disabled" : ""}><i class="bi bi-arrow-right" aria-hidden="true"></i></button>
+        </div>
+    </div>`;
+}
+
+function bindHomeNewsCarousel(container, total) {
+    const slides = [...container.querySelectorAll("[data-home-news-slide]")];
+    const dots = [...container.querySelectorAll("[data-news-index]")];
+    const status = container.querySelector("[data-news-status]");
+    let currentIndex = 0;
+    let transitionId = 0;
+    let flipTimer = 0;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    function updateControls() {
+        dots.forEach((dot, dotIndex) => {
+            dot.setAttribute("aria-pressed", String(dotIndex === currentIndex));
+        });
+        status.textContent = `Story ${currentIndex + 1} of ${total}`;
+    }
+
+    function showSlide(index) {
+        const nextIndex = (index + total) % total;
+        if (nextIndex === currentIndex) return;
+
+        const previousIndex = currentIndex;
+        const previousSlide = slides[previousIndex];
+        const nextSlide = slides[nextIndex];
+        const direction = nextIndex > previousIndex ? "forward" : "backward";
+        const currentTransition = ++transitionId;
+
+        window.clearTimeout(flipTimer);
+        slides.forEach((slide) => {
+            slide.classList.remove("is-flipping-in-forward", "is-flipping-in-backward", "is-flipping-out-forward", "is-flipping-out-backward");
+            slide.hidden = true;
+        });
+        previousSlide.hidden = false;
+        nextSlide.hidden = false;
+        currentIndex = nextIndex;
+        updateControls();
+
+        const finishTransition = () => {
+            if (currentTransition !== transitionId) return;
+            previousSlide.hidden = true;
+            previousSlide.classList.remove("is-flipping-out-forward", "is-flipping-out-backward");
+            nextSlide.classList.remove("is-flipping-in-forward", "is-flipping-in-backward");
+        };
+
+        if (reducedMotion.matches) {
+            finishTransition();
+            return;
+        }
+
+        previousSlide.classList.add(`is-flipping-out-${direction}`);
+        nextSlide.classList.add(`is-flipping-in-${direction}`);
+        flipTimer = window.setTimeout(finishTransition, 520);
+    }
+
+    container.addEventListener("click", (event) => {
+        const button = event.target.closest("button[data-news-direction], button[data-news-index]");
+        if (!button) return;
+        if (button.hasAttribute("data-news-index")) {
+            showSlide(Number(button.dataset.newsIndex));
+        } else {
+            showSlide(currentIndex + (button.dataset.newsDirection === "next" ? 1 : -1));
+        }
+    });
+}
+
+async function loadHomeNewsCarousel() {
+    const container = document.getElementById("homeNewsGrid");
+    if (!container) return;
+    try {
+        const items = sortByDate(await loadPublished(WEBSITE_CONTENT.news), "date").slice(0, 5);
+        if (items.length) {
+            container.innerHTML = homeNewsCarousel(items);
+            bindHomeNewsCarousel(container, items.length);
+        } else {
+            container.innerHTML = '<p class="text-secondary small mb-0">No school news has been published yet.</p>';
+        }
+        container.dataset.contentLoaded = "true";
+    } catch (error) {
+        console.error("Could not load homepage news:", error);
+        container.innerHTML = '<p class="text-secondary small mb-0">Latest school news is temporarily unavailable.</p>';
+        if (!container.previousElementSibling?.classList.contains("content-load-warning")) {
+            container.insertAdjacentHTML("beforebegin", '<p class="content-load-warning small text-warning-emphasis" role="status">Some website content could not be refreshed.</p>');
+        }
+    }
+}
+
 function eventCard(item, compact = false) {
     const title = escapeHtml(item.title || "School event");
     const category = escapeHtml(item.category || "Event");
@@ -103,9 +213,10 @@ function eventCard(item, compact = false) {
     const link = safeLink(item.link);
 
     if (compact) {
-        const dateObject = item.date ? new Date(item.date) : null;
+        const dateObject = item.date ? (item.date.toDate ? item.date.toDate() : new Date(item.date)) : null;
         const day = dateObject && !Number.isNaN(dateObject.getTime()) ? dateObject.toLocaleDateString("en", { day: "2-digit" }) : "—";
         const month = dateObject && !Number.isNaN(dateObject.getTime()) ? dateObject.toLocaleDateString("en", { month: "short" }) : "";
+        const details = [item.time, item.location].filter(Boolean).map(escapeHtml).join(" · ") || `${escapeHtml(date)} · ${category}`;
         return `<div class="col-lg-6">
             <div class="p-3 bg-white border rounded-3 shadow-sm d-flex align-items-center gap-3 event-card">
                 <div class="event-date-badge text-center flex-shrink-0 px-3 py-2 rounded-2 bg-primary text-white">
@@ -113,7 +224,7 @@ function eventCard(item, compact = false) {
                     <span class="text-uppercase small fw-semibold">${escapeHtml(month)}</span>
                 </div>
                 <div class="flex-grow-1">
-                    <div class="text-muted small mb-1">${escapeHtml(date)} · ${category}</div>
+                    <div class="text-muted small mb-1">${details}</div>
                     <h4 class="h6 fw-bold text-dark mb-1"><a class="text-decoration-none text-dark" href="${escapeHtml(link || "events.html")}">${title}</a></h4>
                     <div class="website-rich-summary text-secondary small mb-0">${summary}</div>
                 </div>
@@ -130,6 +241,7 @@ function eventCard(item, compact = false) {
                     <span class="small text-muted">${escapeHtml(date)}</span>
                 </div>
                 <h3 class="font-serif fw-bold text-dark fs-4 mb-2">${link ? `<a class="text-decoration-none text-dark" href="${escapeHtml(link)}">${title}</a>` : title}</h3>
+                ${item.time || item.location ? `<div class="small text-muted mb-2">${[item.time, item.location].filter(Boolean).map(escapeHtml).join(" · ")}</div>` : ""}
                 <div class="website-rich-summary text-secondary small mb-0">${summary}</div>
             </div>
         </article>
@@ -158,36 +270,134 @@ async function loadPublished(name) {
     return snapshot.docs.map((entry) => ({ id: entry.id, ...entry.data() }));
 }
 
-async function replaceIfAvailable(container, loader, render) {
+async function replaceIfAvailable(container, loader, render, emptyMessage = "") {
     if (!container) return;
     try {
         const items = await loader();
         if (items.length) {
             container.innerHTML = items.map(render).join("");
             container.dataset.contentLoaded = "true";
+        } else if (emptyMessage) {
+            container.innerHTML = `<p class="col-12 text-secondary small mb-0">${escapeHtml(emptyMessage)}</p>`;
+            container.dataset.contentLoaded = "true";
         }
     } catch (error) {
         console.error(`Could not load public content for #${container.id}:`, error);
+        if (emptyMessage) {
+            container.innerHTML = `<p class="col-12 text-secondary small mb-0">${escapeHtml(emptyMessage)}</p>`;
+        }
         if (!container.previousElementSibling?.classList.contains("content-load-warning")) {
             container.insertAdjacentHTML("beforebegin", '<p class="content-load-warning small text-warning-emphasis" role="status">Some website content could not be refreshed.</p>');
         }
     }
 }
 
+async function applyDivisions() {
+    await Promise.all([...document.querySelectorAll("[data-managed-division]")].map(async (card) => {
+        try {
+            const result = await getDoc(doc(db, WEBSITE_CONTENT.divisions, card.dataset.managedDivision));
+            if (!result.exists()) return;
+            const division = result.data();
+            const image = card.querySelector("[data-division-image]");
+            const title = card.querySelector("[data-division-title]");
+            const description = card.querySelector("[data-division-description]");
+            if (image && division.imageUrl) image.src = division.imageUrl;
+            if (image && division.altText) image.alt = division.altText;
+            if (title && division.title) title.textContent = division.title;
+            if (description && (division.body || division.summary)) description.textContent = division.body || division.summary;
+        } catch (error) {
+            console.error(`Could not load homepage division "${card.dataset.managedDivision}":`, error);
+        }
+    }));
+}
+
+function upcomingEvents(items) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return sortByDate(items, "date", "asc").filter((item) => {
+        if (!item.date) return false;
+        const eventDate = item.date.toDate ? item.date.toDate() : new Date(item.date);
+        return !Number.isNaN(eventDate.getTime()) && eventDate >= today;
+    });
+}
+
+function preloadHeroImage(url) {
+    if (!url) return Promise.resolve(false);
+
+    return new Promise((resolve) => {
+        const image = new Image();
+        const timeout = window.setTimeout(() => finish(false), 3000);
+
+        function finish(loaded) {
+            window.clearTimeout(timeout);
+            image.onload = null;
+            image.onerror = null;
+            resolve(loaded);
+        }
+
+        image.decoding = "async";
+        image.onload = () => finish(true);
+        image.onerror = () => finish(false);
+        image.src = url;
+
+        if (image.complete) {
+            finish(image.naturalWidth > 0);
+        }
+    });
+}
+
+function revealHeroState(element, homepageHero = null) {
+    requestAnimationFrame(() => {
+        element.classList.remove("hero-image-pending");
+        element.classList.add("hero-image-ready");
+
+        if (element.dataset.managedHero === "home-slide-1" && homepageHero) {
+            homepageHero.classList.remove("hero-image-pending");
+            homepageHero.classList.add("hero-image-ready");
+        }
+    });
+}
+
 async function applyHeroes() {
     const targets = [...document.querySelectorAll("[data-managed-hero]")];
+    const homepageHero = targets.find((element) => element.dataset.managedHero === "home-slide-1")?.closest(".editorial-hero");
+    if (homepageHero) {
+        homepageHero.classList.remove("hero-image-ready");
+        homepageHero.classList.add("hero-image-pending");
+    }
+    targets.forEach((element) => {
+        element.classList.remove("hero-image-ready");
+        element.classList.add("hero-image-pending");
+    });
+
     await Promise.all(targets.map(async (element) => {
         const id = element.dataset.managedHero;
         try {
             const result = await getDoc(doc(db, WEBSITE_CONTENT.heroes, id));
-            if (!result.exists()) return;
+            if (!result.exists()) {
+                revealHeroState(element, homepageHero);
+                return;
+            }
+
             const imageUrl = String(result.data().imageUrl || "").trim();
-            if (imageUrl) element.style.backgroundImage = `url("${imageUrl.replaceAll('"', "%22")}")`;
+            if (!imageUrl) {
+                revealHeroState(element, homepageHero);
+                return;
+            }
+
+            element.style.backgroundImage = `url("${imageUrl.replaceAll('"', "%22")}")`;
+            const loaded = await preloadHeroImage(imageUrl);
+
+            if (loaded) {
+                revealHeroState(element, homepageHero);
+            } else {
+                revealHeroState(element, homepageHero);
+            }
         } catch (error) {
             console.error(`Could not load page hero "${id}":`, error);
+            revealHeroState(element, homepageHero);
         }
     }));
-
 }
 
 async function applyLeadership() {
@@ -211,21 +421,36 @@ async function applyLeadership() {
     }
 }
 
+async function applyManagedImages() {
+    for (const image of document.querySelectorAll("[data-managed-image]")) {
+        const id = image.dataset.managedImage;
+        try {
+            const result = await getDoc(doc(db, WEBSITE_CONTENT.heroes, id));
+            if (!result.exists()) continue;
+            const hero = result.data();
+            if (hero.imageUrl) {
+                image.src = hero.imageUrl;
+                if (hero.altText) image.alt = hero.altText;
+            }
+        } catch (error) {
+            console.error(`Could not load managed image "${id}":`, error);
+        }
+    }
+}
+
 async function initializePublicContent() {
     await Promise.all([
         replaceIfAvailable(document.getElementById("newsContentGrid"), () => loadPublished(WEBSITE_CONTENT.news), (item) => newsCard(item)),
-        replaceIfAvailable(document.getElementById("homeNewsGrid"), async () => sortByDate(await loadPublished(WEBSITE_CONTENT.news), "date").slice(0, 3), (item) => newsCard(item, true)),
-        replaceIfAvailable(document.getElementById("eventsContentGrid"), async () => sortByDate(await loadPublished(WEBSITE_CONTENT.events), "date", "asc"), (item) => eventCard(item)),
+        loadHomeNewsCarousel(),
+        replaceIfAvailable(document.getElementById("eventsContentGrid"), async () => upcomingEvents(await loadPublished(WEBSITE_CONTENT.events)), (item) => eventCard(item), "No upcoming events have been published yet."),
         replaceIfAvailable(document.getElementById("homeEventsGrid"), async () => {
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
-            return sortByDate(await loadPublished(WEBSITE_CONTENT.events), "date", "asc")
-                .filter((item) => !item.date || new Date(item.date) >= today)
-                .slice(0, 4);
-        }, (item) => eventCard(item, true)),
+            return upcomingEvents(await loadPublished(WEBSITE_CONTENT.events)).slice(0, 4);
+        }, (item) => eventCard(item, true), "No upcoming events have been published yet."),
         replaceIfAvailable(document.getElementById("galleryGrid"), () => loadPublished(WEBSITE_CONTENT.gallery), galleryCard),
         applyHeroes(),
-        applyLeadership()
+        applyManagedImages(),
+        applyLeadership(),
+        applyDivisions()
     ]);
 }
 

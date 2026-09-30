@@ -2,10 +2,19 @@ const BUCKET = "school-applications";
 const SIGNED_URL_SECONDS = 15 * 60;
 const MAX_PASSPORT_BYTES = 2 * 1024 * 1024;
 const MAX_DOCUMENT_BYTES = 5 * 1024 * 1024;
-const ALLOWED_ORIGINS = (Deno.env.get("ALLOWED_ORIGINS") || "")
-  .split(",")
-  .map((origin) => origin.trim())
-  .filter(Boolean);
+const DEFAULT_ALLOWED_ORIGINS = [
+  "http://localhost:8000",
+  "http://127.0.0.1:8000",
+  "http://localhost:3000",
+  "http://127.0.0.1:3000"
+];
+const ALLOWED_ORIGINS = [...new Set([
+  ...DEFAULT_ALLOWED_ORIGINS,
+  ...(Deno.env.get("ALLOWED_ORIGINS") || "")
+    .split(",")
+    .map((origin) => origin.trim())
+    .filter(Boolean)
+])];
 const FILES: Record<string, { folder: string; maxBytes: number; types: string[] }> = {
   passportPhoto: { folder: "passport-photo", maxBytes: MAX_PASSPORT_BYTES, types: ["image/jpeg", "image/png", "image/webp"] },
   reportCard: { folder: "report-card", maxBytes: MAX_DOCUMENT_BYTES, types: ["application/pdf", "image/jpeg", "image/png"] },
@@ -39,7 +48,7 @@ function validReference(reference: string) {
   return /^OLS-[A-Z0-9]{8}$/i.test(reference);
 }
 
-function validPath(path: unknown) {
+function validPath(path: unknown): path is string {
   return typeof path === "string"
     && /^OLS-[A-Z0-9]{8}\/(passport-photo|report-card|birth-certificate)\/[0-9a-f-]{36}\.(jpg|png|webp|pdf)$/i.test(path)
     && !path.includes("..")
@@ -128,7 +137,7 @@ Deno.serve(async (request) => {
       if (!validReference(reference)) return jsonResponse({ error: "Invalid application reference." }, 400, origin);
 
       const uploaded: Record<string, string> = {};
-      const result: Record<string, { path: string; url: string }> = {};
+      const result: Record<string, { path: string; url: string; contentType: string }> = {};
       try {
         for (const [field, config] of Object.entries(FILES)) {
           const file = form.get(field);

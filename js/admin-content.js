@@ -11,7 +11,7 @@ import {
     where
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import { auth, db } from "./firebase-config.js";
-import { CONTENT_TYPES, LEADERSHIP_PROFILES, PAGE_HEROES, WEBSITE_CONTENT } from "./website-content.js";
+import { CONTENT_TYPES, DIVISIONS, LEADERSHIP_PROFILES, PAGE_HEROES, WEBSITE_CONTENT } from "./website-content.js";
 import { cleanupImageAfterContentDelete } from "./media-management.js";
 import { plainTextToRichHtml, richHtmlToText, sanitizeRichHtml } from "./rich-content.js?v=20260928-rich-text";
 
@@ -27,6 +27,8 @@ const titleInput = document.getElementById("contentTitle");
 const categoryInput = document.getElementById("contentCategory");
 const bodyEditor = document.getElementById("contentBodyEditor");
 const dateInput = document.getElementById("contentDate");
+const eventTimeInput = document.getElementById("contentEventTime");
+const eventLocationInput = document.getElementById("contentEventLocation");
 const linkInput = document.getElementById("contentLink");
 const imageInput = document.getElementById("contentImageUrl");
 const altInput = document.getElementById("contentAlt");
@@ -140,15 +142,18 @@ function setType(type) {
     if (!CONTENT_TYPES[type]) return;
     currentType = type;
     const config = selectedConfig();
-    const isSlot = type === "leader" || type === "hero";
+    const isSlot = type === "leader" || type === "hero" || type === "division";
     slotField.hidden = !isSlot;
-    categoryInput.closest("#categoryField").hidden = type === "hero" || type === "leader";
+    categoryInput.closest("#categoryField").hidden = isSlot;
     titleInput.closest(".mb-3").hidden = type === "hero";
     document.getElementById("dateField").hidden = type !== "event";
+    document.getElementById("eventTimeField").hidden = type !== "event";
+    document.getElementById("eventLocationField").hidden = type !== "event";
+    dateInput.required = type === "event";
     document.getElementById("linkField").hidden = type !== "news" && type !== "event";
     document.getElementById("descriptionField").hidden = type !== "leader";
     document.getElementById("bodyField").hidden = type === "hero" || type === "leader";
-    document.getElementById("publishField").hidden = type === "leader" || type === "hero";
+    document.getElementById("publishField").hidden = type === "leader" || type === "hero" || type === "division";
     document.getElementById("historyDraftTools").hidden = type !== "news";
     slotSelect.required = isSlot;
     titleInput.required = type !== "hero";
@@ -165,12 +170,17 @@ function setType(type) {
     } else if (type === "hero") {
         slotLabel.textContent = "Page image slot";
         slotSelect.innerHTML = optionList(PAGE_HEROES);
+    } else if (type === "division") {
+        slotLabel.textContent = "Homepage division";
+        slotSelect.innerHTML = optionList(DIVISIONS);
     }
 
     document.getElementById("editorHeading").textContent = `Add ${config.label.toLowerCase()}`;
     document.getElementById("listHeading").textContent = `${config.label}s`;
     document.getElementById("editorHelp").textContent = type === "hero"
         ? "Select a page slot and add an image URL. The home slides use the Hero preset."
+        : type === "division"
+            ? "Choose a division, then select an uploaded Divisions image. Changes appear on the homepage."
         : type === "leader"
             ? "Select a role and add the headshot, display name, and profile details."
             : "New items start as drafts. Check Published when you are ready for visitors to see them.";
@@ -178,6 +188,8 @@ function setType(type) {
     document.getElementById("bodyLabel").textContent = type === "news" ? "Summary / story" : type === "event" ? "Event details" : "Caption";
     previewNote.textContent = type === "hero"
         ? "Previewing the selected page background image."
+        : type === "division"
+            ? "The image and copy appear in the homepage divisions section."
         : type === "leader"
             ? "Headshots display cropped into circles on the About page."
             : "Approximate card preview. Final crop depends on the page layout.";
@@ -193,8 +205,11 @@ function clearForm() {
     idInput.value = "";
     document.getElementById("cancelEditBtn").hidden = true;
     saveButton.textContent = "Save";
-    if (currentType === "leader" || currentType === "hero") {
+    if (currentType === "leader" || currentType === "hero" || currentType === "division") {
         slotSelect.selectedIndex = 0;
+    }
+    if (currentType === "division") {
+        titleInput.value = DIVISIONS.find((division) => division.id === slotSelect.value)?.label || "";
     }
     updatePreview();
 }
@@ -260,9 +275,9 @@ function renderList() {
     }
 
     list.innerHTML = filtered.map((item) => {
-        const title = item.title || item.name || PAGE_HEROES.find((slot) => slot.id === item.id)?.label || LEADERSHIP_PROFILES.find((slot) => slot.id === item.id)?.label || item.id;
+        const title = item.title || item.name || PAGE_HEROES.find((slot) => slot.id === item.id)?.label || LEADERSHIP_PROFILES.find((slot) => slot.id === item.id)?.label || DIVISIONS.find((slot) => slot.id === item.id)?.label || item.id;
         const subtitle = currentType === "leader" ? item.role || "" : item.category || item.description || "";
-        const status = currentType === "hero" || currentType === "leader"
+        const status = currentType === "hero" || currentType === "leader" || currentType === "division"
             ? '<span class="badge text-bg-secondary">Page setting</span>'
             : item.published
                 ? '<span class="badge text-bg-success">Published</span>'
@@ -327,6 +342,8 @@ function editItem(id) {
     } else {
         dateInput.value = item.date || "";
     }
+    eventTimeInput.value = item.time || "";
+    eventLocationInput.value = item.location || "";
     linkInput.value = item.link || "";
     imageInput.value = item.imageUrl || "";
     altInput.value = item.altText || "";
@@ -359,7 +376,7 @@ async function saveItem(event) {
     }
     const type = currentType;
     const config = selectedConfig();
-    const id = idInput.value || (type === "hero" || type === "leader" ? slotSelect.value : "");
+    const id = idInput.value || (type === "hero" || type === "leader" || type === "division" ? slotSelect.value : "");
     const now = serverTimestamp();
     const bodyHtml = editorHtml();
     const bodyText = editorText();
@@ -372,10 +389,12 @@ async function saveItem(event) {
         caption: bodyText,
         description: descriptionInput.value.trim(),
         date: dateInput.value || "",
+        time: eventTimeInput.value.trim(),
+        location: eventLocationInput.value.trim(),
         link: linkInput.value.trim(),
         imageUrl: imageInput.value.trim(),
         altText: altInput.value.trim(),
-        published: type === "hero" || type === "leader" ? true : publishedInput.checked,
+        published: type === "hero" || type === "leader" || type === "division" ? true : publishedInput.checked,
         updatedAt: now,
         updatedBy: ADMIN_EMAIL
     };
@@ -458,6 +477,13 @@ document.getElementById("contentTabs").addEventListener("click", (event) => {
     document.querySelectorAll("#contentTabs .nav-link").forEach((tab) => tab.classList.remove("active"));
     button.classList.add("active");
     setType(button.dataset.contentType);
+});
+
+slotSelect.addEventListener("change", () => {
+    if (currentType === "division" && !idInput.value) {
+        titleInput.value = DIVISIONS.find((division) => division.id === slotSelect.value)?.label || "";
+        updatePreview();
+    }
 });
 
 form.addEventListener("submit", saveItem);

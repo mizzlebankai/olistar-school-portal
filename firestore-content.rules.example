@@ -20,6 +20,11 @@ match /olistar_website_gallery/{itemId} {
   allow create, update, delete: if isOlistarAdmin();
 }
 
+match /olistar_website_divisions/{divisionId} {
+  allow read: if true;
+  allow create, update, delete: if isOlistarAdmin();
+}
+
 match /olistar_website_leaders/{profileId} {
   allow read: if true;
   allow create, update, delete: if isOlistarAdmin();
