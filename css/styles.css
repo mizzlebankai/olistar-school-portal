@@ -162,22 +162,62 @@ h1, h2, h3, h4, .font-serif {
     color: var(--olistar-crimson) !important;
 }
 
-@media (max-width: 991.98px) {
+@media (max-width: 1199.98px) {
+    .navbar-harvard > .container {
+        justify-content: space-between;
+    }
+
+    .navbar-harvard .navbar-brand {
+        flex: 1 1 auto;
+        min-width: 0;
+        max-width: calc(100% - 4.5rem);
+        margin-right: 0.5rem;
+    }
+
+    .navbar-harvard .navbar-brand > div {
+        min-width: 0;
+    }
+
+    .navbar-harvard .school-motto-tag {
+        font-size: 0.625rem;
+        letter-spacing: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
     .navbar-harvard .navbar-toggler {
         display: block;
+        flex: 0 0 auto;
+        margin-left: auto;
     }
 
     .navbar-harvard .navbar-collapse {
         display: none;
+        flex-basis: 100%;
+        width: 100%;
     }
 
     .navbar-harvard .navbar-collapse.show,
     .navbar-harvard .navbar-collapse.collapsing {
         display: block;
     }
+
+    .navbar-harvard .navbar-collapse.collapsing {
+        transition: height 0.14s ease-out;
+    }
+
+    .navbar-harvard .navbar-nav {
+        align-items: stretch;
+        width: 100%;
+    }
+
+    .navbar-harvard .nav-link-harvard {
+        padding: 0.65rem 0.25rem !important;
+    }
 }
 
-@media (min-width: 992px) {
+@media (min-width: 1200px) {
     .navbar-harvard .navbar-collapse {
         display: flex !important;
     }
@@ -350,14 +390,13 @@ section:not(.page-hero):not(.editorial-hero):not(.olistar-cta) {
 /* --- Scroll Reveal Animations --- */
 .reveal-on-scroll {
     opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: opacity, transform;
+    transform: translate3d(0, 20px, 0) scale(0.99);
+    transition: opacity 0.55s cubic-bezier(0.2, 0.7, 0.25, 1) var(--reveal-delay, 0ms), transform 0.55s cubic-bezier(0.2, 0.7, 0.25, 1) var(--reveal-delay, 0ms);
 }
 
 .reveal-on-scroll.is-visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0) scale(1);
 }
 
 html {
@@ -402,6 +441,10 @@ html {
 @media (prefers-reduced-motion: reduce) {
     html {
         scroll-behavior: auto;
+    }
+
+    .navbar-harvard .navbar-collapse.collapsing {
+        transition: none;
     }
 
     .reveal-on-scroll {

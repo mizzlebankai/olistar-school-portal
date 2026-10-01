@@ -29,9 +29,21 @@
     <link rel="stylesheet" href="vendor/bootstrap-icons/bootstrap-icons.css">
 
     <!-- Custom Harvard Editorial CSS -->
-    <link rel="stylesheet" href="css/styles.css?v=20260929-hero-reveal">
+    <link rel="stylesheet" href="css/styles.css?v=20261001-public-nav">
+    <link rel="stylesheet" href="css/page-loader.css?v=20261001">
+    <script src="js/page-loader.js?v=20261001" defer></script>
 </head>
 <body>
+    <div id="page-splash" role="status" aria-label="Loading Olistar School">
+        <div class="page-splash__content">
+            <img class="page-splash__logo" src="assets/images/logo.png" alt="">
+            <div>
+                <p class="page-splash__name">Olistar School</p>
+                <p class="page-splash__tagline">Good Foundation, Firm Building</p>
+            </div>
+            <span class="page-splash__spinner" aria-hidden="true"></span>
+        </div>
+    </div>
 
     <!-- Utility Audience Header -->
     <div class="utility-bar text-white py-2 d-none d-md-block">
@@ -41,18 +53,14 @@
                 <span class="text-secondary">|</span>
                 <span><i class="bi bi-telephone-fill text-warning me-1"></i> 0208613624 / 0244449600</span>
             </div>
-            <div class="d-flex gap-3 text-uppercase fw-semibold" style="font-size: 0.75rem; letter-spacing: 0.5px;">
-                <a href="application.html">Admissions</a>
-                <a href="shs-tech.html">Technical Programs</a>
-                <a href="contact.html" class="text-warning">Portals & Contact</a>
-                <a href="../OLISTAR/login.html" class="text-warning">School Portal</a>
-                <a href="admin.html" class="text-warning fw-bold">Admin Login</a>
+            <div class="utility-links text-uppercase fw-semibold">
+                <a href="../OLISTAR/login.html" class="text-warning"><i class="bi bi-grid-fill me-1"></i>School Portal</a>
             </div>
         </div>
     </div>
 
     <!-- Main Institutional Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-harvard sticky-top">
+    <nav class="navbar navbar-expand-xl navbar-harvard sticky-top">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="index.html">
                 <img src="assets/images/logo.png" alt="Olistar School Crest" height="52" class="me-3" onerror="this.src='assets/images/image-placeholder.svg'">
@@ -62,7 +70,7 @@
                 </div>
             </a>
 
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -82,6 +90,9 @@
                             <li><a class="dropdown-item py-2 fw-semibold" href="shs-tech.html">Senior High & Technical</a></li>
                         </ul>
                     </li>
+                    <li class="nav-item"><a class="nav-link nav-link-harvard" href="news.html">News</a></li>
+                    <li class="nav-item"><a class="nav-link nav-link-harvard" href="events.html">Events</a></li>
+                    <li class="nav-item"><a class="nav-link nav-link-harvard" href="gallery.html">Gallery</a></li>
                     <li class="nav-item"><a class="nav-link nav-link-harvard active" href="contact.html">Contact</a></li>
                 </ul>
                 <div class="ms-lg-4 mt-3 mt-lg-0">
@@ -351,7 +362,7 @@
             <hr class="border-secondary opacity-25">
             <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center text-secondary small">
                 <p class="mb-0">&copy; <span id="current-year">2026</span> Olistar School. All Rights Reserved.</p>
-                <p class="mb-0 mt-2 mt-sm-0">Built by APEX LABS</p>
+                <p class="mb-0 mt-2 mt-sm-0">Built by APEX LABS <span class="mx-2">|</span><a href="admin.html">Admin Login</a></p>
             </div>
         </div>
     </footer>
@@ -360,7 +371,7 @@
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JS -->
     <script src="js/main.js?v=20260929-hero-init"></script>
-    <script src="js/scroll-effects.js"></script>
+    <script src="js/scroll-effects.js?v=20261001-scroll-stagger"></script>
     <script type="module" src="js/public-content.js?v=20260930-jhs-image-fix"></script>
 </body>
 </html>

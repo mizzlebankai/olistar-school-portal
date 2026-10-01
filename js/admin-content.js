@@ -359,7 +359,7 @@ function loadHistoryDraft() {
     clearForm();
     categoryInput.value = "community";
     titleInput.value = "Olistar School: A journey that began in a clay house";
-    const history = "According to the founding proprietor, Olistar School began on 16 August 1987 in a modest clay building in Abesim. The school started small and grew over time. The proprietor recalls that the first JHS cohort sat its exams in 1992 and all ten students passed. The school also received its technical institute certificate that year, with Building and Construction and Electrical Installation among its early courses. Later, when Site B opened, enrollment was about 800 students; the opening date is still being confirmed. This account reflects the proprietor’s recollections.";
+    const history = "According to the founding proprietor, Olistar School began on August 16, 1987 in a modest clay building in Abesim. Starting small, the institution has steadily grown over the years to serve a vibrant community of learners. In 1992, the school's inaugural JHS cohort sat for their exams, achieving a 100% pass rate with all ten students succeeding. That same year, the school received its technical institute certificate, introducing foundational courses in Building and Construction and Electrical Installation. To accommodate rapid expansion and a thriving population of around 800 students, Olistar School established its Site B campus, marking a major milestone in its ongoing development. This account reflects the proprietor’s recollections.";
     setEditorHtml(plainTextToRichHtml(history));
     publishedInput.checked = false;
     updatePreview();

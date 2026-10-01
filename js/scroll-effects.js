@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const revealElements = document.querySelectorAll('.reveal-on-scroll');
 
-    if (reduceMotion) {
+    if (reduceMotion || !('IntersectionObserver' in window)) {
         revealElements.forEach(el => el.classList.add('is-visible'));
     } else {
         const observer = new IntersectionObserver((entries, obs) => {
@@ -19,16 +19,26 @@ document.addEventListener('DOMContentLoaded', () => {
                     obs.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
 
-        revealElements.forEach(el => observer.observe(el));
+        revealElements.forEach((el, index) => {
+            el.style.setProperty('--reveal-delay', `${(index % 3) * 60}ms`);
+            observer.observe(el);
+        });
     }
 
     // -----------------------------------------------------------------
     // Navbar condenses with a shadow once the page is scrolled
     // -----------------------------------------------------------------
     const navbar = document.querySelector('.navbar-harvard');
-    const hero = document.querySelector('.page-hero');
+    const backToTop = document.createElement('button');
+    backToTop.className = 'back-to-top';
+    backToTop.setAttribute('aria-label', 'Back to top');
+    backToTop.innerHTML = '<i class="bi bi-arrow-up"></i>';
+    backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+    });
+    document.body.appendChild(backToTop);
 
     let ticking = false;
     function onScroll() {
@@ -38,25 +48,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const y = window.scrollY;
             if (navbar) navbar.classList.toggle('scrolled', y > 30);
             if (backToTop) backToTop.classList.toggle('show', y > 500);
-            if (hero && !reduceMotion) {
-                hero.style.backgroundPositionY = (y * 0.25) + 'px';
-            }
             ticking = false;
         });
     }
     window.addEventListener('scroll', onScroll, { passive: true });
-
-    // -----------------------------------------------------------------
-    // Back-to-top button
-    // -----------------------------------------------------------------
-    const backToTop = document.createElement('button');
-    backToTop.className = 'back-to-top';
-    backToTop.setAttribute('aria-label', 'Back to top');
-    backToTop.innerHTML = '<i class="bi bi-arrow-up"></i>';
-    backToTop.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
-    });
-    document.body.appendChild(backToTop);
 
     onScroll();
 });
