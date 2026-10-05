@@ -3,6 +3,8 @@ const SIGNED_URL_SECONDS = 15 * 60;
 const MAX_PASSPORT_BYTES = 2 * 1024 * 1024;
 const MAX_DOCUMENT_BYTES = 5 * 1024 * 1024;
 const DEFAULT_ALLOWED_ORIGINS = [
+  "https://olistaredu.com",
+  "https://www.olistaredu.com",
   "http://localhost:8000",
   "http://127.0.0.1:8000",
   "http://localhost:3000",
