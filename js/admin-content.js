@@ -33,6 +33,12 @@ const linkInput = document.getElementById("contentLink");
 const imageInput = document.getElementById("contentImageUrl");
 const altInput = document.getElementById("contentAlt");
 const descriptionInput = document.getElementById("contentDescription");
+const featuredImageSettingsField = document.getElementById("featuredImageSettingsField");
+const featuredImageWidthInput = document.getElementById("featuredImageWidth");
+const featuredImageHeightInput = document.getElementById("featuredImageHeight");
+const featuredImageHeightValue = document.getElementById("featuredImageHeightValue");
+const featuredImageFitInput = document.getElementById("featuredImageFit");
+const featuredImagePositionInput = document.getElementById("featuredImagePosition");
 const publishedInput = document.getElementById("contentPublished");
 const list = document.getElementById("contentList");
 const filter = document.getElementById("contentFilter");
@@ -41,6 +47,7 @@ const savedImages = document.getElementById("savedImages");
 const previewCategory = document.getElementById("previewCategory");
 const previewTitle = document.getElementById("previewTitle");
 const previewBody = document.getElementById("contentPreviewBody");
+const previewImageFrame = document.getElementById("previewImageFrame");
 const previewImage = document.getElementById("previewImage");
 const previewDate = document.getElementById("previewDate");
 const previewNote = document.getElementById("previewNote");
@@ -152,6 +159,7 @@ function setType(type) {
     dateInput.required = type === "event";
     document.getElementById("linkField").hidden = type !== "news" && type !== "event";
     document.getElementById("descriptionField").hidden = type !== "leader";
+    featuredImageSettingsField.hidden = type !== "leader" || slotSelect.value !== "proprietor";
     document.getElementById("bodyField").hidden = type === "hero" || type === "leader";
     document.getElementById("publishField").hidden = type === "leader" || type === "hero" || type === "division";
     document.getElementById("historyDraftTools").hidden = type !== "news";
@@ -182,7 +190,7 @@ function setType(type) {
         : type === "division"
             ? "Choose a division, then select an uploaded Divisions image. Changes appear on the homepage."
         : type === "leader"
-            ? "Select a role and add the headshot, display name, and profile details."
+            ? "Select a role and add the headshot, display name, and profile details. The proprietor profile also controls the homepage image frame."
             : "New items start as drafts. Check Published when you are ready for visitors to see them.";
     document.getElementById("titleLabel").textContent = type === "leader" ? "Display name" : "Title";
     document.getElementById("bodyLabel").textContent = type === "news" ? "Summary / story" : type === "event" ? "Event details" : "Caption";
@@ -191,7 +199,9 @@ function setType(type) {
         : type === "division"
             ? "The image and copy appear in the homepage divisions section."
         : type === "leader"
-            ? "Headshots display cropped into circles on the About page."
+            ? slotSelect.value === "proprietor"
+                ? "The proprietor preview matches the homepage founder image frame."
+                : "Headshots display cropped into circles on the About page."
             : "Approximate card preview. Final crop depends on the page layout.";
     clearForm();
     renderList();
@@ -211,6 +221,8 @@ function clearForm() {
     if (currentType === "division") {
         titleInput.value = DIVISIONS.find((division) => division.id === slotSelect.value)?.label || "";
     }
+    featuredImageSettingsField.hidden = currentType !== "leader" || slotSelect.value !== "proprietor";
+    featuredImageHeightValue.value = `${featuredImageHeightInput.value} px`;
     updatePreview();
 }
 
@@ -229,19 +241,46 @@ function updatePreview() {
     previewBody.innerHTML = previewHtml || "Your summary will appear here.";
     previewBody.hidden = currentType === "hero";
     const imageUrl = imageInput.value.trim();
-    previewImage.hidden = !imageUrl;
+    const isFeaturedLeader = currentType === "leader" && slotSelect.value === "proprietor";
+    featuredImageSettingsField.hidden = !isFeaturedLeader;
+    if (currentType === "leader") {
+        previewNote.textContent = isFeaturedLeader
+            ? "The proprietor preview matches the homepage founder image frame."
+            : "Headshots display cropped into circles on the About page.";
+    }
+    previewImageFrame.hidden = !imageUrl;
     if (imageUrl) {
         previewImage.src = imageUrl;
         previewImage.alt = altInput.value.trim() || titleInput.value.trim();
-        previewImage.style.width = currentType === "leader" ? "120px" : "100%";
-        previewImage.style.maxHeight = currentType === "leader" ? "120px" : currentType === "hero" ? "180px" : "220px";
-        previewImage.style.objectFit = "cover";
-        previewImage.style.borderRadius = currentType === "leader" ? "50%" : "";
+        if (isFeaturedLeader) {
+            previewImageFrame.style.width = `${featuredImageWidthInput.value}%`;
+            previewImageFrame.style.height = `${featuredImageHeightInput.value}px`;
+            previewImageFrame.style.overflow = "hidden";
+            previewImageFrame.style.background = "#f2f0e9";
+            previewImageFrame.style.borderRadius = "0.4rem";
+            previewImage.style.width = "100%";
+            previewImage.style.height = "100%";
+            previewImage.style.maxHeight = "none";
+            previewImage.style.objectFit = featuredImageFitInput.value;
+            previewImage.style.objectPosition = `center ${featuredImagePositionInput.value}`;
+            previewImage.style.borderRadius = "0";
+        } else {
+            previewImageFrame.style.width = currentType === "leader" ? "120px" : "100%";
+            previewImageFrame.style.height = currentType === "leader" ? "120px" : "auto";
+            previewImageFrame.style.overflow = "hidden";
+            previewImage.style.width = "100%";
+            previewImage.style.height = currentType === "leader" ? "100%" : "auto";
+            previewImage.style.maxHeight = currentType === "leader" ? "120px" : currentType === "hero" ? "180px" : "220px";
+            previewImage.style.objectFit = currentType === "leader" ? "cover" : "contain";
+            previewImage.style.objectPosition = "center";
+            previewImage.style.borderRadius = currentType === "leader" ? "50%" : "";
+        }
         previewImage.onerror = () => {
-            previewImage.hidden = true;
+            previewImageFrame.hidden = true;
             setNotice("The preview image could not be loaded. Check its URL.", "warning");
         };
     }
+    featuredImageHeightValue.value = `${featuredImageHeightInput.value} px`;
     previewDate.textContent = currentType === "event" || currentType === "news" ? dateInput.value : "";
     previewDate.hidden = !previewDate.textContent;
 }
@@ -332,7 +371,9 @@ function editItem(id) {
     if (!item) return;
     idInput.value = item.id;
     slotSelect.value = item.id;
-    titleInput.value = item.title || item.name || "";
+    titleInput.value = currentType === "leader" && item.id === "proprietor"
+        ? "Nana Olichey Ansu Gyeabour"
+        : item.title || item.name || "";
     categoryInput.value = item.category || "";
     setEditorHtml(item.bodyHtml || plainTextToRichHtml(item.body || item.summary || item.caption || ""));
     if (item.date?.toDate) {
@@ -348,6 +389,10 @@ function editItem(id) {
     imageInput.value = item.imageUrl || "";
     altInput.value = item.altText || "";
     descriptionInput.value = item.description || "";
+    featuredImageWidthInput.value = String(item.featuredImageWidth || 100);
+    featuredImageHeightInput.value = String(item.featuredImageHeight || 320);
+    featuredImageFitInput.value = item.featuredImageFit === "cover" ? "cover" : "contain";
+    featuredImagePositionInput.value = ["top", "bottom"].includes(item.featuredImagePosition) ? item.featuredImagePosition : "center";
     publishedInput.checked = item.published === true;
     document.getElementById("cancelEditBtn").hidden = false;
     saveButton.textContent = "Update";
@@ -358,8 +403,8 @@ function editItem(id) {
 function loadHistoryDraft() {
     clearForm();
     categoryInput.value = "community";
-    titleInput.value = "Olistar School: A journey that began in a clay house";
-    const history = "According to the founding proprietor, Olistar School began on August 16, 1987 in a modest clay building in Abesim. Starting small, the institution has steadily grown over the years to serve a vibrant community of learners. In 1992, the school's inaugural JHS cohort sat for their exams, achieving a 100% pass rate with all ten students succeeding. That same year, the school received its technical institute certificate, introducing foundational courses in Building and Construction and Electrical Installation. To accommodate rapid expansion and a thriving population of around 800 students, Olistar School established its Site B campus, marking a major milestone in its ongoing development. This account reflects the proprietor’s recollections.";
+    titleInput.value = "Olistar Educational Complex: A journey that began in a clay house";
+    const history = "According to the founding proprietor, Olistar Educational Complex began on August 16, 1987 in a modest clay building in Abesim. Starting small, the institution has steadily grown over the years to serve a vibrant community of learners. In 1992, the school's inaugural JHS cohort sat for their exams, achieving a 100% pass rate with all ten students succeeding. That same year, the school received its technical institute certificate, introducing foundational courses in Building and Construction and Electrical Installation. To accommodate rapid expansion and a thriving population of around 800 students, Olistar Educational Complex established its Site B campus, marking a major milestone in its ongoing development. This account reflects the proprietor’s recollections.";
     setEditorHtml(plainTextToRichHtml(history));
     publishedInput.checked = false;
     updatePreview();
@@ -403,6 +448,12 @@ async function saveItem(event) {
         data.name = data.title;
         data.role = LEADERSHIP_PROFILES.find((profile) => profile.id === id)?.label || "";
         data.description = descriptionInput.value.trim();
+        if (id === "proprietor") {
+            data.featuredImageWidth = Number(featuredImageWidthInput.value);
+            data.featuredImageHeight = Number(featuredImageHeightInput.value);
+            data.featuredImageFit = featuredImageFitInput.value;
+            data.featuredImagePosition = featuredImagePositionInput.value;
+        }
     }
     if (type === "hero") {
         data.altText = altInput.value.trim() || titleInput.value.trim();
@@ -482,8 +533,9 @@ document.getElementById("contentTabs").addEventListener("click", (event) => {
 slotSelect.addEventListener("change", () => {
     if (currentType === "division" && !idInput.value) {
         titleInput.value = DIVISIONS.find((division) => division.id === slotSelect.value)?.label || "";
-        updatePreview();
     }
+    featuredImageSettingsField.hidden = currentType !== "leader" || slotSelect.value !== "proprietor";
+    updatePreview();
 });
 
 form.addEventListener("submit", saveItem);
@@ -508,7 +560,7 @@ list.addEventListener("click", (event) => {
     if (deleteButton) deleteItem(deleteButton.dataset.delete);
 });
 
-[slotSelect, titleInput, categoryInput, dateInput, imageInput, altInput, descriptionInput].forEach((field) => {
+[slotSelect, titleInput, categoryInput, dateInput, imageInput, altInput, descriptionInput, featuredImageWidthInput, featuredImageHeightInput, featuredImageFitInput, featuredImagePositionInput].forEach((field) => {
     field.addEventListener("input", updatePreview);
     field.addEventListener("change", updatePreview);
 });

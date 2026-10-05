@@ -674,12 +674,12 @@ window.generateApplicationForm = async function (docId) {
     </div>
 
     <div class="header">
-        <img src="${logoUrl}" alt="Olistar School Logo"
+        <img src="${logoUrl}" alt="Olistar Educational Complex Logo"
              onerror="this.onerror=null;this.src='https://placehold.co/100x100/900C3F/ffffff?text=Olistar'">
         <div>
-            <div class="school-name">OLISTAR SCHOOL</div>
+            <div class="school-name">OLISTAR EDUCATIONAL COMPLEX</div>
             <div class="motto">Good Foundation, Firm Building &bull; Est. 1987</div>
-            <div class="contact">P.O. Box 1583, Abesim, Sunyani &bull; 0208613624 / 0244449600 &bull; olistaredu.net</div>
+            <div class="contact">Site A: Opposite Capital Rural Bank, Abesim &bull; Site B: Abesim Nkrankrom Road, Sunyani &bull; 0244 469600 / 0208 613624 &bull; olistaredu.net</div>
         </div>
         <div class="status-stamp">${escapeHtml(app.status)}</div>
     </div>
@@ -735,7 +735,7 @@ window.generateApplicationForm = async function (docId) {
     <div class="declaration">
         <strong>DECLARATION:</strong> I hereby declare that all information provided in this
         application is authentic and accurate. I understand that falsification of academic records
-        or identity will lead to immediate revocation of admission at Olistar School.
+        or identity will lead to immediate revocation of admission at Olistar Educational Complex.
     </div>
 
     <div class="signatures">
@@ -750,7 +750,7 @@ window.generateApplicationForm = async function (docId) {
     </div>
 
     <div class="footer-note">
-        This form was generated electronically from the Olistar School Admissions Portal and is valid with reference number ${escapeHtml(app.refCode)}.
+        This form was generated electronically from the Olistar Educational Complex Admissions Portal and is valid with reference number ${escapeHtml(app.refCode)}.
         <br>For official use only.
     </div>
 </body>

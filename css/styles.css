@@ -390,7 +390,7 @@ section:not(.page-hero):not(.editorial-hero):not(.olistar-cta) {
 /* --- Scroll Reveal Animations --- */
 .reveal-on-scroll {
     opacity: 0;
-    transform: translate3d(0, 20px, 0) scale(0.99);
+    transform: translate3d(0, var(--reveal-offset, 20px), 0) scale(0.99);
     transition: opacity 0.55s cubic-bezier(0.2, 0.7, 0.25, 1) var(--reveal-delay, 0ms), transform 0.55s cubic-bezier(0.2, 0.7, 0.25, 1) var(--reveal-delay, 0ms);
 }
 
@@ -451,6 +451,11 @@ html {
         opacity: 1;
         transform: none;
         transition: none;
+    }
+
+    .navbar-harvard .navbar-brand.brand-reveal img,
+    .navbar-harvard .navbar-brand.brand-reveal > div {
+        animation: none;
     }
 
     .page-hero::after,
@@ -1479,5 +1484,596 @@ body {
 @media (max-width: 991.98px) {
     .admissions-side-panel {
         position: static;
+    }
+}
+
+/* ------------------------------------------------------------------
+   Olistar public-site design system
+   Warm paper, campus green and brass details unify every public page.
+   ------------------------------------------------------------------ */
+:root {
+    --olistar-evergreen: #145447;
+    --olistar-deep: #103d35;
+    --olistar-red: #9d3936;
+    --olistar-crimson: var(--olistar-evergreen);
+    --olistar-crimson-dark: var(--olistar-deep);
+    --olistar-gold: #e8b84b;
+    --olistar-gold-dark: #936817;
+    --olistar-dark: #20312c;
+    --olistar-light-bg: #f5f3eb;
+    --olistar-ivory: #f5f3eb;
+    --olistar-ivory-deep: #e8e7dc;
+    --olistar-panel: #fffefa;
+    --olistar-shadow-lux: 0 22px 54px rgba(20, 54, 45, 0.14);
+    --olistar-shadow-card: 0 10px 28px rgba(32, 49, 44, 0.08);
+    --bs-primary: #145447;
+    --bs-primary-rgb: 20, 84, 71;
+    --bs-dark: #20312c;
+    --bs-dark-rgb: 32, 49, 44;
+    --bs-warning: #e8b84b;
+    --bs-warning-rgb: 232, 184, 75;
+    --bs-link-color: #145447;
+    --bs-link-hover-color: #103d35;
+    --harvard-crimson: #145447;
+    --harvard-crimson-dark: #103d35;
+    --harvard-ink: #20312c;
+}
+
+body {
+    color: var(--olistar-dark);
+    background: #f5f3eb;
+    font-size: 1rem;
+    line-height: 1.68;
+}
+
+body::before {
+    display: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--olistar-dark);
+    line-height: 1.16;
+    text-wrap: balance;
+}
+
+p {
+    text-wrap: pretty;
+}
+
+section:not(.page-hero):not(.editorial-hero):not(.olistar-cta) {
+    background-image: none;
+}
+
+.utility-bar {
+    background: var(--olistar-deep);
+    border: 0;
+    font-size: 0.76rem;
+    letter-spacing: 0.025em;
+}
+
+.utility-bar .text-warning,
+.utility-links a.text-warning {
+    color: #f4ce72 !important;
+}
+
+.navbar-harvard {
+    min-height: 82px;
+    background: rgba(255, 254, 250, 0.98);
+    border-bottom: 1px solid rgba(20, 84, 71, 0.15);
+    box-shadow: 0 5px 18px rgba(32, 49, 44, 0.055);
+}
+
+.navbar-harvard .navbar-brand img {
+    object-fit: contain;
+}
+
+.navbar-harvard .navbar-brand.brand-reveal img {
+    animation: crest-reveal 900ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
+}
+
+.navbar-harvard .navbar-brand.brand-reveal > div {
+    animation: wordmark-reveal 700ms 180ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
+}
+
+@keyframes crest-reveal {
+    from {
+        clip-path: inset(50% 50% 50% 50% round 50%);
+        opacity: 0;
+        transform: scale(0.78) rotate(-12deg);
+    }
+    to {
+        clip-path: inset(0 0 0 0 round 0);
+        opacity: 1;
+        transform: scale(1) rotate(0);
+    }
+}
+
+@keyframes wordmark-reveal {
+    from {
+        clip-path: inset(0 100% 0 0);
+        opacity: 0;
+        transform: translateX(-12px);
+    }
+    to {
+        clip-path: inset(0 0 0 0);
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .navbar-harvard .navbar-brand.brand-reveal img,
+    .navbar-harvard .navbar-brand.brand-reveal > div {
+        animation: none;
+    }
+}
+
+.navbar-harvard .navbar-brand > div > span:first-child {
+    font-size: clamp(0.9rem, 1.4vw, 1.25rem) !important;
+    letter-spacing: 0.035em !important;
+}
+
+.school-motto-tag {
+    color: #697871;
+    font-size: 0.66rem;
+    letter-spacing: 0.105em;
+}
+
+.nav-link-harvard {
+    padding: 0.7rem 0.7rem !important;
+    color: #34453f !important;
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.045em;
+    text-transform: uppercase;
+}
+
+.nav-link-harvard::after {
+    bottom: 0.12rem;
+    height: 2px;
+    background: var(--olistar-gold);
+}
+
+.nav-link-harvard:hover,
+.nav-link-harvard.active {
+    color: var(--olistar-evergreen) !important;
+}
+
+.navbar-harvard .navbar-toggler {
+    border: 1px solid rgba(20, 84, 71, 0.2) !important;
+    border-radius: 0.35rem;
+    padding: 0.45rem 0.6rem;
+}
+
+.navbar-harvard .navbar-toggler:focus {
+    box-shadow: 0 0 0 0.2rem rgba(20, 84, 71, 0.16);
+}
+
+.navbar-harvard .dropdown-menu {
+    padding: 0.55rem;
+    border: 1px solid rgba(20, 84, 71, 0.12) !important;
+    border-radius: 0.5rem !important;
+    box-shadow: 0 16px 36px rgba(20, 54, 45, 0.15) !important;
+}
+
+.navbar-harvard .dropdown-item {
+    border-radius: 0.25rem;
+}
+
+header.page-hero {
+    min-height: clamp(350px, 40vw, 490px);
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+    border-bottom: 4px solid var(--olistar-gold);
+    background-position: center 48%;
+}
+
+.page-hero::before {
+    background:
+        linear-gradient(90deg, rgba(12, 47, 40, 0.94) 0%, rgba(16, 61, 53, 0.84) 54%, rgba(16, 61, 53, 0.42) 100%),
+        linear-gradient(0deg, rgba(13, 42, 36, 0.25), transparent 55%);
+}
+
+.page-hero .container {
+    max-width: 1140px;
+}
+
+.page-hero .container > .row > div {
+    max-width: 790px;
+}
+
+.page-hero h1,
+.editorial-hero h1 {
+    max-width: 760px;
+    color: #fffefa;
+    font-size: clamp(2.35rem, 5.4vw, 4.25rem);
+    letter-spacing: -0.035em;
+    line-height: 1.03;
+}
+
+.page-hero p.lead,
+.editorial-hero p.lead {
+    max-width: 660px;
+    color: rgba(255, 254, 250, 0.88) !important;
+    font-size: clamp(1rem, 1.45vw, 1.17rem) !important;
+    line-height: 1.65;
+}
+
+.page-hero .text-warning,
+.editorial-hero .text-warning {
+    color: #f4ce72 !important;
+}
+
+.page-hero .breadcrumb {
+    font-size: 0.78rem;
+    letter-spacing: 0.035em;
+}
+
+.editorial-hero {
+    min-height: min(720px, calc(100vh - 82px));
+    padding-top: 4rem !important;
+    padding-bottom: 4rem !important;
+    background-color: var(--olistar-deep);
+}
+
+.editorial-hero-slider {
+    filter: saturate(0.83);
+}
+
+.editorial-hero-slide {
+    opacity: 0.68;
+}
+
+.editorial-hero-overlay {
+    background:
+        linear-gradient(90deg, rgba(12, 47, 40, 0.9) 0%, rgba(16, 61, 53, 0.74) 55%, rgba(16, 61, 53, 0.3) 100%),
+        linear-gradient(0deg, rgba(11, 37, 32, 0.4), transparent 75%);
+}
+
+.editorial-hero .container {
+    width: 100%;
+}
+
+.editorial-hero .container > .row {
+    max-width: 1180px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.editorial-hero .text-warning {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.11em !important;
+    line-height: 1.6;
+}
+
+.editorial-hero .tile-card {
+    max-width: 390px;
+    margin-left: auto;
+    padding: 0.7rem !important;
+    border: 1px solid rgba(255, 255, 255, 0.66) !important;
+    border-radius: 0.7rem;
+    background: #fffefa !important;
+    box-shadow: 0 26px 64px rgba(7, 30, 25, 0.34) !important;
+}
+
+.editorial-hero .tile-img-container {
+    border: 0 !important;
+    border-radius: 0.38rem;
+    background: #f2f0e9;
+}
+
+.editorial-hero .founder-portrait,
+.editorial-hero .tile-card:hover .founder-portrait {
+    object-fit: contain;
+    transform: none;
+}
+
+.editorial-hero .tile-card .badge {
+    border-radius: 0.2rem !important;
+}
+
+.hero-arrow {
+    border-radius: 50%;
+    background: rgba(12, 47, 40, 0.6);
+    backdrop-filter: blur(6px);
+}
+
+.hero-dot.active {
+    background: #f4ce72;
+}
+
+.category-tag,
+.badge {
+    border-radius: 0.2rem !important;
+}
+
+.category-tag.text-danger,
+.text-danger {
+    color: #91413b !important;
+}
+
+.bg-white .text-warning,
+.bg-light .text-warning,
+section[style*="background-color: var(--olistar-light-bg"] .text-warning {
+    color: #87600e !important;
+}
+
+.navbar-harvard .btn-dark.text-warning,
+.bg-dark .text-warning,
+.text-white .text-warning,
+.footer-harvard .text-warning,
+.olistar-cta .text-warning {
+    color: #f4ce72 !important;
+}
+
+.bg-danger {
+    background-color: #91413b !important;
+}
+
+.bg-light,
+.bg-white {
+    --bs-bg-opacity: 1;
+}
+
+section.bg-white,
+section[style*="background-color: var(--olistar-light-bg"] {
+    padding-top: clamp(3rem, 6vw, 5.25rem) !important;
+    padding-bottom: clamp(3rem, 6vw, 5.25rem) !important;
+}
+
+section.bg-white {
+    background-color: #fffefa !important;
+}
+
+section[style*="background-color: var(--olistar-light-bg"] {
+    background-color: #f5f3eb !important;
+}
+
+.border-dark {
+    border-color: rgba(32, 49, 44, 0.16) !important;
+}
+
+.tile-card,
+.news-card,
+.event-card,
+.card {
+    overflow: hidden;
+    border: 1px solid rgba(32, 49, 44, 0.12) !important;
+    border-radius: 0.65rem;
+    background: #fffefa;
+    box-shadow: var(--olistar-shadow-card);
+}
+
+.tile-card::before,
+.bg-white.border::before,
+.card::before {
+    display: none;
+}
+
+.tile-card:hover,
+.news-card:hover,
+.event-card:hover,
+.card:hover {
+    border-color: rgba(20, 84, 71, 0.28) !important;
+    box-shadow: var(--olistar-shadow-lux) !important;
+}
+
+.tile-img-container,
+.tile-img-container img,
+.news-img {
+    border-radius: 0.4rem;
+}
+
+.tile-img-container .tile-img,
+.tile-img-container img {
+    border-radius: inherit;
+}
+
+.btn {
+    border-radius: 0.35rem !important;
+    font-weight: 700;
+    letter-spacing: 0.025em;
+    text-decoration: none;
+}
+
+.btn-warning {
+    border-color: var(--olistar-gold) !important;
+    background-color: var(--olistar-gold) !important;
+    color: #26372f !important;
+}
+
+.btn-warning:hover,
+.btn-warning:focus-visible {
+    border-color: #f1ca70 !important;
+    background-color: #f1ca70 !important;
+    color: #20312c !important;
+}
+
+.btn-dark {
+    border-color: var(--olistar-deep) !important;
+    background-color: var(--olistar-deep) !important;
+}
+
+.btn-outline-light:hover,
+.btn-outline-light:focus-visible {
+    border-color: #fffefa !important;
+    background-color: #fffefa !important;
+    color: var(--olistar-deep) !important;
+}
+
+.form-control,
+.form-select {
+    border-color: #b9c3bb;
+    border-radius: 0.35rem !important;
+    background-color: #fffefa;
+    color: var(--olistar-dark);
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--olistar-evergreen) !important;
+    box-shadow: 0 0 0 0.2rem rgba(20, 84, 71, 0.15) !important;
+}
+
+.admissions-form-panel {
+    border: 1px solid rgba(32, 49, 44, 0.13) !important;
+    border-radius: 0.75rem;
+    background: #fffefa;
+    box-shadow: 0 16px 42px rgba(32, 49, 44, 0.08);
+}
+
+.admissions-step {
+    border-radius: 0.55rem;
+    background: #faf9f3;
+}
+
+.admissions-step .form-control,
+.admissions-step .form-select,
+.admissions-step textarea {
+    border: 1px solid #aebbb3;
+    border-radius: 0.35rem;
+}
+
+.footer-harvard {
+    border-top: 4px solid var(--olistar-gold);
+    background: var(--olistar-deep) !important;
+    color: rgba(255, 254, 250, 0.76);
+}
+
+.footer-harvard h5,
+.footer-harvard h6 {
+    color: #fffefa;
+    letter-spacing: 0.08em;
+}
+
+.footer-harvard .text-secondary,
+.footer-harvard .text-muted {
+    color: rgba(255, 254, 250, 0.69) !important;
+}
+
+.footer-harvard a {
+    color: rgba(255, 254, 250, 0.76);
+}
+
+.footer-harvard a:hover {
+    color: #f4ce72 !important;
+}
+
+.back-to-top {
+    border-radius: 50%;
+    background: var(--olistar-evergreen);
+    color: #fffefa;
+}
+
+.leadership-section .container {
+    max-width: 1440px;
+}
+
+.leadership-card {
+    min-height: 450px;
+    padding: 1.75rem !important;
+}
+
+.leadership-portrait {
+    display: block;
+    width: clamp(180px, 15vw, 200px);
+    height: clamp(180px, 15vw, 200px);
+    margin-right: auto;
+    margin-left: auto;
+    object-fit: cover;
+}
+
+.leadership-role-badge {
+    display: inline-block;
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    line-height: 1.4;
+}
+
+:focus-visible {
+    outline: 3px solid #c18a22;
+    outline-offset: 3px;
+}
+
+@media (max-width: 767.98px) {
+    .navbar-harvard {
+        min-height: 70px;
+    }
+
+    .navbar-harvard .navbar-brand img {
+        height: 44px;
+        margin-right: 0.65rem !important;
+    }
+
+    .navbar-harvard .navbar-brand > div > span:first-child {
+        font-size: 0.87rem !important;
+        line-height: 1.2;
+    }
+
+    .navbar-harvard .navbar-collapse {
+        padding: 0.4rem 0 0.8rem;
+    }
+
+    .navbar-harvard .nav-link-harvard {
+        padding: 0.6rem 0.15rem !important;
+    }
+
+    header.page-hero {
+        min-height: 355px;
+        padding-top: 2.7rem;
+        padding-bottom: 2.7rem;
+        background-position: 62% center;
+    }
+
+    .page-hero::before {
+        background: linear-gradient(90deg, rgba(12, 47, 40, 0.93), rgba(16, 61, 53, 0.72));
+    }
+
+    .editorial-hero {
+        min-height: 0;
+        padding-top: 2.7rem !important;
+        padding-bottom: 3.6rem !important;
+    }
+
+    .editorial-hero .container > .row {
+        row-gap: 1.8rem !important;
+    }
+
+    .editorial-hero .tile-card {
+        max-width: 340px;
+        margin: 0 auto;
+    }
+
+    .editorial-hero .tile-img-container {
+        height: 320px;
+    }
+
+    .hero-dots {
+        bottom: 0.9rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .leadership-card {
+        min-height: 0;
+    }
+
+    .leadership-portrait {
+        width: 190px;
+        height: 190px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .editorial-hero-slide,
+    .tile-card,
+    .news-card,
+    .event-card,
+    .btn,
+    .form-control,
+    .form-select {
+        transition-duration: 0.01ms !important;
     }
 }

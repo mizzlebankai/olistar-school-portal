@@ -86,7 +86,7 @@ function homeNewsSlide(item, index, total) {
     const category = escapeHtml(item.category || "News");
     const summary = formattedText(item, ["summary", "body"]);
     const image = publishedImage(item, title)
-        || '<img src="assets/images/image-placeholder.svg" alt="Olistar School news" class="tile-img">';
+        || '<img src="assets/images/image-placeholder.svg" alt="Olistar Educational Complex news" class="tile-img">';
     const date = formatDate(item.date || item.publishedAt);
     const link = safeLink(item.link);
     const storyUrl = link && new URL(link).pathname !== window.location.pathname ? link : "news.html";
@@ -407,13 +407,39 @@ async function applyLeadership() {
             const result = await getDoc(doc(db, WEBSITE_CONTENT.leaders, id));
             if (!result.exists()) continue;
             const profile = result.data();
-            if (profile.imageUrl) image.src = profile.imageUrl;
+            if (profile.imageUrl) {
+                image.src = profile.imageUrl;
+                if (image.classList.contains("founder-portrait")) {
+                    try {
+                        await image.decode();
+                    } catch (error) {
+                        console.error("Could not load the CMS founder portrait:", error);
+                    }
+                }
+            }
             if (profile.altText) image.alt = profile.altText;
+            if (id === "proprietor" && image.classList.contains("founder-portrait")) {
+                const frame = image.closest(".tile-img-container");
+                const width = Number(profile.featuredImageWidth);
+                const height = Number(profile.featuredImageHeight);
+                const fit = profile.featuredImageFit === "cover" ? "cover" : "contain";
+                const position = ["top", "bottom"].includes(profile.featuredImagePosition)
+                    ? profile.featuredImagePosition
+                    : "center";
+                if (frame) {
+                    frame.style.width = `${Number.isFinite(width) ? Math.min(100, Math.max(70, width)) : 100}%`;
+                    frame.style.height = `${Number.isFinite(height) ? Math.min(460, Math.max(220, height)) : 320}px`;
+                    frame.style.marginInline = "auto";
+                }
+                image.style.objectFit = fit;
+                image.style.objectPosition = `center ${position}`;
+            }
             const card = image.closest("[data-leadership-card]");
             if (!card) continue;
             const name = card.querySelector("[data-leader-name]");
             const description = card.querySelector("[data-leader-description]");
-            if (name && (profile.name || profile.title)) name.textContent = profile.name || profile.title;
+            const displayName = id === "proprietor" ? "Nana Olichey Ansu Gyeabour" : profile.name || profile.title;
+            if (name && displayName) name.textContent = displayName;
             if (description && profile.description) description.textContent = profile.description;
         } catch (error) {
             console.error(`Could not load leadership profile "${id}":`, error);
@@ -454,4 +480,11 @@ async function initializePublicContent() {
     ]);
 }
 
-initializePublicContent();
+initializePublicContent().then(() => {
+    document.documentElement.dataset.publicContentReady = "true";
+    document.dispatchEvent(new Event("public-content-ready"));
+}, (error) => {
+    console.error("Could not finish loading website content:", error);
+    document.documentElement.dataset.publicContentReady = "true";
+    document.dispatchEvent(new Event("public-content-ready"));
+});
