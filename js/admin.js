@@ -679,7 +679,7 @@ window.generateApplicationForm = async function (docId) {
         <div>
             <div class="school-name">OLISTAR EDUCATIONAL COMPLEX</div>
             <div class="motto">Good Foundation, Firm Building &bull; Est. 1987</div>
-            <div class="contact">Site A: Opposite Capital Rural Bank, Abesim &bull; Site B: Abesim Nkrankrom Road, Sunyani &bull; 0244 469600 / 0208 613624 &bull; olistaredu.net</div>
+            <div class="contact">Site A: Opposite Capital Rural Bank, Abesim &bull; Site B: Abesim Nkrankrom Road, Sunyani &bull; 0244 469600 / 0208 613624 &bull; olistaredu.com</div>
         </div>
         <div class="status-stamp">${escapeHtml(app.status)}</div>
     </div>

@@ -6,4 +6,4 @@ Disallow: /admin-login.html
 Disallow: /admin-media.html
 Disallow: /success.html
 
-Sitemap: https://olistaredu.net/sitemap.xml
+Sitemap: https://olistaredu.com/sitemap.xml
