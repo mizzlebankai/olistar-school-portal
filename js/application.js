@@ -7,6 +7,14 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import { uploadAdmissionFiles } from "./admission-files.js";
 
+const SHS_TECHNICAL_PROGRAMS = new Set([
+    "shs-general-arts",
+    "shs-business",
+    "tech-ict",
+    "tech-building",
+    "tech-catering"
+]);
+
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("admissionsForm");
     if (!form) return;
@@ -20,31 +28,6 @@ document.addEventListener("DOMContentLoaded", () => {
         birthCertificate: document.getElementById("docBirth")
     };
 
-    // Cascade: only show programs belonging to the selected division
-    if (tierSelect && streamSelect) {
-        tierSelect.addEventListener("change", () => {
-            const tier = tierSelect.value;
-            streamSelect.disabled = false;
-            streamSelect.value = "";
-
-            streamSelect.querySelectorAll("optgroup").forEach(group => {
-                group.hidden = group.dataset.tier !== tier;
-            });
-
-            const firstOption = streamSelect.querySelector('option[value=""]');
-            if (firstOption) {
-                firstOption.textContent = tier === "early-grade-jhs"
-                    ? "Select Early Grade / JHS Path..."
-                    : "Select SHS / Technical Path...";
-            }
-
-            const visibleGroups = [...streamSelect.querySelectorAll("optgroup")].filter(group => !group.hidden);
-            if (visibleGroups.length === 0) {
-                streamSelect.disabled = true;
-            }
-        });
-    }
-
     function showAlert(type, message) {
         if (!alertBox) {
             alert(message);
@@ -57,18 +40,28 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function selectedText(select) {
-        return select?.selectedIndex > 0
-            ? select.options[select.selectedIndex].text
+        return select?.selectedOptions[0]?.value
+            ? select.selectedOptions[0].text
             : "";
     }
 
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
+        if (tierSelect?.value !== "shs-technical") {
+            showAlert("danger", "Online applications are available for SHS and Technical programs only. Please contact the Admissions Desk for Early Grade, Primary, or JHS admissions.");
+            return;
+        }
+
         // Bootstrap-style validation (form uses novalidate)
         if (!form.checkValidity()) {
             form.classList.add("was-validated");
             showAlert("danger", "Please complete all required fields before submitting.");
+            return;
+        }
+
+        if (!SHS_TECHNICAL_PROGRAMS.has(streamSelect?.value || "")) {
+            showAlert("danger", "Select an SHS or Technical program to continue.");
             return;
         }
 

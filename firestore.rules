@@ -35,7 +35,16 @@ service cloud.firestore {
 
     // ---- Existing public-site collection (keep; do not delete) ----
     match /applications/{docId} {
-      allow create: if true;
+      allow create: if isOlistarAdmin() || (
+        request.resource.data.academicTierValue == "shs-technical" &&
+        request.resource.data.programStreamValue in [
+          "shs-general-arts",
+          "shs-business",
+          "tech-ict",
+          "tech-building",
+          "tech-catering"
+        ]
+      );
       allow read, update: if isOlistarAdmin();
       allow delete: if isOlistarAdmin();
     }
